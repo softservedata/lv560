@@ -13,6 +13,7 @@ public class ProductService {
 	}
 
 	public ProductService() {
+		System.out.println("Constructor ProductService()");
 		productDao = new ProductDao();
 	}
 
