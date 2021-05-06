@@ -30,16 +30,26 @@ public class RoomController {
     }
 
     @PreAuthorize("hasAuthority('all_permissions')")
+    @GetMapping("/allHotelRooms/{id}")
+    public String getHotelRooms(Model model, @PathVariable Integer id) {
+        model.addAttribute("roomList", roomService.allHotelRooms(id));
+        return "allHotelRooms";
+    }
+
+    @PreAuthorize("hasAuthority('all_permissions')")
     @GetMapping("/deleteRoom/{id}")
-    public String deleteRoom(Model model, @PathVariable("id") Integer integer) {
-        List<Room> roomList = roomService.deleteRoom(integer);
+    public String deleteRoom(Model model, @PathVariable("id") Integer id) {
+        Hotel hotel = roomService.findById(id).getHotel();
+        List<Room> roomList = roomService.allHotelRooms(hotel.getId());
+        roomService.deleteRoom(id);
         model.addAttribute("roomList", roomList);
         return "allHotelRooms";
     }
 
+    @PreAuthorize("hasAuthority('all_permissions')")
     @GetMapping("/addRoom/{id}")
-    public String addRoom(@PathVariable("id") Integer integer, Model model) {
-        Hotel hotel = hotelService.findById(integer);
+    public String addRoom(@PathVariable("id") Integer id, Model model) {
+        Hotel hotel = hotelService.findById(id);
         Room room = new Room();
         room.setHotel(hotel);
         model.addAttribute("room", room);
@@ -47,17 +57,17 @@ public class RoomController {
     }
 
     //fix this bicycle
-    @PostMapping("/addRoom{id}")
-    public String addRoomForm(Room room, Model model, @PathVariable("id") Integer integer) {
-        room.setHotel(hotelService.findById(integer));
-        List<Room> roomList = roomService.saveRoom(room);
+    @PostMapping("/addRoom")
+    public String addRoomForm(Room room, Model model) {
+        roomService.saveRoom(room);
+        List<Room> roomList = roomService.allHotelRooms(room.getHotel().getId());
         model.addAttribute("roomList", roomList);
         return "allHotelRooms";
     }
 
     @PostMapping("/allHotelRooms/{id}")
-    public String allHotelRooms(@PathVariable("id") Integer integer, Model model) {
-        List<Room> rooms = roomService.allHotelRooms(integer);
+    public String allHotelRooms(@PathVariable("id") Integer id, Model model) {
+        List<Room> rooms = roomService.allHotelRooms(id);
         model.addAttribute("rooms", rooms);
         return "checkRoom";
     }

@@ -7,15 +7,17 @@ import java.util.List;
 
 public interface RoomDao {
 
-    List<Room> saveRoom(Room room);
+    void saveRoom(Room room);
 
-    Room findById(Integer integer);
+    void deleteRoom(Integer id);
 
-    List<Room> deleteRoom(Integer integer);
+    List<Room> getAllRooms();
 
-    List<Room> getAllHotelRooms(Integer integer);
+    Room findById(Integer id);
 
-    List<Booking> getOrdersByRoom(long id);
+    List<Room> getAllHotelRooms(Integer id);
+
+    List<Booking> getOrdersByRoom(Integer id);
 
     void saveRoomBooking(Booking booking);
 }

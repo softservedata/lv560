@@ -27,6 +27,7 @@
                     <td><a href="/updateHotel/${hotel.id}">Edit</a></td>
                     <td><a href="/deleteHotel/${hotel.id}">Delete</a></td>
                     <td><a href="/addRoom/${hotel.id}">Add room</a></td>
+                    <td><a href="/allHotelRooms/${hotel.id}/">View all rooms</a></td>
                 </tr>
             </c:forEach>
             </tbody>

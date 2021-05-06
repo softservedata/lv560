@@ -29,6 +29,10 @@ public class Hotel {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public List<Room> getRooms() {
         return rooms;
     }

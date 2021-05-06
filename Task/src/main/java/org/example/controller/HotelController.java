@@ -38,8 +38,8 @@ public class HotelController {
 
     @PreAuthorize("hasAuthority('all_permissions')")
     @GetMapping("deleteHotel/{id}")
-    public String deleteHotel(@PathVariable("id") Integer integer) {
-        hotelService.deleteHotel(integer);
+    public String deleteHotel(@PathVariable("id") Integer id) {
+        hotelService.deleteHotel(id);
         return "redirect:/hotelList";
     }
 
@@ -53,16 +53,20 @@ public class HotelController {
 
     @PreAuthorize("hasAuthority('all_permissions')")
     @GetMapping("/updateHotel/{id}")
-    public String updateHotelPage(@PathVariable("id") Integer integer, Model model) {
-        Hotel hotel = hotelService.findById(integer);
+    public String updateHotelPage(@PathVariable("id") Integer id, Model model) {
+        Hotel hotel = hotelService.findById(id);
         model.addAttribute("hotel", hotel);
+        //System.out.println(hotel);
         return "updateHotel";
     }
 
     @PreAuthorize("hasAuthority('all_permissions')")
     @PostMapping("/updateHotel")
     public String updateHotel(Hotel hotel) {
-        System.out.println(hotel);
+        //System.out.println(hotel);
+        //hotel.setId(id);
+        List<Room> list = hotelService.findById(hotel.getId()).getRooms();
+        hotel.setRooms(list);
         hotelService.updateHotel(hotel);
         return "redirect:/hotelList";
     }

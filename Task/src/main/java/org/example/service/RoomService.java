@@ -24,16 +24,16 @@ public class RoomService {
     }
 
 
-    public List<Room> saveRoom(Room room) {
-        return roomDao.saveRoom(room);
+    public void saveRoom(Room room) {
+        roomDao.saveRoom(room);
     }
 
     public Room findById(Integer integer) {
         return roomDao.findById(integer);
     }
 
-    public List<Room> deleteRoom(Integer integer) {
-        return roomDao.deleteRoom(integer);
+    public void deleteRoom(Integer integer) {
+        roomDao.deleteRoom(integer);
     }
 
     public List<Room> allHotelRooms(Integer integer) {

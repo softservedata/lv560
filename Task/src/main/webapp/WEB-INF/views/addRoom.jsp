@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2>Add room</h2>
-<form:form action="${contextPath}/addRoom${room.hotel.id}" modelAttribute="room" method="post">
+<form:form action="${contextPath}/addRoom" modelAttribute="room" method="post">
     <label for="roomNumber">Room number</label>
     <form:input path="roomNumber" type="number" id="roomNumber" placeholder="Room number"/>
     <p>
@@ -20,7 +20,7 @@
         <form:input path="roomPrice" type="text" id="roomPrice" placeholder="Room price" />
     </p>
     <p>
-        <form:hidden path="hotel.id"/>
+        <form:input type="hidden" path="hotel.id"/>
     </p>
     <p>
         <input type="submit" value="Add room">
