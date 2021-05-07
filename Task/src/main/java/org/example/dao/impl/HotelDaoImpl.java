@@ -33,7 +33,7 @@ public class HotelDaoImpl implements HotelDao {
     public List<Hotel> findByCountry(String string) {
         Session session = sessionFactory.getCurrentSession();
         try {
-            return session.createQuery("from Hotel h where h.countryName=:s")
+            return session.createQuery("FROM Hotel h WHERE h.countryName=:s")
                     .setParameter("s", string)
                     .list();
         } catch (EntityNotFoundException e) {
@@ -47,7 +47,7 @@ public class HotelDaoImpl implements HotelDao {
     @SuppressWarnings("unchecked")
     public List<Hotel> listOfHotels() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Hotel r").list();
+        return session.createQuery("FROM Hotel r").list();
     }
 
 

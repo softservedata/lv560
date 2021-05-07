@@ -21,7 +21,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findByName(String string) {
         Session session = sessionFactory.getCurrentSession();
-        return (User) session.createQuery("from User u where u.name=:name")
+        return (User) session.createQuery("FROM User u WHERE u.name=:name")
                 .setParameter("name", string).getSingleResult();
     }
 
@@ -29,8 +29,6 @@ public class UserDaoImpl implements UserDao {
     @SuppressWarnings("unchecked")
     public List<User> getAllUserAndOrders() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("select distinct r from User r,Booking b inner join r.bookings inner join b.room")
-                .getResultList();
-
+        return session.createQuery("FROM User user", User.class).getResultList();
     }
 }

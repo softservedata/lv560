@@ -51,7 +51,7 @@ public class RoomDaoImpl implements RoomDao {
     @SuppressWarnings("unchecked")
     public List<Room> getAllHotelRooms(Integer integer) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Room r where hotel.id=:id")
+        return session.createQuery("FROM Room r WHERE hotel.id=:id")
                 .setParameter("id", integer)
                 .getResultList();
     }
@@ -60,7 +60,7 @@ public class RoomDaoImpl implements RoomDao {
     @SuppressWarnings("unchecked")
     public List<Booking> getOrdersByRoom(Integer id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Booking b where b.room.id=:id")
+        return session.createQuery("FROM Booking b WHERE b.room.id=:id")
                 .setParameter("id", id).getResultList();
     }
 
