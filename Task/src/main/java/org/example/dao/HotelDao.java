@@ -16,5 +16,5 @@ public interface HotelDao {
 
     List<Hotel> listOfHotels();
 
-    List<Hotel> findByCountry(String string);
+    List<Hotel> findByCountry(Integer countryId);
 }

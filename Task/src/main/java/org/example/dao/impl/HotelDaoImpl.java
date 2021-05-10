@@ -29,25 +29,21 @@ public class HotelDaoImpl implements HotelDao {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<Hotel> findByCountry(String string) {
+    public List<Hotel> findByCountry(Integer id) {
         Session session = sessionFactory.getCurrentSession();
         try {
-            return session.createQuery("FROM Hotel h WHERE h.countryName=:s")
-                    .setParameter("s", string)
-                    .list();
+            return session.createQuery("FROM Hotel h WHERE country_id=:id", Hotel.class)
+                    .setParameter("id", id)
+                    .getResultList();
         } catch (EntityNotFoundException e) {
             throw new EntityNotFoundException("We could not find any hotels in this country");
         }
-
-
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Hotel> listOfHotels() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("FROM Hotel r").list();
+        return session.createQuery("FROM Hotel r", Hotel.class).list();
     }
 
 

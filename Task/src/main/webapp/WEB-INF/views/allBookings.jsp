@@ -21,6 +21,7 @@
                 <tr>
                     <th>Orders</th>
                 </tr>
+                <c:if test="${user.bookings.size() == 0}">No orders</c:if>
                 <c:forEach var="book" items="${user.bookings}">
                     <tr>
                         <th>Date of arrival</th>

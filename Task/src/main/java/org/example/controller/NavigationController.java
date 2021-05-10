@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.example.service.UserService;
 
 @Controller
-@RequestMapping("/")
 public class NavigationController {
 
     @GetMapping({"/login", "/"})

@@ -22,19 +22,19 @@
             <c:forEach var="hotel" items="${hotels}">
                 <tr>
                     <td>${hotel.hotelName}</td>
-                    <td>${hotel.countryName}</td>
+                    <td>${hotel.country.name}</td>
                     <td align="center">${hotel.hotelRating}</td>
-                    <td><a href="/updateHotel/${hotel.id}">Edit</a></td>
-                    <td><a href="/deleteHotel/${hotel.id}">Delete</a></td>
-                    <td><a href="/addRoom/${hotel.id}">Add room</a></td>
-                    <td><a href="/allHotelRooms/${hotel.id}/">View all rooms</a></td>
+                    <td><a href="${contextPath}/updateHotel/${hotel.id}">Edit</a></td>
+                    <td><a href="${contextPath}/deleteHotel/${hotel.id}">Delete</a></td>
+                    <td><a href="${contextPath}/addRoom/${hotel.id}">Add room</a></td>
+                    <td><a href="${contextPath}/allHotelRooms/${hotel.id}/">View all rooms</a></td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
-    <p><a href="<c:url value="/addHotel"/>">Add hotel</a></p>
-    <p><p><a href="${contextPath}/mainMenu">Back to main menu</a></p></p>
+    <p><a href="<c:url value="${contextPath}/addHotel"/>">Add hotel</a></p>
+    <p><a href="${contextPath}/mainMenu">Back to main menu</a></p>
 </div>
 </body>
 </html>

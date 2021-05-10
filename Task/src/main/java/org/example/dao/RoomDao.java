@@ -15,7 +15,7 @@ public interface RoomDao {
 
     Room findById(Integer id);
 
-    List<Room> getAllHotelRooms(Integer id);
+    List<Room> getAllHotelRooms(Integer hotelId);
 
     List<Booking> getOrdersByRoom(Integer id);
 

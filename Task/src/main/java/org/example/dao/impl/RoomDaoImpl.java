@@ -18,7 +18,6 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void saveRoom(Room room) {
         Session session = sessionFactory.getCurrentSession();
         session.save(room);
@@ -31,16 +30,14 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Room> getAllRooms() {
         return sessionFactory.getCurrentSession()
-                .createQuery("SELECT r FROM Room r")
+                .createQuery("SELECT r FROM Room r", Room.class)
                 .getResultList();
     }
 
 
     @Override
-    @SuppressWarnings("unchecked")
     public void deleteRoom(Integer integer) {
         Session session = sessionFactory.getCurrentSession();
         Room room = session.get(Room.class, integer);
@@ -48,19 +45,17 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Room> getAllHotelRooms(Integer integer) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("FROM Room r WHERE hotel.id=:id")
+        return session.createQuery("FROM Room r WHERE hotel.id=:id", Room.class)
                 .setParameter("id", integer)
                 .getResultList();
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Booking> getOrdersByRoom(Integer id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("FROM Booking b WHERE b.room.id=:id")
+        return session.createQuery("FROM Booking b WHERE b.room.id=:id", Booking.class)
                 .setParameter("id", id).getResultList();
     }
 

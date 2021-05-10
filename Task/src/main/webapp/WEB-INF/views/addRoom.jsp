@@ -10,14 +10,14 @@
 <h2>Add room</h2>
 <form:form action="${contextPath}/addRoom" modelAttribute="room" method="post">
     <label for="roomNumber">Room number</label>
-    <form:input path="roomNumber" type="number" id="roomNumber" placeholder="Room number"/>
+    <form:input path="roomNumber" type="number" id="roomNumber" placeholder="Room number" min="1" required="true"/>
     <p>
         <label for="capacity">Capacity</label>
-        <form:input path="capacity" type="number" id="capacity" placeholder="Capacity"/>
+        <form:input path="capacity" type="number" id="capacity" placeholder="Capacity" required="true" min="1"/>
     </p>
     <p>
         <label for="roomPrice">Room price</label>
-        <form:input path="roomPrice" type="text" id="roomPrice" placeholder="Room price" />
+        <form:input path="roomPrice" type="number" id="roomPrice" placeholder="Room price" required="true" min="1"/>
     </p>
     <p>
         <form:input type="hidden" path="hotel.id"/>

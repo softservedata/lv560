@@ -15,8 +15,9 @@ public class Hotel {
     @Column(name = "hotel_name")
     private String hotelName;
 
-    @Column(name = "country_name")
-    private String countryName;
+    @OneToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 
     @Column(name = "rating_of_hotel")
     private Integer hotelRating;
@@ -53,12 +54,12 @@ public class Hotel {
         this.hotelName = hotelName;
     }
 
-    public String getCountryName() {
-        return countryName;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public Integer getHotelRating() {
@@ -73,8 +74,8 @@ public class Hotel {
     public String toString() {
         return "Hotel{" +
                 "id=" + id +
+                ", country=" + country +
                 ", hotelName='" + hotelName + '\'' +
-                ", countryName='" + countryName + '\'' +
                 ", hotelRating=" + hotelRating +
                 ", rooms=" + rooms +
                 '}';

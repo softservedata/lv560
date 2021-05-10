@@ -10,14 +10,19 @@
 <h2>Add hotel</h2>
 <form:form action="${contextPath}/addHotel" modelAttribute="hotel" method="post">
     <label for="hotelName">Hotel name</label>
-    <form:input path="hotelName" type="text" id="hotelName" placeholder="Hotel name"/>
+    <form:input path="hotelName" type="text" id="hotelName" placeholder="Hotel name" required="true"/>
+
     <p>
         <label for="countryName">Country name</label>
-        <form:input path="countryName" type="text" id="countryName" placeholder="Country name"/>
+        <select name="countryName" id="countryName">
+            <c:forEach var="c" items="${countryList}">
+                <option value="${c.id}">${c.name}</option>
+            </c:forEach>
+        </select>
     </p>
     <p>
         <label for="hotelRating">Hotel rating</label>
-        <form:input path="hotelRating" type="number" id="hotelRating" placeholder="Hotel rating"/>
+        <form:input path="hotelRating" type="number" id="hotelRating" placeholder="Rating" min="0" max="10" required="true"/>
     </p>
     <p>
         <input type="submit" value="Add hotel">

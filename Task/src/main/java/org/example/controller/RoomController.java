@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
 public class RoomController {
     private final RoomService roomService;
     private final HotelService hotelService;
@@ -56,7 +55,6 @@ public class RoomController {
         return "addRoom";
     }
 
-    //fix this bicycle
     @PostMapping("/addRoom")
     public String addRoomForm(Room room, Model model) {
         roomService.saveRoom(room);
@@ -114,6 +112,11 @@ public class RoomController {
         Room room = roomService.findById(id);
         Booking booking = new Booking(checkin, checkout, room, user);
         roomService.saveRoomBooking(booking);
+        return "redirect:/successBooking";
+    }
+
+    @GetMapping("/successBooking")
+    public String getSuccesfullMessage() {
         return "successBooking";
     }
 }

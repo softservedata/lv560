@@ -21,21 +21,17 @@ public class HotelService {
         this.hotelDao = hotelDao;
     }
 
+    public Hotel findById(Integer integer) {
+        return hotelDao.findById(integer);
+    }
 
     public void saveHotel(Hotel hotel) {
         hotelDao.saveHotel(hotel);
     }
 
-
     public List<Hotel> listOfHotels() {
         return hotelDao.listOfHotels();
     }
-
-
-    public Hotel findById(Integer integer) {
-        return hotelDao.findById(integer);
-    }
-
 
     public void updateHotel(Hotel hotel) {
         hotelDao.updateHotel(hotel);
@@ -45,8 +41,8 @@ public class HotelService {
         hotelDao.deleteHotel(integer);
     }
 
-    public List<Hotel> findByCountry(String string) {
-        return hotelDao.findByCountry(string);
+    public List<Hotel> findByCountry(Integer id) {
+        return hotelDao.findByCountry(id);
     }
 
 
