@@ -1,10 +1,12 @@
 package org.example.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name = "hotels")
 public class Hotel {
     @Id
@@ -22,62 +24,6 @@ public class Hotel {
     @Column(name = "rating_of_hotel")
     private Integer hotelRating;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hotel", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "hotel", fetch = FetchType.EAGER)
     private List<Room> rooms;
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
-    }
-
-    public void addRoom(Room room) {
-        rooms.add(room);
-    }
-
-    public String getHotelName() {
-        return hotelName;
-    }
-
-    public void setHotelName(String hotelName) {
-        this.hotelName = hotelName;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public Integer getHotelRating() {
-        return hotelRating;
-    }
-
-    public void setHotelRating(Integer hotelRating) {
-        this.hotelRating = hotelRating;
-    }
-
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "id=" + id +
-                ", country=" + country +
-                ", hotelName='" + hotelName + '\'' +
-                ", hotelRating=" + hotelRating +
-                ", rooms=" + rooms +
-                '}';
-    }
 }

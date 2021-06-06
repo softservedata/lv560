@@ -1,12 +1,9 @@
 package org.example.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import org.example.service.UserService;
 
 @Controller
 public class NavigationController {
@@ -29,7 +26,12 @@ public class NavigationController {
     @PreAuthorize("hasAuthority('all_permissions')")
     @GetMapping("/management")
     public String managementPage() {
-        return "managementMenu";
+        return "managementPage";
+    }
+
+    @GetMapping("/accessDenied")
+    public String accessDenied() {
+        return "forbidden";
     }
 }
 

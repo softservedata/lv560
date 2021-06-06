@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PreAuthorize("hasAuthority('all_permissions')")
     @GetMapping("/allBookings")
     public String allUserAndOrders(Model model) {
         List<User> users = userService.getAllUsers();

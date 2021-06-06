@@ -1,8 +1,11 @@
 package org.example.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "countries")
 public class Country {
     @Id
@@ -11,20 +14,4 @@ public class Country {
 
     @Column(unique = true)
     String name;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String toString() {
-        return "Country{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

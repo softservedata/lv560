@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.utils;
 
 public enum Permission {
     MANAGER_PERMISSION("all_permissions"),

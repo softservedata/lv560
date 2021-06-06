@@ -1,5 +1,6 @@
 package org.example.security;
 
+import org.example.utils.Status;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,7 +8,6 @@ import org.example.model.*;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 public class SecurityUserDetails implements UserDetails {
     private final String name;

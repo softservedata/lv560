@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CountryService {
@@ -25,7 +26,7 @@ public class CountryService {
         return countryDao.findById(id);
     }
 
-    public Country findByName(String name) {
+    public Optional<Country> findByName(String name) {
         return countryDao.findByName(name);
     }
 }

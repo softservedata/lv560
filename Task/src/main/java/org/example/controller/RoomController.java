@@ -55,12 +55,13 @@ public class RoomController {
         return "addRoom";
     }
 
+    @PreAuthorize("hasAuthority('all_permissions')")
     @PostMapping("/addRoom")
     public String addRoomForm(Room room, Model model) {
         roomService.saveRoom(room);
         List<Room> roomList = roomService.allHotelRooms(room.getHotel().getId());
         model.addAttribute("roomList", roomList);
-        return "allHotelRooms";
+        return "redirect:/allHotelRooms/" + room.getHotel().getId();
     }
 
     @PostMapping("/allHotelRooms/{id}")

@@ -40,13 +40,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 formLogin().
                 loginPage("/login").
                 defaultSuccessUrl("/mainMenu").
-                failureUrl("/login?error=true").permitAll().
+                failureUrl("/login?failure=true").permitAll().
                 and().
                 logout().
                 logoutRequestMatcher(new AntPathRequestMatcher("/mainMenu", "POST")).
                 clearAuthentication(true).
                 deleteCookies("JSESSIONID").
                 logoutSuccessUrl("/login");
+
+        http.exceptionHandling()
+                .accessDeniedPage("/accessDenied");
     }
 
 

@@ -1,15 +1,15 @@
 package org.example.controller;
 
-import org.example.service.CountryService;
-import org.example.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.example.model.*;
+import org.example.service.CountryService;
 import org.example.service.HotelService;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -19,9 +19,9 @@ public class HotelController {
     private final CountryService countryService;
 
     @Autowired
-    public HotelController(HotelService hotelService, CountryService roomService) {
+    public HotelController(HotelService hotelService, CountryService countryService) {
         this.hotelService = hotelService;
-        this.countryService = roomService;
+        this.countryService = countryService;
     }
 
     @PreAuthorize("hasAuthority('all_permissions')")
@@ -73,16 +73,21 @@ public class HotelController {
         return "redirect:/hotelList";
     }
 
-    @GetMapping("/findHotelByCountry/{country}")
-    public String get(@PathVariable String country, Model model) {
-        Integer id = countryService.findByName(country).getId();
-        List<Hotel> list= hotelService.findByCountry(id);
-        if (list.isEmpty()) {
+    @GetMapping("/findHotel")
+    public String get(@RequestParam(required = false) String country, Model model) {
+        model.addAttribute("countryList", countryService.listOfCountries());
+        Optional<Country> optionalCountry = countryService.findByName(country);
+        if (optionalCountry.isPresent()) {
+
+            List<Hotel> list = hotelService.findByCountry(optionalCountry.get().getId());
+            if (list.isEmpty()) {
+                model.addAttribute("errorMessage", "There is no hotels in this country");
+            }
+            model.addAttribute("hotels", list);
+        } else if (country != null && !country.isEmpty()) {
             model.addAttribute("errorMessage", "There is no hotels in this country");
-            model.addAttribute("countryList", countryService.listOfCountries());
-            return "forward:/findHotelByCountry";
         }
-        model.addAttribute("hotels", list);
-        return "allHotelsInCountry";
+
+        return "findByCountry";
     }
 }

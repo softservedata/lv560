@@ -14,16 +14,43 @@
                 ${errorMessage}
             </c:if>
         </h4>
-        <form action="${contextPath}/findHotelByCountry" method="post">
+
+        <form action="${contextPath}/findHotel" method="get" >
             <label for="countryLabel">Country name</label>
-            <select id="countryLabel" name="name">
+            <select id="countryLabel" name="country" onChange="this.form.submit()">
+                <option value="" selected disabled hidden>Choose country</option>
                 <c:forEach var="item" items="${countryList}">
                     <option value="${item.name}">${item.name}</option>
                 </c:forEach>
             </select>
             <br />
-            <input type="submit" value="Find hotels"/>
         </form>
+
+        <c:if test="${not empty hotels}">
+            <table>
+                <thead>
+                <tr>
+                    Here you can see all hotels in the country
+                </tr>
+                <tr>
+                    <th>Hotel name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="hotel" items="${hotels}">
+                    <tr>
+                        <td>${hotel.hotelName}</td>
+                        <td>
+                            <form action="${contextPath}/allHotelRooms/${hotel.id}" method="post">
+                                <input type="submit" value="check a specific room">
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </c:if>
+
         <p><a href="${contextPath}/mainMenu">Back to main menu</a></p>
     </body>
 </html>

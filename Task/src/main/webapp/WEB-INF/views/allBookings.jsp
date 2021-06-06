@@ -22,20 +22,22 @@
                     <th>Orders</th>
                 </tr>
                 <c:if test="${user.bookings.size() == 0}">No orders</c:if>
-                <c:forEach var="book" items="${user.bookings}">
-                    <tr>
-                        <th>Date of arrival</th>
-                        <th>Date of departure</th>
-                        <th>Hotel name</th>
-                        <th>Room number</th>
-                    </tr>
-                    <tr>
-                        <td align="center">${book.checkIn}</td>
-                        <td align="center">${book.checkOut}</td>
-                        <td align="center">${book.room.roomNumber}</td>
-                        <td align="center">${book.room.hotel.hotelName}</td>
-                    </tr>
-                </c:forEach>
+                <c:if test="${user.bookings.size() != 0}">
+                    <c:forEach var="book" items="${user.bookings}">
+                        <tr>
+                            <th>Date of arrival</th>
+                            <th>Date of departure</th>
+                            <th>Hotel name</th>
+                            <th>Room number</th>
+                        </tr>
+                        <tr>
+                            <td align="center">${book.checkIn}</td>
+                            <td align="center">${book.checkOut}</td>
+                            <td align="center">${book.room.hotel.hotelName}</td>
+                            <td align="center">${book.room.roomNumber}</td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
             </c:forEach>
             </tbody>
         </table>

@@ -8,7 +8,6 @@
 <body>
 <h2>The room is available book now!</h2>
 <h3>Do you really want to book this room from ${arrivalDate.toString()} to ${departureTime.toString()}</h3>
-<p>Web Application Context Path = ${pageContext.request.getRequestURL()}</p>
 <form action="${contextPath}/findAvailableRoom/${id}/roomBooking" method="post">
     <input type="hidden" name="checkIn" value="${arrivalDate.toString()}">
     <input type="hidden" name="checkOut" value="${departureTime.toString()}">
