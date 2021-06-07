@@ -37,4 +37,11 @@ public class UserDaoImpl implements UserDao {
         log.info("Get list of all users");
         return list;
     }
+
+    @Override
+    public void save(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        log.info("Save user with username: " + user.getName());
+        session.save(user);
+    }
 }

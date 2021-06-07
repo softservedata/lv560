@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 csrf().disable().
-                authorizeRequests().antMatchers("/").permitAll().
+                authorizeRequests().antMatchers("/", "/registration").permitAll().
                 anyRequest().authenticated().
                 and().
                 formLogin().
@@ -66,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return daoAuthenticationProvider;
     }
 
-    @Bean
+    @Bean(name = "passwordEncoder")
     protected PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }

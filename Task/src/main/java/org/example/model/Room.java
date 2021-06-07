@@ -26,6 +26,6 @@ public class Room {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "room", fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true, mappedBy = "room", fetch = FetchType.EAGER)
     private List<Booking> bookings;
 }

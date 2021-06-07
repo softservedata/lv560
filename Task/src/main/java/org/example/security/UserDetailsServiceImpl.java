@@ -11,12 +11,12 @@ import org.example.dao.UserDao;
 import javax.transaction.Transactional;
 
 @Service("myUserService")
-public class UserDetailsServicee implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserDao userDao;
 
     @Autowired
-    public UserDetailsServicee(UserDao userDao) {
+    public UserDetailsServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 

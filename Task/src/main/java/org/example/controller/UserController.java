@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.example.model.User;
 import org.example.service.UserService;
+
 import java.util.List;
 
 @Controller

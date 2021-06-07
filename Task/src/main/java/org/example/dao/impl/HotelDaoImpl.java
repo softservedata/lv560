@@ -73,6 +73,10 @@ public class HotelDaoImpl implements HotelDao {
     public void deleteHotel(Integer integer) {
         Session session = sessionFactory.getCurrentSession();
         Hotel hotel = session.get(Hotel.class, integer);
+        List<Room> rooms = hotel.getRooms();
+        for (Room room: rooms) {
+            room.getBookings().clear();
+        }
         log.info("Delete hotel: id=" + hotel.getId());
         session.delete(hotel);
     }
