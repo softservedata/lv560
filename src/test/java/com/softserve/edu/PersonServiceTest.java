@@ -41,12 +41,13 @@ public class PersonServiceTest extends AbstractTestNGSpringContextTests {
 		Mockito.when(personRepository.findByName("ivan")).thenReturn(expectedPersons);
 		// Steps
 		List<Person> actualPersons = personService.findByName("ivan");
-		Assert.assertEquals(actualPersons.size(), expectedPersons.size());
-		Assert.assertEquals(actualPersons.get(0).getName(),
-				expectedPersons.get(0).getName());
+//		Assert.assertEquals(actualPersons.size(), expectedPersons.size());
+//		Assert.assertEquals(actualPersons.get(0).getName(),
+//				expectedPersons.get(0).getName());
+		Assert.assertEquals(actualPersons, expectedPersons);
 		//
 		//actualPersons = personService.findByName("petro");
-		actualPersons = personService.findByName("ivan");
+		//actualPersons = personService.findByName("ivan");
 		System.out.println("\t***actualPersons: " + actualPersons);
 		//
 		//Mockito.when(personRepository.findByName("ivan")).thenReturn(null);

@@ -13,6 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.IObjectFactory;
+import org.testng.annotations.ObjectFactory;
 import org.testng.annotations.Test;
 
 import com.softserve.edu.entity.Person;
@@ -44,8 +46,8 @@ public class PersonServiceRepositoryBeanTest extends AbstractTestNGSpringContext
 	@Autowired
 	private PersonRepository personRepository;
 
-	//@Autowired
-	//private PersonService personService;
+	@Autowired
+	private PersonService personService;
 
 	@Test
 	public void checkPersonService() {
@@ -57,12 +59,14 @@ public class PersonServiceRepositoryBeanTest extends AbstractTestNGSpringContext
 		testPerson.setCity("SuperCity");
 		expectedPersons.add(testPerson);
 		//
-		PersonService personService = new PersonServiceImpl(personRepository);
+		//PersonService personService = new PersonServiceImpl(personRepository);
 		//
 		List<Person> actualPersons = personService.findByName("Tom");
-		Assert.assertEquals(actualPersons.size(), expectedPersons.size());
-		Assert.assertEquals(actualPersons.get(0).getName(),
-				expectedPersons.get(0).getName());
+//		Assert.assertEquals(actualPersons.size(), expectedPersons.size());
+//		Assert.assertEquals(actualPersons.get(0).getName(),
+//				expectedPersons.get(0).getName());
+		System.out.println("+++actualPersons = " + actualPersons);
+		Assert.assertEquals(actualPersons, expectedPersons);
 	}
 	
 }
