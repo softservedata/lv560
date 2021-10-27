@@ -24,16 +24,16 @@ public class UnitProductTest {
 
 	@Test
 	public void checkLastDigits() throws Exception {
-		// IProductDao productDao = Mockito.mock(ProductDao.class); // = Mockito.mock(IProductDao.class);
-		// IProductDao productDao = Mockito.spy(new ProductDao());
-		// IProductDao productDao = PowerMockito.mock(IProductDao.class);
+		//IProductDao productDao = Mockito.mock(ProductDao.class); // = Mockito.mock(IProductDao.class);
+		//IProductDao productDao = Mockito.spy(new ProductDao());
+		//IProductDao productDao = PowerMockito.mock(IProductDao.class);
 		ProductDao productDao = PowerMockito.mock(ProductDao.class);
 		//
-		Mockito.when(productDao.getIPAddress()).thenReturn(".123");
+		//Mockito.when(productDao.getIPAddress()).thenReturn(".123");
 		// Mockito.doCallRealMethod().when(productDao).getIPAddress("");
-		// PowerMockito.when(productDao.getIPAddress()).thenReturn(".123");
+		PowerMockito.when(productDao.getIPAddress()).thenReturn(".123");
 		// PowerMockito.when(class1.mockTestMethod(Mockito.anyString())).thenReturn("MOCKED VALUE");
-		// ProductService productService = new ProductService(productDao);
+		//ProductService productService = new ProductService(productDao);
 		//
 		PowerMockito.whenNew(ProductDao.class).withNoArguments().thenReturn(productDao);
 		//PowerMockito.whenNew(ProductDao.class).withNoArguments().thenReturn(PowerMockito.mock(ProductDao.class));
