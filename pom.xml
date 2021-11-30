@@ -27,19 +27,19 @@
 		<org.slf4j.version>1.7.32</org.slf4j.version>
 	</properties>
 
-	<!-- <parent> -->
-	<!-- <groupId>org.springframework.boot</groupId> -->
-	<!-- <artifactId>spring-boot-starter-parent</artifactId> -->
-	<!-- <version>2.0.1.RELEASE</version> -->
-	<!-- <version>1.5.8.RELEASE</version> -->
-	<!-- </parent> -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.0</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
 
-	<!-- <repositories> -->
-	<!-- <repository> -->
-	<!-- <id>spring-releases</id> -->
-	<!-- <url>https://repo.spring.io/libs-release</url> -->
-	<!-- </repository> -->
-	<!-- </repositories> -->
+	<repositories>
+		<repository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</repository>
+	</repositories>
 
 	<!-- <pluginRepositories> -->
 	<!-- <pluginRepository> -->
@@ -75,18 +75,41 @@
 
 
 		<!-- - - - - - Logging - - - - - -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.slf4j</groupId> -->
+<!-- 			<artifactId>slf4j-api</artifactId> -->
+<!-- 			<version>${org.slf4j.version}</version> -->
+<!-- 			<scope>compile</scope> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.slf4j</groupId> -->
+<!-- 			<artifactId>slf4j-log4j12</artifactId> -->
+<!-- 			<version>${org.slf4j.version}</version> -->
+<!-- 			<scope>runtime</scope> -->
+<!-- 		</dependency> -->
+
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${org.slf4j.version}</version>
-			<scope>compile</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${org.slf4j.version}</version>
-			<scope>runtime</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 	</dependencies>
@@ -94,6 +117,10 @@
 	<build>
 		<plugins>
 
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -103,7 +130,7 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
