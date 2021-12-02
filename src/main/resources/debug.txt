@@ -1,0 +1,18 @@
+Tomcat Configuration
+
+-Xdebug
+-Xrunjdwp:transport=dt_socket,address=9797,server=y,suspend=n
+-Dcatalina.home=C:\Program Files\Apache Software Foundation\Tomcat 8.0
+-Dcatalina.base=C:\Program Files\Apache Software Foundation\Tomcat 8.0
+-Djava.endorsed.dirs=C:\Program Files\Apache Software Foundation\Tomcat 8.0\endorsed
+-Djava.io.tmpdir=C:\Program Files\Apache Software Foundation\Tomcat 8.0\temp
+-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+-Djava.util.logging.config.file=C:\Program Files\Apache Software Foundation\Tomcat 8.0\conf\logging.properties
+
+-Xdebug
+-Xrunjdwp:transport=dt_socket,address=9797,server=y,suspend=n
+-Dcatalina.home=C:\Program Files\Apache Software Foundation\Tomcat 9.0
+-Dcatalina.base=C:\Program Files\Apache Software Foundation\Tomcat 9.0
+-Djava.io.tmpdir=C:\Program Files\Apache Software Foundation\Tomcat 9.0\temp
+-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+-Djava.util.logging.config.file=C:\Program Files\Apache Software Foundation\Tomcat 9.0\conf\logging.properties
