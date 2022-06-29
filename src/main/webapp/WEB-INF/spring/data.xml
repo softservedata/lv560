@@ -50,9 +50,9 @@ http://www.springframework.org/schema/util/spring-util.xsd">
  
 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://192.168.153.128:3306/lv560db?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
-    <property name="username" value="lv560"/>
-    <property name="password" value="Pa$$Lv560"/>
+    <property name="url" value="jdbc:mysql://192.168.198.128:3306/lv560?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+    <property name="username" value="lv667"/>
+    <property name="password" value="Pmp-31-32uni"/>
 </bean>
 
 

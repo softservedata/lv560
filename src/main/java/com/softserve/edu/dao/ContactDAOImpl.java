@@ -20,7 +20,7 @@ public class ContactDAOImpl implements ContactDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Contact> listContact() {
-		return sessionFactory.getCurrentSession().createQuery("from Contact").list();
+		return sessionFactory.getCurrentSession().createQuery("from Contact").list();  // HQL
 	}
 
 	public void removeContact(Integer id) {
