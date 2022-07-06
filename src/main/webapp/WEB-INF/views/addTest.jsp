@@ -33,7 +33,7 @@
                                 <textarea rows="6" name="description" class="form-control" placeholder="Test description"></textarea>
                             </div>
                             <div class="col-md-12 text-center">
-                                <button type="submit" value="Submit test" name="submit" id="submitButton" class="btn btn-contact-bg" title="Submit Your Message!">Send Message</button>
+                                <button type="submit" value="Submit test" name="submit" id="submitButton" class="btn btn-contact-bg">Submit a new test</button>
                             </div>
                         </div>
                     </form>

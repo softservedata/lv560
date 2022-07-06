@@ -23,14 +23,14 @@
                         </div>
                         <div class="form-group">
                             <label for="username" class="text-info">Username:</label><br>
-                            <input type="text" name="username" id="username" class="form-control">
+                            <input type="text" name="username" id="username" class="form-control" placeholder="Enter your username here">
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Password:</label><br>
-                            <input type="password" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password here">
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
                         </div>
                         <div id="register-link" class="text-right">
                             <a href="${contextPath}/registration" class="text-info">Register here</a>
@@ -60,7 +60,11 @@
     #login .container #login-row #login-column #login-box #login-form {
         padding: 20px;
     }
-    #login .container #login-row #login-column #login-box #login-form #register-link {
-        margin-top: -85px;
+    #login .container #login-row #login-column #login-box #login-form{
+        margin-top: 0px;
+    }
+
+    #register-link{
+        margin-top: -40px;
     }
 </style>
