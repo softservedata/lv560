@@ -1,0 +1,12 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<jsp:useBean id="test" type="com.hehetenya.test_forms.dto.TestDTO"/>
+<div class="test-container">
+    <p class="test-name">${test.name}</p>
+    <p class="test-description">Тривалість: ${test.durationMinutes} хв</p>
+    <p class="test-description">Кількість запитань: ${test.questionNumber} </p>
+
+    <form action="${pageContext.request.contextPath}/tests" method="post">
+        <input name="testId" style="display: none" value="${test.id}">
+        <input type="submit" class="test-details-button" value="Розпочати тест">
+    </form>
+</div>

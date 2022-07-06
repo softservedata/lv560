@@ -1,0 +1,10 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<jsp:useBean id="result" type="com.hehetenya.test_forms.dto.ResultDTO"/>
+<div class="test-container">
+    <p class="test-name"> ${result.test.name}</p>
+    <p class="test-description">Оцінка: ${result.grade} </p>
+    <form action="${pageContext.request.contextPath}/resultReview" method="post">
+        <input name="resultId" value="${result.id}" style="display: none">
+        <input type="submit" class="test-details-button" value="Деталі...">
+    </form>
+</div>
