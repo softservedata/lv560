@@ -1,18 +1,18 @@
 <configuration>
     <!-- Console appender -->
     <appender name="sout" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.classic.PatternLayout">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
-        </layout>
+        </encoder>
     </appender>
 
 
     <!-- File appender -->
     <appender name="file" class="ch.qos.logback.core.FileAppender">
         <file>log.log</file>
-        <layout class="ch.qos.logback.classic.PatternLayout">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</Pattern>
-        </layout>
+        </encoder>
     </appender>
 
     <!-- Filters -->
