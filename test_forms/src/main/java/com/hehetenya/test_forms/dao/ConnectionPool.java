@@ -1,9 +1,15 @@
 package com.hehetenya.test_forms.dao;
 
+import com.hehetenya.test_forms.exeptions.AppException;
+import com.hehetenya.test_forms.exeptions.DBException;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+/**
+ * Singleton implementation of connection pool using Hikari and configuring it with data source.
+ */
 
 public class ConnectionPool {
 
@@ -11,18 +17,7 @@ public class ConnectionPool {
     private static final HikariConfig config = new HikariConfig();
     private static HikariDataSource ds;
 
-    private final String url = "jdbc:postgresql://localhost/test_forms";
-    private final String user = "postgres";
-    private final String password = "root";
-
     private ConnectionPool(){
-        /*try{
-            Context context = new InitialContext();
-            ds = (DataSource) context.lookup("java:comp/env/jdbc/test_forms");
-
-        }catch (NamingException e){
-            throw new IllegalStateException("Cannot init Connection Pool", e);
-        }*/
         try {
             Class.forName("org.postgresql.Driver");
             System.out.println("on classpath");
@@ -47,11 +42,15 @@ public class ConnectionPool {
         return instance;
     }
 
+    /**
+     * Custom static rollback method to handle exceptions thrown by Connection::rollback.
+     * @param con Connection to rollback
+     */
     public static void rollback(Connection con) {
         try {
             con.rollback();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            throw new AppException("Cannot rollback", e);
         }
     }
 
@@ -59,11 +58,15 @@ public class ConnectionPool {
         return ds.getConnection();
     }
 
+    /**
+     * Custom static close method to handle exceptions thrown by AutoCloseable::close.
+     * @param closeable Any class that implements AutoCloseable interface to close.
+     */
     public static void close(AutoCloseable closeable) {
         try {
             closeable.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            throw new AppException("Cannot rollback", e);
         }
     }
 }

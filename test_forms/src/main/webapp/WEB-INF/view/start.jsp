@@ -3,8 +3,8 @@
 <head>
     <title>Головна</title>
     <style>
-        <%@include file="reset.css"%>
-        <%@include file="style.css"%>
+        <%@include file="../reset.css"%>
+        <%@include file="../style.css"%>
     </style>
 </head>
 <body>

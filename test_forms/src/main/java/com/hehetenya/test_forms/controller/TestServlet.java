@@ -17,15 +17,14 @@ import java.util.List;
 public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<String> usersChoices = Arrays.asList(request.getParameterValues("answerId"));
+        List<String> usersAnswers = Arrays.asList(request.getParameterValues("answerId"));
         UserDTO user = (UserDTO) request.getSession().getAttribute("user");
         TestDTO test = (TestDTO) request.getSession().getAttribute("test");
-        ResultService.sendNewResult(new ResultDTO(user, test, AnswerService.getUserAnswersheet(usersChoices)));
+        ResultService.sendNewResult(new ResultDTO(user, test, AnswerService.getUserAnswers(usersAnswers)));
         response.sendRedirect(request.getContextPath() + "/home");
     }
 }

@@ -379,7 +379,7 @@ footer{
     cursor: pointer;
 }
 
-.answer-input{
+.option-input{
     border-color: #272727;
     width: 85%;
     background-color: white;
@@ -404,7 +404,7 @@ footer{
 }
 
 
-.answer-text-label{
+.option-text-label{
     background-color:  #272727;
     width: max-content;
     color: #f6f4e6;
@@ -438,14 +438,34 @@ footer{
     margin-top: 10px;
 }
 
-.adding-answers{
+.adding-options{
     margin-left: 9px;
 }
 
-.adding-answers-container{
+.adding-options-container{
     margin-top: 50px;
 }
 
-.submit-answer{
+.submit-option{
     margin-left: 9px;
+}
+
+.error-container{
+    background-color: white;
+    border-color: #272727;
+    border-style: solid;
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    padding: 50px 0;
+    margin: 50px auto;
+}
+
+.error-title{
+    margin: 0 auto 10px;
+    width: max-content;
+}
+
+.submit-test-creation{
+    display: flex;
 }

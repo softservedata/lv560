@@ -1,28 +1,34 @@
 package com.hehetenya.test_forms.service;
 
 import com.hehetenya.test_forms.dao.impl.DaoFactory;
-import com.hehetenya.test_forms.dto.AnswerDTO;
-import com.hehetenya.test_forms.entity.Answer;
+import com.hehetenya.test_forms.dto.OptionDTO;
+import com.hehetenya.test_forms.entity.Option;
+import com.hehetenya.test_forms.exeptions.AppException;
+import com.hehetenya.test_forms.exeptions.DBException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AnswerService {
 
-    public static AnswerDTO transform(Answer a) {
-        return new AnswerDTO(a.getId(), a.getText(), a.isCorrect());
+    public static OptionDTO transform(Option a) {
+        return new OptionDTO(a.getId(), a.getText(), a.isCorrect());
     }
 
-    public static List<AnswerDTO> getUserAnswersheet(List<String> answerIds){
-        List<AnswerDTO> answersheet = new ArrayList<>();
-        for(String answerId: answerIds){
-            answersheet.add(transform( DaoFactory.getAnswerDao().getById(Integer.parseInt(answerId))));
+    public static List<OptionDTO> getUserAnswers(List<String> answerIds){
+        List<OptionDTO> answers = new ArrayList<>();
+        try{
+            for(String answerId: answerIds){
+                answers.add(transform( DaoFactory.getAnswerDao().getById(Integer.parseInt(answerId))));
+            }
+        }catch (DBException e){
+            throw new AppException();
         }
-        return answersheet;
+        return answers;
     }
 
 
-    public static Answer transformDTO(AnswerDTO a) {
-        return new Answer(a.getId(), a.getText(), a.isCorrect());
+    public static Option transformDTO(OptionDTO a) {
+        return new Option(a.getId(), a.getText(), a.isCorrect());
     }
 }

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * HttpFilter implementation to restrict access of non-admin users to admin-only pages.
+ */
 @WebFilter({"/addQuestion", "/allResults", "/addTest"})
 public class UserFilter extends HttpFilter {
 

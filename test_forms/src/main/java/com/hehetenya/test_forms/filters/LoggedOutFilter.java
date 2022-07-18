@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * HttpFilter implementation to restrict access of not logged-in users to functional pages.
+ */
 @WebFilter({"/", "/home", "/tests", "/addQuestion", "/allResults", "/addTest", "/resultReview", "/test"})
 public class LoggedOutFilter extends HttpFilter {
     @Override

@@ -1,17 +1,4 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%--
-<nav class="navbar navbar-expand-sm navbar-static-top" >
-    <div class="horizontal_navbar">
-        <ul>
-            <li><a href="${pageContext.request.contextPath}/home">Головна </a></li>
-            <li><a href="${pageContext.request.contextPath}/tests">Тести</a></li>
-
-            <li style="float:right"><a href="${pageContext.request.contextPath}/login">Вийти </a></li>
-            &lt;%&ndash;<li style="float:right"><p>Ви увійшли як ${user.login} </p></li>&ndash;%&gt;
-        </ul>
-    </div>
-</nav>--%>
 <div class="navbar">
     <nav class="navMenu">
         <a href="${pageContext.request.contextPath}/home">Головна </a>

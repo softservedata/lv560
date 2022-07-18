@@ -1,18 +1,16 @@
 package com.hehetenya.test_forms.dto;
 
-import com.hehetenya.test_forms.entity.Question;
-
 import java.util.List;
 
 public class QuestionDTO {
     private String text;
     private int points;
-    private List<AnswerDTO> answers;
+    private List<OptionDTO> options;
 
-    public QuestionDTO(String text, int points, List<AnswerDTO> answers) {
+    public QuestionDTO(String text, int points, List<OptionDTO> options) {
         this.text = text;
         this.points = points;
-        this.answers = answers;
+        this.options = options;
     }
 
     public String getText() {
@@ -23,7 +21,7 @@ public class QuestionDTO {
         return points;
     }
 
-    public List<AnswerDTO> getAnswers() {
-        return answers;
+    public List<OptionDTO> getOptions() {
+        return options;
     }
 }

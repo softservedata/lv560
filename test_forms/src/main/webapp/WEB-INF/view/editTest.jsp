@@ -8,8 +8,8 @@
 <head>
     <title>Додати тест</title>
     <style>
-        <%@include file="reset.css"%>
-        <%@include file="style.css"%>
+        <%@include file="../reset.css"%>
+        <%@include file="../style.css"%>
     </style>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
@@ -25,13 +25,6 @@
                     <input type="text" class="test-name-input" maxlength="50" minlength="1" name="testName"
                            value="${newTest.name}">
                 </div>
-
-                <div class="input-group">
-                    <p class="test-name-label">Тривалість:</p>
-                    <input type="number" class="duration-input" min="1" max="600" name="duration"
-                           value="${newTest.durationMinutes}">
-                    <p class="duration-min-label">хв</p>
-                </div>
             </div>
 
             <input type="submit" name="addQuestion" value="Додати запитання" class="add-question-button">
@@ -40,19 +33,24 @@
         <c:forEach items="${newTest.questions}" var="question">
             <div class="test-container">
                 <p class="question-text">${question.text} - Кількість балів: ${question.points}</p>
-                <c:forEach var="answer" items="${question.answers}">
-                    <c:if test="${answer.correct}">
-                        <p><span class="material-icons">done</span> ${answer.text}</p>
+                <c:forEach var="option" items="${question.options}">
+                    <c:if test="${option.correct}">
+                        <p><span class="material-icons">done</span> ${option.text}</p>
                     </c:if>
-                    <c:if test="${!answer.correct}">
-                        <p><span class="material-icons">close</span> ${answer.text}</p>
+                    <c:if test="${!option.correct}">
+                        <p><span class="material-icons">close</span> ${option.text}</p>
                     </c:if>
                 </c:forEach>
             </div>
         </c:forEach>
-        <form action="${pageContext.request.contextPath}/addTest" method="post">
-            <input type="submit" value="Створити тест" class="add-question-button">
-        </form>
+        <div class="submit-test-creation">
+            <form action="${pageContext.request.contextPath}/addTest" method="post">
+                <input type="submit" value="Створити тест" class="add-question-button">
+            </form>
+            <form action="${pageContext.request.contextPath}/tests" method="get">
+                <input type="submit" value="Скасувати" class="add-question-button">
+            </form>
+        </div>
 
         <div class="clear push50"></div>
     </div>

@@ -7,8 +7,8 @@
 <head>
     <title>Огляд результату</title>
     <style>
-        <%@include file="reset.css"%>
-        <%@include file="style.css"%>
+        <%@include file="../reset.css"%>
+        <%@include file="../style.css"%>
     </style>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
@@ -23,23 +23,23 @@
         <c:forEach var="question" items="${result.test.questions}">
             <div class="test-container">
                 <p class="question-text" >${question.text}</p>
-                <c:forEach var="answer" items="${question.answers}">
-                    <c:if test="${result.answersheet.contains(answer) && answer.correct}">
-                        <p > <span class="material-icons">done</span>  ${answer.text}</p>
+                <c:forEach var="option" items="${question.options}">
+                    <c:if test="${result.answers.contains(option) && option.correct}">
+                        <p > <span class="material-icons">done</span>  ${option.text}</p>
                     </c:if>
-                    <c:if test="${result.answersheet.contains(answer) && !answer.correct}">
-                        <p > <span class="material-icons">close</span>  ${answer.text}</p>
+                    <c:if test="${result.answers.contains(option) && !option.correct}">
+                        <p > <span class="material-icons">close</span>  ${option.text}</p>
                     </c:if>
-                    <c:if test="${!result.answersheet.contains(answer)}">
-                        <p ><span class="material-icons">check_box_outline_blank</span>  ${answer.text}</p>
+                    <c:if test="${!result.answers.contains(option)}">
+                        <p ><span class="material-icons">check_box_outline_blank</span>  ${option.text}</p>
                     </c:if>
                 </c:forEach>
                 <div>
                     <p class="question-text">Правильна відповідь:</p>
-                    <div class="question-correct-answer-list">
-                        <c:forEach var="answer" items="${question.answers}">
-                            <c:if test="${answer.correct}">
-                                <p>${answer.text}</p>
+                    <div class="question-correct-option-list">
+                        <c:forEach var="option" items="${question.options}">
+                            <c:if test="${option.correct}">
+                                <p>${option.text}</p>
                             </c:if>
                         </c:forEach>
                     </div>

@@ -2,18 +2,18 @@ package com.hehetenya.test_forms.dto;
 
 import java.util.Objects;
 
-public class AnswerDTO {
+public class OptionDTO {
     private int id;
     private String text;
     private boolean correct;
 
-    public AnswerDTO(int id, String text, boolean correct) {
+    public OptionDTO(int id, String text, boolean correct) {
         this.id = id;
         this.text = text;
         this.correct = correct;
     }
 
-    public AnswerDTO(String text, boolean correct) {
+    public OptionDTO(String text, boolean correct) {
         this.text = text;
         this.correct = correct;
     }
@@ -26,8 +26,8 @@ public class AnswerDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AnswerDTO answerDTO = (AnswerDTO) o;
-        return id == answerDTO.id;
+        OptionDTO optionDTO = (OptionDTO) o;
+        return id == optionDTO.id;
     }
 
     @Override

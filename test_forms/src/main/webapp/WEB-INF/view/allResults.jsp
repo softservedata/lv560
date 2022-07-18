@@ -7,8 +7,8 @@
 <head>
     <title>Усі результати</title>
     <style>
-        <%@include file="reset.css"%>
-        <%@include file="style.css"%>
+        <%@include file="../reset.css"%>
+        <%@include file="../style.css"%>
     </style>
 </head>
 <body>

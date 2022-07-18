@@ -1,12 +1,13 @@
 package com.hehetenya.test_forms.service;
 
 import com.hehetenya.test_forms.dao.impl.DaoFactory;
-import com.hehetenya.test_forms.dto.AnswerDTO;
+import com.hehetenya.test_forms.dto.OptionDTO;
 import com.hehetenya.test_forms.dto.QuestionDTO;
 import com.hehetenya.test_forms.dto.TestDTO;
-import com.hehetenya.test_forms.entity.Answer;
+import com.hehetenya.test_forms.entity.Option;
 import com.hehetenya.test_forms.entity.Question;
 import com.hehetenya.test_forms.entity.Test;
+import com.hehetenya.test_forms.exeptions.AppException;
 import com.hehetenya.test_forms.exeptions.DBException;
 
 import java.util.ArrayList;
@@ -16,12 +17,16 @@ public class TestService {
 
 
     public static List<TestDTO> getAllTests() {
-        List<Test> tests = DaoFactory.getTestDao().getAll();
-        List<TestDTO> testDTOS = new ArrayList<>();
-        for (Test t: tests) {
-            testDTOS.add(transform(t));
+        try {
+            List<Test> tests = DaoFactory.getTestDao().getAll();
+            List<TestDTO> testDTOS = new ArrayList<>();
+            for (Test t : tests) {
+                testDTOS.add(transform(t));
+            }
+            return testDTOS;
+        }catch (DBException e){
+            throw new AppException();
         }
-        return testDTOS;
     }
 
     public static TestDTO transform(Test test){
@@ -34,14 +39,15 @@ public class TestService {
         System.out.println("test id ==>" + test.getId());
         return new TestDTO(test.getId(),
                 test.getName(),
-                test.getDurationMinutes(),
-                test.getCreator().getLogin(),
                 questionDTOS);
     }
 
     public static TestDTO getTest(int testId) {
-        System.out.println(DaoFactory.getTestDao().getById(testId).getName() + "<=== test name");
-        return transform(DaoFactory.getTestDao().getById(testId));
+        try{
+            return transform(DaoFactory.getTestDao().getById(testId));
+        }catch (DBException e){
+            throw new AppException();
+        }
     }
 
     public static Test transformDTO(TestDTO test) {
@@ -52,15 +58,22 @@ public class TestService {
         }
         return new Test(test.getId(),
                 test.getName(),
-                test.getDurationMinutes(),
                 questions);
     }
 
     public static void createTest(TestDTO newTest) throws DBException {
         Test test = transformDTO(newTest);
-        for (Answer a: test.getQuestions().get(0).getAnswers()) {
-            System.out.println("first question ==>" + a.getText());
-        }
         DaoFactory.getTestDao().create(test);
+    }
+
+    public static void addQuestionIntoTest(TestDTO newTest, String questionText, int points, List<String> correct, List<String> incorrect) {
+        QuestionDTO newQuestion = new QuestionDTO(questionText, points, new ArrayList<>());
+        for (String s: correct) {
+            newQuestion.getOptions().add(new OptionDTO(s, true));
+        }
+        for (String s: incorrect) {
+            newQuestion.getOptions().add(new OptionDTO(s, false));
+        }
+        newTest.getQuestions().add(newQuestion);
     }
 }

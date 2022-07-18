@@ -1,27 +1,27 @@
 package com.hehetenya.test_forms.entity;
 
-public class Answer {
+public class Option {
     private int id;
     private String text;
-    private boolean correct;
+    private boolean isCorrect;
     private int questionId;
 
-    public Answer(int id, String text, boolean is_correct, int question_id) {
+    public Option(int id, String text, boolean isCorrect, int question_id) {
         this.id = id;
         this.text = text;
-        this.correct = is_correct;
+        this.isCorrect = isCorrect;
         this.questionId = question_id;
     }
 
-    public Answer(int id, String text, boolean is_correct) {
+    public Option(int id, String text, boolean isCorrect) {
         this.id = id;
         this.text = text;
-        this.correct = is_correct;
+        this.isCorrect = isCorrect;
     }
 
-    public Answer(String text, boolean correct) {
+    public Option(String text, boolean isCorrect) {
         this.text = text;
-        this.correct = correct;
+        this.isCorrect = isCorrect;
     }
 
     public int getId() {
@@ -33,7 +33,7 @@ public class Answer {
     }
 
     public boolean isCorrect() {
-        return correct;
+        return isCorrect;
     }
 
     public int getQuestionId() {

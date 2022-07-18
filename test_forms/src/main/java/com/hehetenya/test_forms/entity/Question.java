@@ -1,6 +1,8 @@
 package com.hehetenya.test_forms.entity;
 
 import com.hehetenya.test_forms.dao.impl.DaoFactory;
+import com.hehetenya.test_forms.exeptions.AppException;
+import com.hehetenya.test_forms.exeptions.DBException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,35 +11,39 @@ public class Question {
     private int id;
     private String text;
     private int points;
-    private List<Answer> answers;
+    private List<Option> options;
 
     public Question(int id, String text, int points) {
         this.id = id;
         this.text = text;
         this.points = points;
-        answers = new ArrayList<>();
-        setAnswers();
+        options = new ArrayList<>();
+        setOptions();
     }
 
     public Question(String text, int points) {
         this.text = text;
         this.points = points;
-        answers = new ArrayList<>();
-        setAnswers();
+        options = new ArrayList<>();
+        setOptions();
     }
 
-    public Question(String text, int points, List<Answer> answers) {
+    public Question(String text, int points, List<Option> options) {
         this.text = text;
         this.points = points;
-        this.answers = answers;
+        this.options = options;
     }
 
-    private void setAnswers(){
-        List<Answer> allAnswers = DaoFactory.getAnswerDao().getAll();
-        for (Answer a: allAnswers) {
-            if(a.getQuestionId() == this.id){
-                answers.add(a);
+    private void setOptions(){
+        try {
+            List<Option> allOptions = DaoFactory.getAnswerDao().getAll();
+            for (Option o : allOptions) {
+                if (o.getQuestionId() == this.id) {
+                    options.add(o);
+                }
             }
+        }catch (DBException e){
+            throw new AppException();
         }
     }
 
@@ -53,7 +59,7 @@ public class Question {
         return points;
     }
 
-    public List<Answer> getAnswers() {
-        return answers;
+    public List<Option> getAnswers() {
+        return options;
     }
 }

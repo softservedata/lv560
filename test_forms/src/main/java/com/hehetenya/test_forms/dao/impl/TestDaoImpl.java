@@ -1,7 +1,7 @@
 package com.hehetenya.test_forms.dao.impl;
 
 import com.hehetenya.test_forms.dao.ConnectionPool;
-import com.hehetenya.test_forms.dao.TestDao;
+import com.hehetenya.test_forms.dao.Dao;
 import com.hehetenya.test_forms.entity.Question;
 import com.hehetenya.test_forms.entity.Test;
 import com.hehetenya.test_forms.exeptions.DBException;
@@ -10,19 +10,20 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestDaoImpl extends TestDao {
+/**
+ * Dao interface implementation for PostgresSQL database using JDBC API
+ * that performs CRUD operations on objects of type Test.
+ */
+public class TestDaoImpl implements Dao<Test> {
 
     private static final String GET_ALL_TESTS = "SELECT * FROM tests";
-    private static final String GET_TEST_BY_ID = "SELECT * FROM tests WHERE id = ?";
-    private static final String UPDATE_TEST = "UPDATE tests SET name = ?, duration_min = ?, creator_id = ? WHERE id = ?";
-    private static final String CREATE_TEST = "INSERT INTO tests (name, duration_min, creator_id) VALUES (?, ?, ?)";
-    private static final String DELETE_TEST = "DELETE FROM tests WHERE id = ?";
-    private static final String GET_TEST_QUESTIONS = "SELECT * FROM tests_have_questions WHERE test_id = ?";
-    private static final String CREATE_TEST_HAS_QUESTION = "INSERT INTO tests_have_questions (test_id, question_id) VALUES (?, ?)";
+    private static final String CREATE_TEST = "INSERT INTO tests (name) VALUES (?)";
+    private static final String GET_TEST_QUESTIONS = "SELECT * FROM tests_questions WHERE test_id = ?";
+    private static final String CREATE_TEST_HAS_QUESTION = "INSERT INTO tests_questions (test_id, question_id) VALUES (?, ?)";
 
 
     @Override
-    public List<Test> getAll() {
+    public List<Test> getAll() throws DBException {
         List<Test> tests = new ArrayList<>();
         try(Connection con = ConnectionPool.getInstance().getConnection();
             Statement stmt = con.createStatement()){
@@ -30,18 +31,15 @@ public class TestDaoImpl extends TestDao {
             while (rs.next()){
                 tests.add(new Test(rs.getInt(1),
                         rs.getString(2),
-                        rs.getInt(3),
-                        rs.getInt(4),
                         getTestQuestions(rs.getInt(1))));
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            throw new DBException("Cannot get all tests", e);
         }
-        System.out.println(tests);
         return tests;
     }
 
-    private List<Question> getTestQuestions(int testId){
+    private List<Question> getTestQuestions(int testId) throws DBException {
         List<Question> questions = new ArrayList<>();
         try(Connection con = ConnectionPool.getInstance().getConnection();
             PreparedStatement ps = con.prepareStatement(GET_TEST_QUESTIONS)){
@@ -52,13 +50,13 @@ public class TestDaoImpl extends TestDao {
                 }
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            throw new DBException("Cannot get test questions", e);
         }
         return questions;
     }
 
     @Override
-    public Test getById(int id) {
+    public Test getById(int id) throws DBException {
         List<Test> tests = getAll();
         for (Test t:
              tests) {
@@ -103,8 +101,6 @@ public class TestDaoImpl extends TestDao {
         try(PreparedStatement ps = con.prepareStatement(CREATE_TEST, Statement.RETURN_GENERATED_KEYS)){
             int k = 0;
             ps.setString(++k, test.getName());
-            ps.setInt(++k, test.getDurationMinutes());
-            ps.setInt(++k, test.getCreator().getId());
             if(ps.executeUpdate() == 0){
                 throw new SQLException("Cannot create new test");
             }
@@ -125,7 +121,6 @@ public class TestDaoImpl extends TestDao {
             if(ps.executeUpdate() == 0){
                 throw new SQLException("Cannot create new test");
             }
-            //System.out.println("insert test have question succeed");
         }
     }
 }

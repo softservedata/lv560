@@ -4,8 +4,8 @@
 <html>
 <head>
     <style>
-        <%@include file="reset.css"%>
-        <%@include file="style.css"%>
+        <%@include file="../reset.css"%>
+        <%@include file="../style.css"%>
     </style>
     <title>Вхід</title>
 </head>

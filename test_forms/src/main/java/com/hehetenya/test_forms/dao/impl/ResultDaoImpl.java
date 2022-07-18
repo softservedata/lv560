@@ -1,26 +1,28 @@
 package com.hehetenya.test_forms.dao.impl;
 
 import com.hehetenya.test_forms.dao.ConnectionPool;
-import com.hehetenya.test_forms.dao.ResultDao;
-import com.hehetenya.test_forms.entity.Answer;
+import com.hehetenya.test_forms.dao.Dao;
+import com.hehetenya.test_forms.entity.Option;
 import com.hehetenya.test_forms.entity.Result;
+import com.hehetenya.test_forms.exeptions.DBException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResultDaoImpl extends ResultDao {
+/**
+ * Dao interface implementation for PostgresSQL database using JDBC API
+ * that performs CRUD operations on objects of type Result.
+ */
+public class ResultDaoImpl implements Dao<Result> {
 
-    private static final String GET_ALL_RESULTS = "SELECT * FROM results";
-    private static final String GET_RESULT_BY_ID = "SELECT * FROM results WHERE id = ?";
-    private static final String UPDATE_RESULT = "UPDATE results SET name = ?, duration_min = ?, creator_id = ? WHERE id = ?";
-    private static final String CREATE_RESULT = "INSERT INTO results (user_id, test_id, grade) VALUES (?, ?, ?)";
-    private static final String CREATE_ANSWERSHEET = "INSERT INTO answersheet (result_id, answer_id) VALUES (?, ?)";
-    private static final String DELETE_RESULT = "DELETE FROM tests WHERE id = ?";
-    private static final String GET_ANSWERSHEET = "SELECT * FROM answersheet WHERE result_id = ?";
+    private static final String GET_ALL_RESULTS = "SELECT * FROM results;";
+    private static final String CREATE_RESULT = "INSERT INTO results (user_id, test_id, grade) VALUES (?, ?, ?);";
+    private static final String CREATE_ANSWERS = "INSERT INTO answers (result_id, answer_option_id) VALUES (?, ?);";
+    private static final String GET_ANSWERS = "SELECT * FROM answers WHERE result_id = ?;";
 
     @Override
-    public List<Result> getAll() {
+    public List<Result> getAll() throws DBException {
         List<Result> results = new ArrayList<>();
         try(Connection con = ConnectionPool.getInstance().getConnection();
             Statement stmt = con.createStatement()){
@@ -30,28 +32,28 @@ public class ResultDaoImpl extends ResultDao {
                         DaoFactory.getUserDao().getById(rs.getInt(2)),
                         DaoFactory.getTestDao().getById(rs.getInt(3)),
                         rs.getInt(4),
-                        getAnswersheet(rs.getInt(1))));
+                        getAnswers(rs.getInt(1))));
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            throw new DBException("Cannot get all results", e);
         }
         return results;
     }
 
-    private static List<Answer> getAnswersheet(int resultId){
-        List<Answer> answers = new ArrayList<>();
+    private static List<Option> getAnswers(int resultId) throws DBException {
+        List<Option> options = new ArrayList<>();
         try(Connection con = ConnectionPool.getInstance().getConnection();
-            PreparedStatement ps = con.prepareStatement(GET_ANSWERSHEET)){
+            PreparedStatement ps = con.prepareStatement(GET_ANSWERS)){
             ps.setInt(1, resultId);
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
-                    answers.add(DaoFactory.getAnswerDao().getById(rs.getInt(2)));
+                    options.add(DaoFactory.getAnswerDao().getById(rs.getInt(2)));
                 }
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            throw new DBException("Cannot get answers", e);
         }
-        return answers;
+        return options;
     }
 
     @Override
@@ -70,30 +72,30 @@ public class ResultDaoImpl extends ResultDao {
     }
 
     @Override
-    public void create(Result result) {
+    public void create(Result result) throws DBException {
         Connection con = null;
         try{
             con = ConnectionPool.getInstance().getConnection();
             con.setAutoCommit(false);
             int resultId = createNewResult(con, result);
-            for(Answer a: result.getAnswersheet()){
-                insertIntoAnswersheet(con, resultId, a.getId());
+            for(Option o: result.getAnswers()){
+                insertIntoAnswers(con, resultId, o.getId());
             }
         }catch (SQLException e){
             if(con != null) ConnectionPool.rollback(con);
-            e.printStackTrace();
+            throw new DBException("Cannot create result", e);
         }finally {
             ConnectionPool.close(con);
         }
     }
 
-    private void insertIntoAnswersheet(Connection con, int resultId, int id) throws SQLException {
-        try(PreparedStatement ps = con.prepareStatement(CREATE_ANSWERSHEET)){
+    private void insertIntoAnswers(Connection con, int resultId, int id) throws SQLException {
+        try(PreparedStatement ps = con.prepareStatement(CREATE_ANSWERS)){
             int k = 0;
             ps.setInt(++k, resultId);
             ps.setInt(++k, id);
             if(ps.executeUpdate() ==  0){
-                throw new SQLException("Cannot insert into answersheet");
+                throw new SQLException("Cannot insert into answers");
             }
             con.commit();
         }

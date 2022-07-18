@@ -7,23 +7,22 @@ public class Result {
     private User user;
     private Test test;
     private int grade;
-    private List<Answer> answersheet;
+    private List<Option> answers;
 
-    public Result(int id, User user, Test test, int grade, List<Answer> answersheet) {
+    public Result(int id, User user, Test test, int grade, List<Option> answers) {
         this.id = id;
         this.user = user;
         this.test = test;
         this.grade = grade;
-        this.answersheet = answersheet;
+        this.answers = answers;
     }
 
-    public Result(User user, Test test, int grade, List<Answer> answersheet) {
+    public Result(User user, Test test, int grade, List<Option> answers) {
         this.user = user;
         this.test = test;
         this.grade = grade;
-        this.answersheet = answersheet;
+        this.answers = answers;
     }
-
 
     public int getId() {
         return id;
@@ -41,7 +40,7 @@ public class Result {
         return grade;
     }
 
-    public List<Answer> getAnswersheet() {
-        return answersheet;
+    public List<Option> getAnswers() {
+        return answers;
     }
 }
