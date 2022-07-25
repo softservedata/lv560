@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" th:href="@{/styles/forms.css}">
+</head>
+<body>
+<section class="section">
+    <form class="form" name="f" method="post" action="/process_login">
+        <h1>Login</h1>
+        <div class="input-container">
+            <input type="text" name="username" id="username" autocomplete="off" required>
+            <label class="label-name" for="username">
+                <span class="content-name">Username</span>
+            </label>
+        </div>
+        <div class="input-container">
+            <input type="text" name="password" id="password" autocomplete="off" required>
+            <label class="label-name" for="password">
+                <span class="content-name">Password</span>
+            </label>
+        </div>
+        <div th:if="${param.error}" style="color: red; font-size: 14px;">
+            Incorrect username or password
+        </div>
+        <button class="button" type="submit">Login</button>
+        <a class="moveToLink" href="/auth/registration">Create account</a>
+    </form>
+</section>
+</body>
+</html>

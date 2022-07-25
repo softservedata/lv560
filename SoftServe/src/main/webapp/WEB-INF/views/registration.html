@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="stylesheet" th:href="@{/styles/forms.css}">
+</head>
+<body>
+<section class="section">
+    <form class="form" method="post" action="/auth/registration" th:object="${user}">
+        <h1>Registration</h1>
+        <div class="input-container">
+            <input type="text" name="username" id="username" th:field="*{username}" autocomplete="off" required>
+            <label class="label-name" for="username">
+                <span class="content-name">Username</span>
+            </label>
+        </div>
+        <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+        <div class="input-container">
+            <input type="text" name="email" id="email" th:field="*{email}" autocomplete="off" required>
+            <label class="label-name" for="email">
+                <span class="content-name">Email</span>
+            </label>
+        </div>
+        <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        <div class="input-container">
+            <input type="text" name="password" id="password" th:field="*{password}" autocomplete="off" required>
+            <label class="label-name" for="password">
+                <span class="content-name">Password</span>
+            </label>
+        </div>
+        <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        <div class="input-container">
+            <input type="text" name="pictureUrl" id="pictureUrl" th:field="*{pictureUrl}" autocomplete="off" required>
+            <label class="label-name" for="pictureUrl">
+                <span class="content-name">Picture URL</span>
+            </label>
+        </div>
+        <div class="error" th:if="${#fields.hasErrors('pictureUrl')}" th:errors="*{pictureUrl}"></div>
+
+        <button class="button" type="submit">Register</button>
+        <a class="moveToLink" href="/auth/login">Do you already have an account?</a>
+    </form>
+</section>
+</body>
+</html>

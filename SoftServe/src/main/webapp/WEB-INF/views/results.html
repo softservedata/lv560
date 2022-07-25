@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+    <link rel="stylesheet" th:href="@{/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/styles/results.css}">
+</head>
+<body>
+<header>
+    <img th:src="@{/images/logo.png}" alt="">
+    <nav class="navigation-bar">
+        <a href="/home"><i class="fa-solid fa-bookmark"></i>MAIN</a>
+        <a href="/archived"><i class="fa-solid fa-box-open"></i>ARCHIVED</a>
+        <a href="#"><i class="fa-solid fa-trophy"></i>PASSED</a>
+        <a th:if="${user.role.toString().equals('manager')}" href="/tests/create">
+            <i class="fa-solid fa-lightbulb"></i>CREATE
+        </a>
+        <a th:if="${user.role.toString().equals('manager')}" href="/topics/create">
+            <i class="fa-solid fa-book-open-reader"></i>CREATE TOPIC
+        </a>
+        <a href="/groups/new">
+            <i class="fa-solid fa-layer-group"></i>CREATE GROUP
+        </a>
+        <a href="#"><i class="fa-solid fa-book"></i>CATEGORIES</a>
+    </nav>
+    <div class="auth">
+        <a href="/logout"><i class="fa-solid fa-user"></i>LOGOUT</a>
+    </div>
+</header>
+
+<section class="section">
+    <div class="main-container">
+        <div class="result-container">
+            <div class="result-title">
+                Summary of your previous attempts
+            </div>
+            <div class="headers headers-title">
+                <p class="column attempt">Attempt</p>
+                <p class="column state" style="padding-top: 15px">State</p>
+                <p class="column grade">Grade/<span th:text="${test.grade}"></span></p>
+                <p class="column review">Review</p>
+            </div>
+            <div class="alert" th:unless="${results.size() != 0}">
+                You have no attempts yet.
+            </div>
+            <div class="headers-container" th:if="${results.size() != 0}">
+                <div class="headers" th:each="result, stats : ${results}">
+                    <p class="column attempt" th:text="${stats.index + 1}"></p>
+                    <div class="column state">
+                        <p>Finished</p>
+                        <p th:text="${result.testFinishTime.dayOfWeek + ', ' +
+                                  result.testFinishTime.dayOfMonth + ' ' +
+                                  result.testFinishTime.month + ' ' +
+                                  result.testFinishTime.year + ', ' +
+                                  result.testFinishTime.hour + ':' +
+                                  result.testFinishTime.minute}">
+                        </p>
+                    </div>
+                    <p class="column grade" th:text="${result.grade}"></p>
+                    <p class="column review">
+                        <a th:href="@{/tests/{id}/result/{resultId}(id=${test.id}, resultId=${result.id})}">Review</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div th:if="${original}">
+
+        </div>
+        <div th:if="${test.active && original && test.groups.size() != 0}" class="start-button">
+            <div th:if="${hasSubscription}">
+                <a th:href="@{/tests/{id}(id=${test.id})}">Start attempt</a>
+            </div>
+            <div th:unless="${hasSubscription}">
+                <a href="/groups">
+                    The test is available,
+                    to pass you need to subscribe to the appropriate
+                </a>
+            </div>
+        </div>
+        <div style="color: #ffca28" th:if="${test.active || test.groups.size() == 0}" class="start-button">
+            Unavailable
+        </div>
+    </div>
+</section>
+<script src="https://kit.fontawesome.com/fdac7adc13.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

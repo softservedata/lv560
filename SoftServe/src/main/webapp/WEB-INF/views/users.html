@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" th:href="@{/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/styles/users.css}">
+</head>
+<body>
+<header>
+    <img th:src="@{/images/logo.png}" alt="">
+    <nav class="navigation-bar">
+        <a href="/home"><i class="fa-solid fa-bookmark"></i>MAIN</a>
+        <a href="/archived"><i class="fa-solid fa-box-open"></i>ARCHIVED</a>
+        <a href="#"><i class="fa-solid fa-trophy"></i>PASSED</a>
+        <a th:if="${user.role.toString().equals('manager')}" href="/tests/create">
+            <i class="fa-solid fa-lightbulb"></i>CREATE
+        </a>
+        <a th:if="${user.role.toString().equals('manager')}" href="/topics/create">
+            <i class="fa-solid fa-book-open-reader"></i>CREATE TOPIC
+        </a>
+        <a href="/groups/new">
+            <i class="fa-solid fa-layer-group"></i>CREATE GROUP
+        </a>
+        <a href="#"><i class="fa-solid fa-book"></i>CATEGORIES</a>
+    </nav>
+    <div class="auth">
+        <a href="/logout"><i class="fa-solid fa-user"></i>LOGOUT</a>
+    </div>
+</header>
+
+<section class="section">
+    <div class="main-container">
+        <h2>Users who passed the test</h2>
+        <div class="alert" th:if="${users.size() == 0}">
+            No one has taken this test yet.
+        </div>
+        <div class="user-container">
+            <div class="user" th:each="u : ${users}">
+                <div class="image-container">
+                    <img src="https://www.artmajeur.com/medias/standard/r/o/rodgerwilliams-art/artwork/14713577_201763804-4508316939181026-8529844119483366877-n.jpg" alt="" width="40px" height="40px">
+                </div>
+                <p class="email" th:text="${u.email}"></p>
+                <p class="username" th:text="${u.username}"></p>
+                <a class="view-link" th:href="@{/tests/{testId}/results/user/{userId}(testId=${test.id}, userId=${u.id})}">
+                    View results
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://kit.fontawesome.com/fdac7adc13.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

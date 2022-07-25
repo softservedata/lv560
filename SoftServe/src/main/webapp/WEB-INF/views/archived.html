@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Archived</title>
+    <link rel="stylesheet" th:href="@{/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/styles/archived.css}">
+    <link rel="stylesheet" th:href="@{/styles/author-info.css}">
+</head>
+<body>
+<header>
+    <img th:src="@{/images/logo.png}" alt="">
+    <nav class="navigation-bar">
+        <a href="/home"><i class="fa-solid fa-bookmark"></i>MAIN</a>
+        <a style="color: #ffca28" href="/archived"><i class="fa-solid fa-box-open"></i>ARCHIVED</a>
+        <a href="#"><i class="fa-solid fa-trophy"></i>PASSED</a>
+        <a th:if="${user.role.toString().equals('manager')}" href="/tests/create">
+            <i class="fa-solid fa-lightbulb"></i>CREATE
+        </a>
+        <a th:if="${user.role.toString().equals('manager')}" href="/topics/create">
+            <i class="fa-solid fa-book-open-reader"></i>CREATE TOPIC
+        </a>
+        <a href="/groups/new">
+            <i class="fa-solid fa-layer-group"></i>CREATE GROUP
+        </a>
+        <a href="#"><i class="fa-solid fa-book"></i>CATEGORIES</a>
+    </nav>
+    <div class="auth">
+        <a href="/logout"><i class="fa-solid fa-user"></i>LOGOUT</a>
+    </div>
+</header>
+<section class="section">
+    <div class="main-container">
+        <div class="container" th:each="test : ${tests}">
+            <div class="container-image"></div>
+            <div class="container-content">
+                <h3 class="container-title" th:text="${test.title}"></h3>
+                <div class="author-block">
+                    <div class="author-image"></div>
+                    <p th:text="${test.creator.toString()}"></p>
+                </div>
+                <div class="sub-author-block">
+                    <div class="sub-author-image"></div>
+                    <div class="sub-info-container">
+                        <p th:text="${test.creator.toString()}"></p>
+                        <p th:text="${test.dateOfCreation}"></p>
+                    </div>
+                </div>
+                <form th:action="@{/tests/restore/{id}(id=${test.getId()})}"
+                      method="post"
+                      class="restore-form">
+                    <button class="restore" type="submit">Restore</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script src="https://kit.fontawesome.com/fdac7adc13.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

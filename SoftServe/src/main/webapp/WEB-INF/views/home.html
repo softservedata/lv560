@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/styles/tests.css}">
+    <link rel="stylesheet" th:href="@{/styles/author-info.css}">
+    <link rel="stylesheet" th:href="@{/styles/topics.css}">
+</head>
+<body>
+<header>
+    <img th:src="@{/images/logo.png}" alt="">
+    <nav class="navigation-bar">
+        <a style="color: #ffca28" href="/home"><i class="fa-solid fa-bookmark"></i>MAIN</a>
+        <a href="/archived"><i class="fa-solid fa-box-open"></i>ARCHIVED</a>
+        <a href="#"><i class="fa-solid fa-trophy"></i>PASSED</a>
+        <a th:if="${user.role.toString().equals('manager')}" href="/tests/create">
+            <i class="fa-solid fa-lightbulb"></i>CREATE
+        </a>
+        <a th:if="${user.role.toString().equals('manager')}" href="/topics/create">
+            <i class="fa-solid fa-book-open-reader"></i>CREATE TOPIC
+        </a>
+        <a href="/groups/new">
+            <i class="fa-solid fa-layer-group"></i>CREATE GROUP
+        </a>
+        <a href="#"><i class="fa-solid fa-book"></i>CATEGORIES</a>
+    </nav>
+    <div class="auth">
+        <a href="/logout"><i class="fa-solid fa-user"></i>LOGOUT</a>
+    </div>
+</header>
+
+<section class="section">
+<!--
+    <h2>Available categories and tests</h2>
+-->
+    <div class="topics-container">
+        <div class="topic" th:each="topic : ${topics}">
+            <a class="topic-title" th:href="@{/tests/category/{id}(id=${topic.id})}"
+               th:text="${topic.title}"></a>
+            <div class="image-container">
+                <img class="topic-image" th:src="@{${topic.pictureUrl}}" width="40px" height="40px">
+            </div>
+        </div>
+    </div>
+    <div class="main-container">
+        <div class="container" th:each="test : ${tests}">
+            <div class="container-image"></div>
+            <div class="container-content">
+                <h3 class="container-title" th:text="${test.title}"></h3>
+                <div th:if="${user.role.toString().equals('manager')}">
+                    <div class="author-block">
+                        <div class="author-image"></div>
+                        <p th:text="${test.creator.toString()}"></p>
+                    </div>
+                    <div class="sub-author-block">
+                        <div class="sub-author-image"></div>
+                        <div class="sub-info-container">
+                            <p th:text="${test.creator.toString()}"></p>
+                            <p th:text="${test.dateOfCreation}"></p>
+                        </div>
+                    </div>
+                    <div class="comment-block">
+                        <a th:href="@{/comments/{id}(id=${test.id})}">
+                            <i class="fa-solid fa-chart-column"></i>
+                        </a>
+                    </div>
+                    <div class="button-container">
+                        <a class="button results" th:href="@{/tests/{id}/users(id=${test.id})}">View results</a>
+                        <a class="button pass" th:href="@{/tests/{id}/results(id=${test.id})}">Try to pass</a>
+                    </div>
+                    <p th:text="${test.getDescription()}" class="test-description"></p>
+                    <div class="archive-block">
+                        <form style="display: inline" method="post"
+                              th:action="@{/tests/archive/{id}(id=${test.getId()})}">
+                            <button type="submit"><i class="fa-solid fa-box-open"></i></button>
+                        </form>
+                    </div>
+                    <div class="container-footer">
+                        <div class="likes">
+                            <form action="/likes" method="post">
+                                <input type="hidden" name="testId" th:value="${test.id}">
+                                <input th:if="${testLiked.get(test.id) != null}" type="hidden" name="likeId"
+                                       th:value="${testLiked.get(test.id).id}">
+                                <button type="submit"
+                                        th:style="${testLiked.get(test.id) != null} ? 'color: #ffca28' : 'color: #7e8081'">
+                                    <i class="fa-solid fa-heart"></i>
+                                    <span th:text="${test.likes.size()}"></span>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="times-passed">
+                            <i class="fa-solid fa-user-group"></i>
+                            <span th:text="${test.passageCounter}"></span>
+                        </div>
+                        <div class="favourite">
+                            <i class="fa-solid fa-bookmark"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+</section>
+<br>
+<script src="https://kit.fontawesome.com/fdac7adc13.js" crossorigin="anonymous"></script>
+</body>
+</html>

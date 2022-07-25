@@ -1,0 +1,110 @@
+.section{
+    padding-top: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.main-container{
+    width: 74vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
+    width: 357px;
+    height: 124px;
+    border-radius: 15px;
+    background: #263238;
+    transition-duration: .5s;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 13px;
+    overflow: hidden;
+    position: relative;
+    margin-right: 20px;
+}
+
+.sub-author-block{
+    color: white;
+    z-index: 90;
+    position: absolute;
+    opacity: 0;
+    height: 40px;
+    width: 130px;
+    border-radius: 10px;
+    top: 20px;
+    left: 62%;
+    background: #7e8081;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    transition-duration: .5s;
+    box-shadow: 0 0 10px #fff;
+}
+
+.container:hover{
+    box-shadow: 0 0 7px #ffca28;
+}
+
+.container-content{
+    padding: 12px 18px 12px 18px;
+    width: 67%;
+}
+
+.container-image{
+    background-image: url(https://rockcult.ru/wp-content/uploads/2016/11/Gravity-Falls-min.jpg);
+    background-position: top;
+    width: 120px;
+    background-size: cover;
+}
+
+.container-title{
+    color: white;
+}
+
+.author-block{
+    width: 100px;
+    height: 25px;
+    margin: 10px 0;
+    background: #3a454b;
+    border-radius: 12px;
+    color: white;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    transition-duration: .5s;
+}
+
+.restore{
+    text-align: center;
+    display: block;
+    margin-right: 10px;
+    padding: 8px;
+    border: #ffca28 1px solid;
+    background: none;
+    color: #ffca28;
+/*    background: #ffca28;
+    border: none;
+    color: #263238;*/
+    transition-duration: .5s;
+    font-weight: normal;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.restore:hover{
+    background: #ffca28;
+    color: #263238;
+}
+
+.restore-form{
+    width: 100%;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Result</title>
+    <link rel="stylesheet" th:href="@{/styles/header.css}">
+    <link rel="stylesheet" th:href="@{/styles/test-result.css}">
+</head>
+<body>
+    <header>
+        <img th:src="@{/images/logo.png}" alt="">
+        <nav class="navigation-bar">
+            <a href="/home"><i class="fa-solid fa-bookmark"></i>MAIN</a>
+            <a href="/archived"><i class="fa-solid fa-box-open"></i>ARCHIVED</a>
+            <a href="#"><i class="fa-solid fa-trophy"></i>PASSED</a>
+            <a th:if="${user.role.toString().equals('manager')}" href="/tests/create">
+                <i class="fa-solid fa-lightbulb"></i>CREATE
+            </a>
+            <a th:if="${user.role.toString().equals('manager')}" href="/topics/create">
+                <i class="fa-solid fa-book-open-reader"></i>CREATE TOPIC
+            </a>
+            <a href="/groups/new">
+                <i class="fa-solid fa-layer-group"></i>CREATE GROUP
+            </a>
+            <a href="#"><i class="fa-solid fa-book"></i>CATEGORIES</a>
+        </nav>
+        <div class="auth">
+            <a href="/logout"><i class="fa-solid fa-user"></i>LOGOUT</a>
+        </div>
+    </header>
+    <section class="section">
+
+        <div class="main-container">
+            <h2 class="test-title" th:text="${test.title}"></h2>
+            <form>
+                <div class="question-container" th:each="container : ${answerContainers}">
+                    <h4 th:text="${container.question.title}"></h4>
+                    <div th:each="answerEntry : ${container.answerDetailsMap.entrySet()}">
+                        <input th:type="${container.question.type.toString()}"
+                               th:id="${container.question.id + ' ' + answerEntry.getKey().id}"
+                               th:checked="${answerEntry.getValue()}"
+                               disabled>
+                        <label th:for="${container.question.id + ' ' + answerEntry.getKey().id}"
+                               th:style="${answerEntry.getValue() && !answerEntry.getKey().getCorrect() ? 'color:red' : 'color:black'}"
+                               th:text="${answerEntry.getKey().text}"></label>
+                    </div>
+                    <div class="answer-info">
+                        <p th:text="${container.status.toString()}"></p>
+                        <p>Points received: <span th:text="${container.value}"></span></p>
+                    </div>
+                    <br>
+                </div>
+            </form>
+        </div>
+    </section>
+    <script src="https://kit.fontawesome.com/fdac7adc13.js" crossorigin="anonymous"></script>
+</body>
+</html>

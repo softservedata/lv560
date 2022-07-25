@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Finish</title>
+</head>
+<body>
+    <h2>Results</h2>
+    <div th:each="question, stats : ${questions}">
+        <span th:text="${stats.index + 1}"></span>
+        <a th:href="@{/tests/question/{id}/{index}(id=${question.id}, index=${stats.index})}" th:text="${question.title}"></a>
+        <span th:if="${indexCheckedQuestionMap.get(__${stats.index}__)}">
+            Answered
+        </span>
+        <span th:unless="${indexCheckedQuestionMap.get(__${stats.index}__)}">
+            Not answered
+        </span>
+    </div>
+    <br>
+    <form method="post" action="/tests/save_result">
+        <button type="submit" th:name="refType" th:value="finish">Send results</button>
+        <button type="submit" th:name="refType" th:value="prev">Back to test</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Groups</title>
+</head>
+<body>
+<section class="section">
+    <div th:each="group : ${groups}">
+        <p th:text="${group.title}"></p>
+        <ul>
+            <li th:each="test : ${group.tests}" th:text="${test.title}"></li>
+        </ul>
+        <div class="subscriptions">
+            <form action="/subscriptions" method="post">
+                <input type="hidden" name="groupId" th:value="${group.id}">
+                <input th:if="${groupSubscription.get(group.id) != null}" type="hidden" name="subId"
+                       th:value="${groupSubscription.get(group.id).id}">
+                <button type="submit">
+                    <span th:if="${groupSubscription.get(group.id) != null}">Unsubscribe</span>
+                    <span th:unless="${groupSubscription.get(group.id) != null}">Subscribe</span>
+                </button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <a href="/home">Home</a>
+</section>
+</body>
+</html>

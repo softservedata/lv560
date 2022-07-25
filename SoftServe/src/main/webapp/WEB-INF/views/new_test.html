@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Test</title>
+</head>
+<style>
+
+    select {
+        -ms-overflow-style: none;
+        overflow-y: scroll;
+    }
+    select::-webkit-scrollbar {
+        display: none;
+    }
+
+    select{
+        margin-top: 6px;
+        border-radius: 0;
+        width: 100%;
+        border: 1px solid grey;
+    }
+    body {
+        display: flex;
+        padding-top: 20px;
+        justify-content: center
+    }
+
+    .container {
+        width: 88vw;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between
+    }
+
+    .error {
+        font-size: 12px;
+        color: red;
+    }
+</style>
+<body>
+<div class="container">
+    <div>
+        <form method="post" action="/tests" th:object="${questionContainer}">
+            <input type="text" id="testName" name="testName" placeholder="Test name">
+            <div class="error" th:if="${errors != null && errors.hasFieldErrors('testName')}"
+                 th:text="${errors.getFieldError('testName').getDefaultMessage()}">
+            </div>
+            <input type="text" name="description" placeholder="Enter description">
+            <input type="text" name="pictureUrl" placeholder="Picture URL">
+            <div>
+                <label for="topicTitles">Choose topic</label>
+                <select name="topicIds" id="topicTitles" multiple>
+                    <option th:each="topic : ${topics}"
+                            th:value="${topic.id}"
+                            th:text="${topic.title}">
+                    </option>
+                </select>
+            </div>
+            <div class="error" th:if="${errors != null && errors.hasFieldErrors('test')}"
+                 th:text="${errors.getFieldError('test').getDefaultMessage()}">
+            </div>
+            <input type="submit" value="Create">
+
+        </form>
+        <br>
+        <div>
+            <div th:each="question : ${questions}">
+                <form th:method="PATCH" th:action="@{/tests/update/{title}(title=${question.title})}">
+                    <input name="questionTitle" th:value="${question.title}" type="text">
+                    <div class="error" th:if="${question.title.equals(updatedQuestion)
+                                                && updErrors != null
+                                                && updErrors.hasFieldErrors('questionTitle')}"
+                                       th:text="${updErrors.getFieldError('questionTitle').getDefaultMessage()}">
+                    </div>
+                    <div th:each="answer, stats : ${question.answers}">
+                        <input name="answers" th:value="${answer.text}" type="text">
+                        <input name="correct" th:checked="${answer.correct}" type="checkbox" th:value="${stats.index}">
+                        <br>
+                    </div>
+                    <div class="error" th:if="${question.title.equals(updatedQuestion)
+                                                && updErrors != null
+                                                && updErrors.hasFieldErrors('answers')}">
+                        <p th:each="updError : ${updErrors.getFieldErrors('answers')}"
+                           th:text="${updError.getDefaultMessage()}">
+                        </p>
+                    </div>
+                    <input name="value" type="number" placeholder="Enter question value">
+                    <div class="error" th:if="${question.title.equals(updatedQuestion)
+                                                && updErrors != null
+                                                && updErrors.hasFieldErrors('value')}"
+                                       th:text="${updErrors.getFieldError('value').getDefaultMessage()}">
+                    </div>
+                    <div>
+                        <label for="categoryUpdate">Choose category</label><br>
+                        <select name="categoryId" id="categoryUpdate">
+                            <option th:each="category : ${categories}"
+                                    th:value="${category.id}"
+                                    th:text="${category.title}"
+                                    th:selected="${question.category.title.equals(category.title)}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="error" th:if="${question.title.equals(updatedQuestion)
+                                                && updErrors != null
+                                                && updErrors.hasFieldErrors('category')}"
+                         th:text="${updErrors.getFieldError('category').getDefaultMessage()}">
+                    </div>
+                    <input type="submit" value="Update">
+                </form>
+                <form th:method="DELETE" th:action="@{/tests/delete/{title}(title=${question.title})}">
+                    <input type="submit" value="Delete">
+                </form>
+                <br>
+            </div>
+        </div>
+        <br>
+        <form method="post" action="/tests/add_question" th:object="${questionContainer}">
+            <input th:field="*{questionTitle}" type="text" id="title" name="title" placeholder="Enter question"><br>
+            <div class="error" th:if="${addedQuestion != updatedQuestion && errors.hasFieldErrors('questionTitle')}"
+                               th:text="${errors.getFieldError('questionTitle').getDefaultMessage()}">
+            </div>
+            <br>
+            <div>
+                <div th:each="answer, stats : ${questionContainer.answerTitles}">
+                    <input th:field="*{answerTitles[__${stats.index}__]}"
+                           type="text" name="answers" placeholder="Enter answer">
+                    <input type="checkbox" name="correct" th:value="${stats.index}"><br>
+                </div>
+                <div class="error" th:if="${addedQuestion != updatedQuestion && errors.hasFieldErrors('answers')}">
+                    <p th:each="error : ${errors.getFieldErrors('answers')}"
+                       th:text="${error.getDefaultMessage()}">
+                    </p>
+                    <br>
+                </div>
+                <br>
+                <input th:field="*{value}" type="number" placeholder="Enter question value">
+                <div class="error" th:if="${addedQuestion != updatedQuestion && errors.hasFieldErrors('value')}"
+                                   th:text="${errors.getFieldError('value').getDefaultMessage()}">
+                </div>
+                <div>
+                    <label for="category">Choose category</label><br>
+                    <select name="categoryId" id="category">
+                        <option th:each="category : ${categories}"
+                                th:value="${category.id}"
+                                th:text="${category.title}">
+                        </option>
+                    </select>
+                </div>
+                <div class="error" th:if="${addedQuestion != updatedQuestion && errors.hasFieldErrors('category')}"
+                     th:text="${errors.getFieldError('category').getDefaultMessage()}">
+                </div>
+                <input type="submit" value="Add question">
+            </div>
+        </form>
+        <form method="post" action="/tests/add_answer">
+            <input type="submit" value="New Variant">
+        </form>
+        <form th:method="DELETE" action="/tests/drop_answer">
+            <input type="submit" value="Drop Variant">
+        </form>
+        <br>
+        <a href="/home">Home</a>
+    </div>
+    <div>
+        <h4>Select test to import</h4>
+        <form method="post" action="/tests/import_test">
+            <label for="unarchivedIds">Tests</label>
+            <select name="unarchivedIds" id="unarchivedIds" multiple>
+                <option th:each="unarchived : ${unarchivedTests}"
+                        th:value="${unarchived.id}"
+                        th:text="${unarchived.title}">
+                </option>
+            </select>
+            <label for="archivedIds">Archived tests</label>
+            <select name="archivedIds" id="archivedIds" multiple>
+                <option th:each="archived : ${archivedTests}"
+                        th:value="${archived.id}"
+                        th:text="${archived.title}">
+                </option>
+            </select>
+            <input type="submit" value="Import">
+        </form>
+    </div>
+</div>
+</body>
+</html>

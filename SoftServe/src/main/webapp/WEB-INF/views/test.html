@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+    <h2 th:text="${test.title}"></h2>
+    <form th:method="POST" th:action="@{/tests/question/{id}(id=${question.id})}" th:object="${container}">
+        <input type="hidden" name="questionType" th:value="${question.type.toString()}">
+        <p th:text="${question.title}"></p>
+        <div>
+            <div th:if="${question.type.toString().equals('checkbox')}"
+                 th:each="answerEntry, aStat : ${answerCheckedMap.entrySet()}">
+                <input th:type="${question.type.toString()}"
+                       th:name="answerIds"
+                       th:value="${answerEntry.key.id}"
+                       th:id="${answerEntry.key.id + ' ' + question.id}"
+                       th:checked="${answerEntry.getValue()}">
+                <label th:for="${answerEntry.key.id + ' ' + question.id}"
+                       th:text="${answerEntry.key.text}"></label>
+            </div>
+            <div th:if="${question.type.toString().equals('radio')}"
+                 th:each="answerEntry, aStat : ${answerCheckedMap}">
+                <input th:type="${question.type.toString()}"
+                       th:name="answerId"
+                       th:value="${answerEntry.key.id}"
+                       th:id="${answerEntry.key.id + ' ' + question.id}"
+                       th:checked="${answerEntry.getValue()}">
+                <label th:for="${answerEntry.key.id + ' ' + question.id}"
+                       th:text="${answerEntry.key.text}"></label>
+            </div>
+            <div>
+                <div th:if="${prevIndex != null}">
+                    <button type="submit" th:name="refType" th:value="prev">Previous</button>
+                </div>
+                <div>
+                    <div th:if="${nextIndex != null}">
+                        <button type="submit" th:name="refType" th:value="next">Next</button>
+                    </div>
+                    <div>
+                        <button type="submit" th:name="refType" th:value="final">Finish attempt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <a th:href="@{/tests/{id}/results(id=${test.id})}">Back</a>
+    <a href="/home">Home</a>
+</body>
+</html>

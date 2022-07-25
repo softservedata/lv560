@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comments</title>
+    <link rel="stylesheet" th:href="@{/styles/header.css}">
+</head>
+<body>
+<header>
+    <img th:src="@{/images/logo.png}" alt="">
+    <nav class="navigation-bar">
+        <a href="/home"><i class="fa-solid fa-bookmark"></i>MAIN</a>
+        <a href="/archived"><i class="fa-solid fa-box-open"></i>ARCHIVED</a>
+        <a href="#"><i class="fa-solid fa-trophy"></i>PASSED</a>
+        <a th:if="${user.role.toString().equals('manager')}" href="/tests/create">
+            <i class="fa-solid fa-lightbulb"></i>CREATE
+        </a>
+        <a th:if="${user.role.toString().equals('manager')}" href="/topics/create">
+            <i class="fa-solid fa-book-open-reader"></i>CREATE TOPIC
+        </a>
+        <a href="/groups/new">
+            <i class="fa-solid fa-layer-group"></i>CREATE GROUP
+        </a>
+        <a href="#"><i class="fa-solid fa-book"></i>CATEGORIES</a>
+    </nav>
+    <div class="auth">
+        <a href="/logout"><i class="fa-solid fa-user"></i>LOGOUT</a>
+    </div>
+</header>
+<section class="section">
+    <form method="post" action="/comments">
+        <input type="text" name="content" placeholder="Write comment">
+        <input type="hidden" name="testId" th:value="${test.id}">
+        <button type="submit" th:name="answerType" value="send">Send message</button>
+        <button type="submit" th:name="answerType" value="cancel">Cancel</button>
+    </form>
+    <div>
+        <div th:each="comment : ${comments}">
+            <div>
+                <span th:text="${comment.user.username}"></span>
+                <br>
+                <span th:text="${comment.dateOfCreation}"></span>
+            </div>
+            <form action="/comments" th:method="PATCH">
+                <input th:value="${comment.content}" name="content" th:disabled="${updatedId != comment.id}">
+                <input type="hidden" name="testId" th:value="${test.id}">
+                <div th:if="${updatedId == comment.id}">
+                    <button type="submit" th:name="changeType" value="save">Save changes</button>
+                    <button type="submit" th:name="changeType" value="cancel">Cancel</button>
+                </div>
+            </form>
+            <div th:if="${comment.user.id == user.id && updatedId != comment.id}">
+                <form style="display: inline" action="/comments/update" method="post">
+                    <input type="hidden" name="testId" th:value="${test.id}">
+                    <input type="hidden" name="commentId" th:value="${comment.id}">
+                    <input type="submit" value="Update">
+                </form>
+                <form style="display: inline" th:action="@{/comments/{id}(id=${comment.id})}" th:method="DELETE">
+                    <input type="hidden" name="testId" th:value="${test.id}">
+                    <input type="submit" value="Delete">
+                </form>
+            </div>
+            <div>
+                <form method="post" action="/comments/answer"
+                      th:if="${answeredId != comment.id}">
+                    <input type="hidden" name="commentId" th:value="${comment.id}">
+                    <input type="hidden" name="testId" th:value="${test.id}">
+                    <input type="submit" value="Answer">
+                </form>
+                <form method="post" action="/comments"
+                      th:if="${answeredId == comment.id}">
+                    <input type="text" name="content" placeholder="Write comment">
+                    <input type="hidden" name="parentId" th:value="${comment.id}">
+                    <input type="hidden" name="testId" th:value="${test.id}">
+                    <button type="submit" th:name="answerType" value="send">Send message</button>
+                    <button type="submit" th:name="answerType" value="cancel">Cancel</button>
+                </form>
+            </div>
+            <div th:if="${comment.children.size() != 0}">
+                <div style="background: gainsboro" th:each="child : ${comment.children}">
+                    <div>
+                        <span th:text="${child.user.username}"></span>
+                        <br>
+                        <span th:text="${child.dateOfCreation}"></span>
+                    </div>
+                    <form action="/comments" th:method="PATCH">
+                        <span style="color: blue"
+                              th:if="${child.answerTo != null}"
+                              th:text="${'@' + child.answerTo}">
+                        </span>
+                        <input th:value="${child.content}" name="content" th:disabled="${updatedId != child.id}">
+                        <input type="hidden" name="testId" th:value="${test.id}">
+                        <div th:if="${updatedId == child.id}">
+                            <button type="submit" th:name="changeType" value="save">Save changes</button>
+                            <button type="submit" th:name="changeType" value="cancel">Cancel</button>
+                        </div>
+                    </form>
+                    <div th:if="${child.user.id == user.id && updatedId != child.id}">
+                        <form style="display: inline" action="/comments/update" method="post">
+                            <input type="hidden" name="testId" th:value="${test.id}">
+                            <input type="hidden" name="commentId" th:value="${child.id}">
+                            <input type="submit" value="Update">
+                        </form>
+                        <form style="display: inline" th:action="@{/comments/{id}(id=${child.id})}" th:method="DELETE">
+                            <input type="hidden" name="testId" th:value="${test.id}">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </div>
+                    <div>
+                        <form method="post" action="/comments/answer"
+                              th:if="${answeredId != child.id}">
+                            <input type="hidden" name="commentId" th:value="${child.id}">
+                            <input type="hidden" name="testId" th:value="${test.id}">
+                            <input type="submit" value="Answer">
+                        </form>
+                        <form method="post" action="/comments"
+                              th:if="${answeredId == child.id}">
+                            <input type="text" name="content" placeholder="Write comment">
+                            <input type="hidden" name="testId" th:value="${test.id}">
+                            <input type="hidden" name="parentId" th:value="${comment.id}">
+                            <input type="hidden" name="answerTo" th:value="${child.user.username}">
+                            <button type="submit" th:name="answerType" value="send">Send message</button>
+                            <button type="submit" th:name="answerType" value="cancel">Cancel</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://kit.fontawesome.com/fdac7adc13.js" crossorigin="anonymous"></script>
+</body>
+</html>

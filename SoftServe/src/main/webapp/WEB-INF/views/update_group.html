@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Groups</title>
+    <link rel="stylesheet" th:href="@{/styles/forms.css}">
+    <link rel="stylesheet" th:href="@{/styles/header.css}">
+</head>
+<body>
+<header>
+    <img th:src="@{/images/logo.png}" alt="">
+    <nav class="navigation-bar">
+        <a href="/home"><i class="fa-solid fa-bookmark"></i>MAIN</a>
+        <a href="/archived"><i class="fa-solid fa-box-open"></i>ARCHIVED</a>
+        <a href="#"><i class="fa-solid fa-trophy"></i>PASSED</a>
+        <a th:if="${user.role.toString().equals('manager')}" href="/tests/create">
+            <i class="fa-solid fa-lightbulb"></i>CREATE
+        </a>
+        <a style="color: #ffca28" th:if="${user.role.toString().equals('manager')}" href="/topics/create">
+            <i class="fa-solid fa-book-open-reader"></i>CREATE TOPIC
+        </a>
+        <a href="#"><i class="fa-solid fa-book"></i>CATEGORIES</a>
+    </nav>
+    <div class="auth">
+        <a href="/logout"><i class="fa-solid fa-user"></i>LOGOUT</a>
+    </div>
+</header>
+
+<section class="section">
+    <form class="form" action="/groups" th:method="PATCH" th:object="${group}">
+        <h1>New Group</h1>
+        <input type="hidden" name="id" th:value="${group.id}">
+        <div class="input-container">
+            <input type="text" id="title" th:field="*{title}" autocomplete="off" required>
+            <label class="label-name" for="title">
+                <span class="content-name">Title</span>
+            </label>
+        </div>
+        <div class="input-container">
+            <input type="date" id="startDate" th:field="*{startDate}" required>
+            <label class="label-name" for="startDate">
+                <span class="content-name">Start date</span>
+            </label>
+        </div>
+        <div class="input-container">
+            <input type="date" id="endDate" th:field="*{endDate}" required>
+            <label class="label-name" for="endDate">
+                <span class="content-name">End date</span>
+            </label>
+        </div>
+        <button class="button" type="submit">Update group</button>
+
+    </form>
+</section>
+<script src="https://kit.fontawesome.com/fdac7adc13.js" crossorigin="anonymous"></script>
+</body>
+</html>

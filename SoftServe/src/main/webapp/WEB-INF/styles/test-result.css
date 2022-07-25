@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+
+.section{
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.answer-info{
+    background: #f2d473;
+    color: black;
+}
+
+.main-container{
+    border-radius: 10px;
+    background: white;
+    padding: 20px 100px 100px 100px;
+    width: 60%;
+    margin: 20px 0;
+}
+.test-title{
+    margin: 20px 0 35px 0;
+    text-align: center;
+}
+
+.answer-info{
+    background: #f2d473;
+    color: black;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    line-height: 1.4;
+}
+
+.question-container h4 {
+    margin: 15px;
+}

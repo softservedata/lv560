@@ -1,0 +1,31 @@
+.author-block:hover{
+    color: #ffca28;
+}
+
+.author-image{
+    background-image: url(https://play-lh.googleusercontent.com/nCVVCbeSI14qEvNnvvgkkbvfBJximn04qoPRw8GZjC7zeoKxOgEtjqsID_DDtNfkjyo);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.sub-info-container{
+    height: 35px;
+}
+
+.sub-author-image{
+    background-image: url(https://play-lh.googleusercontent.com/nCVVCbeSI14qEvNnvvgkkbvfBJximn04qoPRw8GZjC7zeoKxOgEtjqsID_DDtNfkjyo);
+    background-size: cover;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+
+.author-block:hover + .sub-author-block{
+    opacity: 0.7;
+}
