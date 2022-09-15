@@ -1,14 +1,32 @@
 package com.softserve.edu;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
-/**
- * Unit test for simple App.
- */
 public class AppTest {
+
+    @BeforeAll
+    public static void setup() {
+        System.out.println("@BeforeAll executed");
+    }
+
+    @AfterAll
+    public static void tear() {
+        System.out.println("@AfterAll executed");
+    }
+
+    @BeforeEach
+    public void setupThis() {
+        System.out.println("\t@BeforeEach executed");
+    }
+
+    @AfterEach
+    public void tearThis() {
+        System.out.println("\t@AfterEach executed");
+    }
+
     @Test
-    public void testApp() {
+    public void testOne() {
+        System.out.println("\t\t@Test testOne()");
         // From Maven
         System.out.println("***surefire.java.version = " + System.getProperty("surefire.application.password"));
         // From OS
@@ -17,6 +35,33 @@ public class AppTest {
         // From Eclipse/Idea
         System.out.println("***System.getenv().MY_IDE = " + System.getenv().get("MY_IDE"));
         //
-        Assert.assertEquals(9, 4 + 5);
+        Assertions.assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void testTwo() {
+        System.out.println("\t\t@Test testTwo()");
+        Assertions.assertEquals(6, 2 + 4);
+    }
+
+    @Test
+    void testExpectedException() {
+        RuntimeException thrown = Assertions.assertThrows(RuntimeException.class, () -> {
+            //Code under test
+            int i = 0;
+            i = 10 / (i + 0);
+        });
+        System.out.println("Message = " + thrown.getMessage());
+        Assertions.assertEquals("/ by zero", thrown.getMessage());
+    }
+
+    @Test
+    void testExpectedException2() {
+        NumberFormatException thrown = Assertions.assertThrows(NumberFormatException.class, () -> {
+            int k = Integer.parseInt("One");
+        }, "NumberFormatException was expected");
+        System.out.println("Message = " + thrown.getMessage());
+        Assertions.assertEquals("For input string: \"One\"", thrown.getMessage());
+    }
+
 }
