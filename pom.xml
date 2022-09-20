@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.softserve.edu</groupId>
-    <artifactId>lv560sec</artifactId>
+    <artifactId>lv560pat</artifactId>
     <version>1.0</version>
 
     <packaging>jar</packaging>
@@ -23,6 +23,7 @@
         <application.password>null123</application.password>
     </properties>
 
+<!--
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -35,6 +36,7 @@
             <url>https://repo.spring.io/libs-release</url>
         </repository>
     </repositories>
+-->
 
     <dependencies>
 
@@ -51,14 +53,14 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-<!--            <version>5.9.0</version>-->
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-params</artifactId>
-<!--        <version>5.9.0</version>-->
+        <version>5.9.0</version>
         <scope>test</scope>
     </dependency>
 
@@ -66,13 +68,13 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-<!--            <version>8.0.30</version>-->
+            <version>8.0.30</version>
         </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-<!--            <version>42.5.0</version>-->
+            <version>42.5.0</version>
         </dependency>
 
         <dependency>
@@ -100,6 +102,7 @@
         -->
 
         <!-- - - - - - Spring - - - - - -->
+<!--
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -154,19 +157,19 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
-
+-->
     </dependencies>
 
     <build>
         <finalName>${project.artifactId}</finalName>
 
         <plugins>
-
+<!--
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
+-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
