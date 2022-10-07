@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.softserve.edu</groupId>
-    <artifactId>lv560sec</artifactId>
+    <artifactId>lv560hib</artifactId>
     <version>1.0</version>
 
     <packaging>jar</packaging>
@@ -16,64 +16,41 @@
         <!-- - - - - - Encoding - - - - - -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- - - - - - Java - - - - - -->
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
+        <!-- - - - - - Hibernate - - - - - -->
+<!--        <org.hibernate.version>5.2.12.Final</org.hibernate.version>-->
+<!--        <org.hibernate.version>6.1.4.Final</org.hibernate.version>-->
         <!-- - - - - - Reports - - - - - -->
         <testng.reports.directory>./target/surefire-reports/test-output</testng.reports.directory>
         <!-- - - - - - Password - - - - - -->
         <application.password>null123</application.password>
     </properties>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-<!--        <version>2.7.3</version>-->
-        <version>2.7.4</version>
-    </parent>
-
-    <repositories>
-        <repository>
-            <id>spring-releases</id>
-            <url>https://repo.spring.io/libs-release</url>
-        </repository>
-    </repositories>
 
     <dependencies>
 
         <!-- - - - - - Test - - - - - -->
-        <!--
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
-        -->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-<!--            <version>5.9.0</version>-->
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-params</artifactId>
-<!--        <version>5.9.0</version>-->
-        <scope>test</scope>
-    </dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.9.0</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- - - - - - DB - - - - - -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-<!--            <version>8.0.30</version>-->
-        </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-<!--            <version>42.5.0</version>-->
+            <version>42.5.0</version>
         </dependency>
 
         <dependency>
@@ -83,6 +60,21 @@
             <!-- <scope>test</scope> -->
         </dependency>
 
+        <!-- - - - Hibernate - - - -->
+
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+<!--            <groupId>org.hibernate</groupId>-->
+            <artifactId>hibernate-core</artifactId>
+            <version>6.1.4.Final</version>
+        </dependency>
+<!--
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>5.6.12.Final</version>
+        </dependency>
+-->
         <!-- - - - Logger - - - -->
         <!--
         <dependency>
@@ -100,60 +92,27 @@
         </dependency>
         -->
 
-        <!-- - - - - - Spring - - - - - -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.18.24</version>
+            <scope>provided</scope>
+            <!--            <optional>true</optional>-->
         </dependency>
 
+        <!-- JAXB API only -->
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <!-- JAXB RI, Jakarta XML Binding -->
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>3.0.0</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
@@ -163,10 +122,6 @@
 
         <plugins>
 
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
