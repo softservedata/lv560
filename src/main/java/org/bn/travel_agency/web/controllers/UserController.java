@@ -8,15 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+@RequestMapping("/user")
+public class UserController {
 
-	@GetMapping(value = "/users")
-	public String admin(Model model) {
+	@GetMapping("/hotels")
+	public String showHotels(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		model.addAttribute("name", auth.getName());
-		return "admin/index";
+		return "user/index";
 	}
-
 }
