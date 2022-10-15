@@ -5,11 +5,14 @@ import org.bn.travel_agency.entities.User;
 import org.bn.travel_agency.repositories.RoleRepository;
 import org.bn.travel_agency.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,4 +42,23 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findAll();
 	}
 
+	@Override
+	public List<User> findAllUsers() {
+		return userRepository.findAll().stream()
+				.filter(user -> user.getRoles().contains(new Role(1L)))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<User> findAllUsers(Integer page, Integer pageSize) {
+		Pageable pageable = PageRequest.of(page, pageSize);
+		return userRepository.findAll(pageable).getContent().stream()
+				.filter(user -> user.getRoles().contains(new Role(1L)))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public User findUserById(Long id) {
+		return userRepository.getUserById(id);
+	}
 }

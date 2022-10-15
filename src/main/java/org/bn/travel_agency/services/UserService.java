@@ -9,6 +9,12 @@ public interface UserService {
 
 	User findByUsername(String username);
 
+	User findUserById(Long id);
+
 	List<User> findAll();
+
+	List<User> findAllUsers();
+	List<User> findAllUsers(Integer page, Integer pageSize);
+
 
 }

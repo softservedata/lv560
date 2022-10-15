@@ -11,11 +11,11 @@ public class MainController {
 	@GetMapping(value = "/login")
 	public String login(Model model, String error, String logout) {
 		if (error != null) {
-			model.addAttribute("error", "Username or password is incorrect.");
+			model.addAttribute("error", "Username or password is incorrect");
 		}
 
 		if (logout != null) {
-			model.addAttribute("message", "Logged out successfully.");
+			model.addAttribute("message", "You've successfully logged out");
 		}
 
 		return "login";

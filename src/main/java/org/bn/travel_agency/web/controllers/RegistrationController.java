@@ -22,14 +22,14 @@ public class RegistrationController {
 	@Autowired
 	private UserValidator userValidator;
 
-	@GetMapping(value = "/")
+	@GetMapping
 	public String registration(Model model) {
 		model.addAttribute("userForm", new User());
 
 		return "registration";
 	}
 
-	@PostMapping(value = "/")
+	@PostMapping
 	public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
 		userValidator.validate(userForm, bindingResult);
 
