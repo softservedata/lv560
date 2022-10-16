@@ -62,7 +62,6 @@
         this.style.setProperty('--y', y + 'px')
     });
 </script>
-<%--<script src="${contextPath}/resources/js/bootstrap.min.js"></script>--%>
 
 </body>
 </html>
