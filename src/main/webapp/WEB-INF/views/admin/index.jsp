@@ -9,31 +9,59 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <title>Travel agency</title>
-
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${contextPath}/resources/css/reset.css" rel='stylesheet'>
+    <link href="${contextPath}/resources/css/main.min.css" rel="stylesheet">
 </head>
 
 <body>
-<div class="container">
+
+<header>
+    <div class="header-container">
+        <span id="username"> ${principalName}</span>
+        <span>| </span><span style="color: red;">ADMIN</span>
+    </div>
     <form id="logoutForm" method="post" action="${contextPath}/logout">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
-    <h2>Admin ${name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
-    </h2>
-    <h2>${message}</h2>
-    <br>
+    <button class="logout-btn" onclick="document.forms['logoutForm'].submit()" type="button">Logout <i
+            class="fa fa-sign-out"></i></button>
+</header>
 
-    <c:forEach var="user" items="${users}">
-        <a href="/admin/user/${user.id}">${user.username}</a>
-    </c:forEach>
+<div class="major-block">
+    <section class="left-sec">
+        <div class="left-sec_block">
+            <a class="active" href="">Users</a>
+            <a href="/admin/hotels">Hotels</a>
+        </div>
+    </section>
+    <section class="right-sec">
+        <div class="entities">
+            <c:forEach var="user" items="${users}">
+                <div class="entity-item-wrapper">
+                    <div class="entity-item">
+                        <a class="entity-link" href="/admin/user/${user.id}">${user.username}</a>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </section>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+
+<script>
+    $(".entity-item").mousemove(function (e, btn) {
+        const x = e.pageX - this.offsetLeft
+        const y = e.pageY - this.offsetTop
+
+        this.style.setProperty('--x', x + 'px')
+        this.style.setProperty('--y', y + 'px')
+    });
+</script>
 
 </body>
 </html>

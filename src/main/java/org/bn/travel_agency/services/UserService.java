@@ -16,5 +16,7 @@ public interface UserService {
 	List<User> findAllUsers();
 	List<User> findAllUsers(Integer page, Integer pageSize);
 
+	void updateUserById(long id, User newUserEntity);
 
+	void deleteUserById(long id);
 }
