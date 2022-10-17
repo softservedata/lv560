@@ -11,6 +11,11 @@ public class LocationServiceImpl implements LocationService {
 	private LocationRepository locationRepository;
 
 	@Override
+	public void save(Location location) {
+		locationRepository.save(location);
+	}
+
+	@Override
 	public Location findLocationByName(String name) {
 		return locationRepository.getLocationByName(name);
 	}

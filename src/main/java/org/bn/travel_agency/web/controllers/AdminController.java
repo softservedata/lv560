@@ -88,7 +88,10 @@ public class AdminController {
 	public String saveHotel(@ModelAttribute("hotel") Hotel hotel, Model model) {
 
 		Location location = locationService.findLocationByName(hotel.getLocationName());
-		System.out.println(location);
+		if (location == null) {
+			locationService.save(new Location(hotel.getLocationName()));
+		}
+		location = locationService.findLocationByName(hotel.getLocationName());
 		hotel.setLocation(location);
 		hotelService.save(hotel);
 		hotelService.createRooms(hotel, hotel.getNumberOfRooms(), hotel.getPriceForRoom());

@@ -35,7 +35,7 @@
         </div>
     </section>
     <section class="right-sec">
-        <form:form method="post" action="/admin/hotel/${hotel.id}/reserve" modelAttribute="hotel" id="wrap"
+        <form:form method="post" action="/user/hotel/${hotel.id}/reserve" modelAttribute="hotel" id="wrap"
                    class="input-content buy-content">
             <h2>Reserve room in hotel "${hotel.name}"</h2>
             <form:hidden path="id"/>

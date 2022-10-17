@@ -66,7 +66,7 @@
                     </dd>
                 </dl>
                 <dl class="inputbox">
-                    <dt class="inputbox-title">Hotel's price for room:</dt>
+                    <dt class="inputbox-title" style="line-height: 1">Hotel's price for room <br>per day(USD):</dt>
                     <dd class="inputbox-content">
                         <form:input path="priceForRoom" id="priceForRoom" type="text"></form:input>
                         <label for="priceForRoom">price for room:</label>

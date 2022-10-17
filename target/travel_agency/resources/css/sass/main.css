@@ -217,6 +217,109 @@ input:focus {
   outline: none;
 }
 
+.interactive-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.hotel-container {
+  position: relative;
+  width: 35vw;
+  margin-left: -2vw;
+}
+
+.hotel-container img {
+  width: 100%;
+}
+
+.rooms-container {
+  top: 9.5vw;
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(8, 3vw);
+  width: 100%;
+  justify-items: center;
+  align-items: end;
+  justify-content: center;
+}
+
+.rooms-container .room {
+  width: 1.8vw;
+  height: 1.8vw;
+  background-color: #ffffff;
+  margin: 0.3vw 0;
+  display: inline-block;
+  transition: all 0.18s ease-in-out;
+  cursor: pointer;
+}
+
+.rooms-container .room:hover {
+  background-color: #27b81d;
+  transform: scale(1.1);
+}
+
+.rooms-container .active-room {
+  background-color: #27b81d;
+  transform: scale(1.1);
+}
+
+.reserve-btn {
+  margin-top: 50px;
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+#input_calendar {
+  opacity: 0;
+  z-index: -100;
+  cursor: default;
+}
+
+#data-form, #data-form_wrapper {
+  position: absolute;
+  z-index: -100;
+  opacity: 0;
+}
+
+.reservation-data {
+  margin: 15px 0;
+  transition: opacity 0.15s ease-in-out;
+  opacity: 0;
+}
+
+.reservation-data h3 {
+  display: block;
+  padding-bottom: 15px;
+  font-weight: bold;
+}
+
+.reservation-data p {
+  transition: all 0.1s ease-in-out;
+}
+
+.reserve-btn_wrapper {
+  display: flex;
+  justify-content: end;
+}
+
+.reserve-btn {
+  margin-top: 14px;
+}
+
+#wrap {
+  padding-top: 20px;
+}
+
+.reserve-btn {
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+  z-index: -100;
+}
+
 /* FA CSS import */
 a, a:link, a:visited, a:hover, a:active {
   text-decoration: none;
