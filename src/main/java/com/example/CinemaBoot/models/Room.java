@@ -1,16 +1,13 @@
 package com.example.CinemaBoot.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "rooms")
@@ -26,7 +23,7 @@ public class Room {
     private String name;
 
     @OneToMany(mappedBy = "room")
-    @Getter(onMethod_=@JsonManagedReference)
+    @Getter(onMethod_=@JsonIgnore)
     private List<Seat> seats;
 
 }
