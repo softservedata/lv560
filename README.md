@@ -34,6 +34,11 @@ time is formated hh:mm.
 
 Example: `GET localhost:8881/api/session/2022-10-22/11:30`
 
+`GET localhost:8881/api/session/{date}/{time}/seats`
+returns an array of seats for the session
+where date is formated yyyy-mm-dd,
+time is formated hh:mm.
+
 ## User object
 
 ```json

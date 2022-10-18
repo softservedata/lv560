@@ -8,6 +8,7 @@ import com.example.CinemaBoot.models.Session;
 import com.example.CinemaBoot.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,14 +24,14 @@ public class SessionController {
     @Autowired
     SessionService sessionService;
 
-    @RequestMapping("/{dateString}")
+    @GetMapping("/{dateString}")
     public List<Session> getSessionsByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString) {
         List<Session> sessions = sessionService.getAllSessionsByDate(parseDate(dateString));
         setOccupiedSeats(sessions);
         return sessions;
     }
 
-    @RequestMapping("/{dateString}/{timeString}")
+    @GetMapping("/{dateString}/{timeString}")
     public Session getSessionByDateAndTime(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString,
                                  @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString
@@ -41,6 +42,14 @@ public class SessionController {
         }
         setOccupiedSeats(session.get());
         return session.get();
+    }
+
+    @GetMapping("/{dateString}/{timeString}/seats")
+    public List<Seat> getSessionRoomsByDateAndTime(
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString
+    ) {
+        return getSessionByDateAndTime(dateString, timeString).getRoom().getSeats();
     }
 
     private Date parseDate(String dateString) {
