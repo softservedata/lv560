@@ -47,14 +47,20 @@ http://www.springframework.org/schema/util/spring-util.xsd">
 </bean>
  -->
 
- 
+ <!--
 <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
     <property name="url" value="jdbc:mysql://192.168.198.128:3306/lv560?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
     <property name="username" value="lv667"/>
     <property name="password" value="Pmp-31-32uni"/>
 </bean>
-
+-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.postgresql.Driver"/>
+		<property name="url" value="jdbc:postgresql://localhost:5432/person"/>
+		<property name="username" value="postgres"/>
+		<property name="password" value="root"/>
+	</bean>
 
 	<!-- <bean id="sessionFactory"
 		 class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">  -->
@@ -83,7 +89,8 @@ http://www.springframework.org/schema/util/spring-util.xsd">
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.dialect">${jdbc.dialect}</prop> -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+<!--				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>-->
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</prop>
 				<prop key="hibernate.connection.charSet">UTF-8</prop>
 			</props>
 		</property>
