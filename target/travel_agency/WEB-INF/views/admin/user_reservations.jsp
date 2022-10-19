@@ -16,9 +16,7 @@
     <link href="${contextPath}/resources/css/reset.css" rel='stylesheet'>
     <link href="${contextPath}/resources/css/main.min.css" rel="stylesheet">
 </head>
-
 <body>
-
 <header>
     <div class="header-container">
         <span id="username"> ${principalName}</span>
@@ -34,17 +32,20 @@
 <div class="major-block">
     <section class="left-sec">
         <div class="left-sec_block">
-            <a class="active" href="">Users</a>
+            <a href="/admin/users">Users</a>
             <a href="/admin/hotels">Hotels</a>
-            <a href="/admin/reservations">Reservations</a>
+            <a class="active" href="">Reservations</a>
         </div>
     </section>
     <section class="right-sec">
         <div class="entities">
-            <c:forEach var="user" items="${users}">
+            <c:forEach var="reservation" items="${reservations}">
                 <div class="entity-item-wrapper">
                     <div class="entity-item">
-                        <a class="entity-link" href="/admin/user/${user.id}">${user.username}</a>
+                        <a class="entity-link" href="/admin/reservation/${reservation.id}">
+<%--                                ${reservation.id}--%>
+                                ${reservation.user.username},
+                            hotel "${reservation.room.hotel.name}"</a>
                     </div>
                 </div>
             </c:forEach>
@@ -63,6 +64,5 @@
         this.style.setProperty('--y', y + 'px')
     });
 </script>
-
 </body>
 </html>

@@ -20,6 +20,7 @@
 <header>
     <div class="header-container">
         <span id="username"> ${principalName}</span>
+        <span>| </span><span style="color: red;">$${principalAmountOfMoney}</span>
     </div>
     <form id="logoutForm" method="post" action="${contextPath}/logout">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

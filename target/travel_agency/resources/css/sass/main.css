@@ -268,9 +268,11 @@ input:focus {
 }
 
 .calendar-container {
+  transition: opacity 0.15s ease-in-out;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  opacity: 0;
 }
 
 #input_calendar {

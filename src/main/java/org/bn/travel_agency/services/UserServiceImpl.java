@@ -1,15 +1,21 @@
 package org.bn.travel_agency.services;
 
+import org.bn.travel_agency.entities.Reservation;
 import org.bn.travel_agency.entities.Role;
+import org.bn.travel_agency.entities.Room;
 import org.bn.travel_agency.entities.User;
-import org.bn.travel_agency.repositories.RoleRepository;
+import org.bn.travel_agency.repositories.ReservationRepository;
+import org.bn.travel_agency.repositories.RoomRepository;
 import org.bn.travel_agency.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,8 +26,13 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 
 	@Autowired
-	private RoleRepository roleRepository;
+	private RoomRepository roomRepository;
 
+	@Autowired
+	private ReservationRepository reservationRepository;
+
+	@Autowired
+	private ReservationService reservationService;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -61,6 +72,7 @@ public class UserServiceImpl implements UserService {
 	public User findUserById(Long id) {
 		return userRepository.getUserById(id);
 	}
+
 	@Override
 	public void updateUserById(long id, User newUserEntity) {
 		User targetUser = userRepository.getUserById(id);
@@ -74,6 +86,31 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void deleteUserById(long id) {
+
+		User user = userRepository.getUserById(id);
+		if (!user.getReservations().isEmpty()) {
+			for (Reservation reservation : user.getReservations()) {
+				reservationService.delete(reservation);
+			}
+		}
 		userRepository.deleteById(id);
+	}
+
+	@Override
+	@Transactional
+	public boolean reserveRoom(long userId, long roomId, String startDate, String endDate) {
+		User user = userRepository.getUserById(userId);
+		Room room = roomRepository.getRoomById(roomId);
+
+		long numberOfDaysBetween = 1 + ChronoUnit.DAYS.between(LocalDate.parse(startDate), LocalDate.parse(endDate));
+		long price = room.getPrice() * numberOfDaysBetween;
+
+		if (user.getAmountOfMoney() >= price) {
+			user.setAmountOfMoney((user.getAmountOfMoney() - price));
+			reservationRepository.save(new Reservation(user, room, startDate, endDate, price));
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package org.bn.travel_agency.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -24,11 +25,14 @@ public class User {
 	private String confirmPassword;
 
 	@Column(name = "amount_of_money")
-	private int amountOfMoney;
+	private long amountOfMoney;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<Reservation> reservations;
 
 	public User() {
 
@@ -82,11 +86,11 @@ public class User {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public int getAmountOfMoney() {
+	public long getAmountOfMoney() {
 		return amountOfMoney;
 	}
 
-	public void setAmountOfMoney(int amountOfMoney) {
+	public void setAmountOfMoney(long amountOfMoney) {
 		this.amountOfMoney = amountOfMoney;
 	}
 
@@ -96,6 +100,27 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Set<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
+		return Objects.equals(id, user.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
 	@Override

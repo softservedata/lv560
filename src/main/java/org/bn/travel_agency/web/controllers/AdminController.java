@@ -2,9 +2,11 @@ package org.bn.travel_agency.web.controllers;
 
 import org.bn.travel_agency.entities.Hotel;
 import org.bn.travel_agency.entities.Location;
+import org.bn.travel_agency.entities.Reservation;
 import org.bn.travel_agency.entities.User;
 import org.bn.travel_agency.services.HotelService;
 import org.bn.travel_agency.services.LocationService;
+import org.bn.travel_agency.services.ReservationService;
 import org.bn.travel_agency.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +26,9 @@ public class AdminController {
 
 	@Autowired
 	private LocationService locationService;
+
+	@Autowired
+	private ReservationService reservationService;
 
 	@GetMapping(value = "/users")
 	public String showUsers(Model model) {
@@ -123,5 +128,37 @@ public class AdminController {
 	public String deleteHotel(@PathVariable long id) {
 		hotelService.deleteHotelById(id);
 		return "redirect:/admin/hotels";
+	}
+
+	@GetMapping(value = "/reservations")
+	public String showReservations(Model model) {
+		return "redirect:reservations/page_1";
+	}
+
+	@GetMapping("/reservations/page_{number}")
+	public String showReservationsPageable(@PathVariable("number") int number, Model model) {
+		model.addAttribute("reservations", reservationService.findAllReservations(number - 1, 101));
+		model.addAttribute("principalName", SecurityContextHolder.getContext().getAuthentication().getName());
+
+		return "admin/user_reservations";
+	}
+	@GetMapping("/reservation/{id}")
+	public String showReservationInfo(@PathVariable("id") long id, Model model) {
+		Reservation reservation = reservationService.findReservationById(id);
+
+		model.addAttribute("reservation", reservation);
+		model.addAttribute("principalName", SecurityContextHolder.getContext().getAuthentication().getName());
+
+		return "admin/reservation_info";
+	}
+
+	@PostMapping("/reservation/{id}/cancel")
+	public String cancelReservation(@PathVariable("id") long id, Model model) {
+
+		Reservation reservation = reservationService.findReservationById(id);
+
+		reservationService.delete(reservation);
+
+		return "redirect:/admin/reservations";
 	}
 }

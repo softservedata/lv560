@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="input" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -26,6 +27,7 @@
 <header>
     <div class="header-container">
         <span> ${principalName}</span>
+        <span>| </span><span style="color: red;">$${principalAmountOfMoney}</span>
     </div>
     <form id="logoutForm" method="post" action="${contextPath}/logout">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -63,15 +65,16 @@
                     <div class="hotel-container">
                         <div class="rooms-container"
                              style="grid-template-columns: repeat(${numberOfColumns}, ${columnWidth}vw)">
-                            <%--                            <div class="room" id="1"></div>--%>
-                            <c:forEach var="room" items="${rooms}">
-                                <div class="room"
-                                     style="height: ${cubeWidth}vw; width: ${cubeWidth}vw; margin: ${(columnWidth-cubeWidth)/4}vw 0 "
-                                     data-price="${room.price}" id="${room.id}"></div>
+                            <c:forEach var="room_" items="${rooms}">
+                                <a title="Price per day: ${room_.price}"
+                                   class="room <c:if test="${room.id==room_.id}">active-room</c:if>"
+                                   href="/user/hotel/${hotel.id}/room/${room_.id}"
+                                   style="height: ${cubeWidth}vw; width: ${cubeWidth}vw; margin: ${(columnWidth-cubeWidth)/4}vw 0 "
+                                   data-price="${room_.price}" id="${room_.id}"></a>
 
                             </c:forEach>
                         </div>
-                        <img src="../../../resources/hotel.png" alt="hotel">
+                        <img src="${contextPath}/resources/hotel.png" alt="hotel">
                     </div>
                     <div class="calendar-container">
                         <form>
@@ -104,6 +107,23 @@
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
+    <c:if test="${room != null}">
+    id = ${room.id}
+        $("#input_room-id").val(id)
+    roomPriceByDay = ${room.price}
+        $(".calendar-container").css({
+            opacity: '1'
+        })
+    $(".reservation-data").css({
+        opacity: '0'
+    })
+    $("#reservation-data_room-id").text("Room number: " + id)
+    setTimeout(function () {
+        $(".reservation-data").css({
+            opacity: '1'
+        })
+    }, 80);
+    </c:if>
     config = {
         onChange: function (selectedDates, dateStr, instance) {
             dateRange = dateStr.split(" to ")
@@ -129,30 +149,20 @@
         },
         inline: true,
         mode: "range",
-        minDate: "today"
+        minDate: "today",
+        <c:if test="${reservations!=null}">
+        disable: [
+            <c:forEach var="reservation" items="${reservations}">
+            {
+              from: "${reservation.startDate}",
+                to: "${reservation.endDate}"
+            },
+            </c:forEach>
+        ]
+        </c:if>
     }
     flatpickr("input[type=datetime-local]", config)
     previous = 0;
-    $('.room').click(function () {
-
-        $(previous).removeClass('active-room')
-        previous = this
-        id = $(this).attr('id')
-        $("#input_room-id").val(id)
-        $(this).toggleClass('active-room')
-        roomPriceByDay = $(this).data("price")
-
-        $(".reservation-data").css({
-            opacity: '0'
-        })
-        $("#reservation-data_room-id").text("Room number: " + id)
-        setTimeout(function () {
-            $(".reservation-data").css({
-                opacity: '1'
-            })
-        }, 80);
-        priceFunction()
-    })
     $(".reserve-btn").click(function () {
         document.getElementById('data-form').submit()
     })

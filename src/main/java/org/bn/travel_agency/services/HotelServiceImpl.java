@@ -1,6 +1,7 @@
 package org.bn.travel_agency.services;
 
 import org.bn.travel_agency.entities.Hotel;
+import org.bn.travel_agency.entities.Reservation;
 import org.bn.travel_agency.entities.Room;
 import org.bn.travel_agency.repositories.HotelRepository;
 import org.bn.travel_agency.repositories.LocationRepository;
@@ -23,6 +24,8 @@ public class HotelServiceImpl implements HotelService {
 	@Autowired
 	private RoomRepository roomRepository;
 
+	@Autowired
+	private ReservationService reservationService;
 	@Override
 	public void save(Hotel hotel) {
 		hotelRepository.save(hotel);
@@ -45,6 +48,14 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public void deleteHotelById(long id) {
+		Hotel hotel = hotelRepository.getHotelById(id);
+		for (Room room : hotel.getRooms()) {
+			if (!room.getReservations().isEmpty()) {
+				for (Reservation reservation : room.getReservations()) {
+					reservationService.delete(reservation);
+				}
+			}
+		}
 		hotelRepository.deleteById(id);
 	}
 

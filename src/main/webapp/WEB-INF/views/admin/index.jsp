@@ -36,6 +36,7 @@
         <div class="left-sec_block">
             <a class="active" href="">Users</a>
             <a href="/admin/hotels">Hotels</a>
+            <a href="/admin/reservations">Reservations</a>
         </div>
     </section>
     <section class="right-sec">
