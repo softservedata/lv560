@@ -1,5 +1,6 @@
 package com.example.CinemaBoot.models;
 
+import com.example.CinemaBoot.exceptions.SessionBadRequestException;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -9,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -44,5 +47,13 @@ public class Session {
 
     @Temporal(TemporalType.TIME)
     private Date time;
+
+    public void setOccupiedSeats() {
+        for (Book book : getBooks()) {
+            for (Seat seat : book.getSeats()) {
+                seat.setOccupied(true);
+            }
+        }
+    }
 
 }

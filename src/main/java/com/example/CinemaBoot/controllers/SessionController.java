@@ -8,10 +8,7 @@ import com.example.CinemaBoot.models.Session;
 import com.example.CinemaBoot.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,7 +24,7 @@ public class SessionController {
     @GetMapping("/{dateString}")
     public List<Session> getSessionsByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString) {
         List<Session> sessions = sessionService.getAllSessionsByDate(parseDate(dateString));
-        setOccupiedSeats(sessions);
+        SessionService.setOccupiedSeats(sessions);
         return sessions;
     }
 
@@ -40,7 +37,7 @@ public class SessionController {
         if (session.isEmpty()) {
             throw new SessionNotFoundException("No session for date:" + dateString + ", time:" + timeString);
         }
-        setOccupiedSeats(session.get());
+        session.get().setOccupiedSeats();
         return session.get();
     }
 
@@ -50,6 +47,25 @@ public class SessionController {
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString
     ) {
         return getSessionByDateAndTime(dateString, timeString).getRoom().getSeats();
+    }
+
+    @GetMapping("/dates")
+    public Set<Date> getSessionDates() {
+        return sessionService.getAllDistinctByDate();
+    }
+
+    @PostMapping("/{dateString}/{timeString}/new")
+    public Map<String, Long> createNewSession(
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString,
+            @RequestBody Session session
+    ) {
+        session.setDate(parseDate(dateString));
+        session.setTime(parseTime(timeString));
+        long id = sessionService
+                .save(session)
+                .getId();
+        return Map.of("id", id);
     }
 
     private Date parseDate(String dateString) {
@@ -68,18 +84,4 @@ public class SessionController {
         }
     }
 
-    private void setOccupiedSeats(List<Session> sessions) {
-        for (Session session : sessions) {
-            setOccupiedSeats(session);
-        }
-    }
-
-    private void setOccupiedSeats(Session session) {
-        for (Book book : session.getBooks()) {
-            for (Seat seat : book.getSeats()) {
-                seat.setOccupied(true);
-            }
-        }
-        return;
-    }
 }
