@@ -66,6 +66,8 @@ public class MainController {
             return "redirect:/personList";
         }
         System.out.println("***ERROR, errorMessage = " + errorMessage);
+        //
+        model.addAttribute("personDto", personDto);
         model.addAttribute("errorMessage", errorMessage);
         return "addPerson";
     }
