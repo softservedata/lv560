@@ -1,7 +1,13 @@
 .interactive-container
 	display: flex
 	justify-content: space-around
+	position: relative
 
+.interactive-container-blocker
+	position: absolute
+	height: 100%
+	width: 100%
+	z-index: 100
 .hotel-container
 	position: relative
 	width: 35vw
@@ -32,6 +38,9 @@
 	.active-room
 		background-color: #27b81d
 		transform: scale(1.1)
+	.disabled-room
+		pointer-events: none
+		opacity: .6
 
 .reserve-btn
 	margin-top: 50px
@@ -65,7 +74,7 @@
 	p 
 		transition: all 0.1s ease-in-out
 
-.reserve-btn_wrapper
+.reserve-btn_wrapper, .cancel-btn_wrapper
 	display: flex
 	justify-content: end
 

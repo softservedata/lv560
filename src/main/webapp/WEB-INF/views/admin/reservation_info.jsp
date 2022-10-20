@@ -43,7 +43,7 @@
         </div>
     </section>
     <section class="right-sec">
-        <form method="post" id="wrap" class="input-content">
+        <div id="wrap" class="input-content">
             <h2>Reservation details:</h2>
             <div class="input-content-wrap">
                 <dl class="inputbox">
@@ -61,7 +61,7 @@
                 <dl class="inputbox">
                     <dt class="inputbox-title">Hotel, location:</dt>
                     <dd class="inputbox-content">
-                        <span>${reservation.room.hotel.name}, ${reservation.room.hotel.locationName}</span>
+                        <span>${reservation.room.hotel.name}, ${reservation.room.hotel.location.name}</span>
                     </dd>
                 </dl>
                 <dl class="inputbox">
@@ -73,17 +73,17 @@
                 <dl class="inputbox">
                     <dt class="inputbox-title">Price per day, arrival <br>and departure days:</dt>
                     <dd class="inputbox-content">
-                        <span>${reservation.room.price}, from ${reservation.startDate} to ${reservation.endDate}</span>
+                        <span>$${reservation.room.price}, from ${reservation.startDate} to ${reservation.endDate}</span>
                     </dd>
                 </dl>
                 <dl class="inputbox">
                     <dt class="inputbox-title">Final price:</dt>
                     <dd class="inputbox-content">
-                        <span>${reservation.finalPrice}</span>
+                        <span>$${reservation.finalPrice}</span>
                     </dd>
                 </dl>
             </div>
-        </form>
+        </div>
         <div class="delete-btn_wrapper">
             <form:form method="post" action="/admin/reservation/${reservation.id}/cancel">
                 <a class="delete-btn">

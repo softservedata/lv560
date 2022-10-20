@@ -16,11 +16,13 @@
     <link href="${contextPath}/resources/css/reset.css" rel='stylesheet'>
     <link href="${contextPath}/resources/css/main.min.css" rel="stylesheet">
 </head>
+
 <body>
+
 <header>
     <div class="header-container">
-        <span id="username"> ${principalName}</span>
-        <span>| </span><span style="color: red;">ADMIN</span>
+        <span id="username"> ${principal.username}</span>
+        <span>| </span><span style="color: red;">$${principal.amountOfMoney}</span>
     </div>
     <form id="logoutForm" method="post" action="${contextPath}/logout">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -32,9 +34,8 @@
 <div class="major-block">
     <section class="left-sec">
         <div class="left-sec_block">
-            <a href="/admin/users">Users</a>
-            <a href="/admin/hotels">Hotels</a>
-            <a class="active" href="/admin/reservations">Reservations</a>
+            <a href="/user/hotels">Hotels</a>
+            <a class="active" href="/user/reservations">My reservations</a>
         </div>
     </section>
     <section class="right-sec">
@@ -42,10 +43,9 @@
             <c:forEach var="reservation" items="${reservations}">
                 <div class="entity-item-wrapper">
                     <div class="entity-item">
-                        <a class="entity-link" href="/admin/reservation/${reservation.id}">
-<%--                                ${reservation.id}--%>
-                                ${reservation.user.username},
-                            hotel "${reservation.room.hotel.name}"</a>
+                        <a class="entity-link"
+                           href="/user/reservation/${reservation.id}">"${reservation.room.hotel.name}",
+                                ${reservation.room.hotel.location.name}</a>
                     </div>
                 </div>
             </c:forEach>
@@ -64,5 +64,6 @@
         this.style.setProperty('--y', y + 'px')
     });
 </script>
+
 </body>
 </html>

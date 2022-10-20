@@ -26,8 +26,8 @@
 <body>
 <header>
     <div class="header-container">
-        <span> ${principalName}</span>
-        <span>| </span><span style="color: red;">$${principalAmountOfMoney}</span>
+        <span id="username"> ${principal.username}</span>
+        <span>| </span><span style="color: red;">$${principal.amountOfMoney}</span>
     </div>
     <form id="logoutForm" method="post" action="${contextPath}/logout">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -40,6 +40,7 @@
     <section class="left-sec">
         <div class="left-sec_block">
             <a class="active" href="/user/hotels">Hotels</a>
+            <a href="/user/reservations">My reservations</a>
         </div>
     </section>
     <section class="right-sec">
@@ -150,6 +151,9 @@
         inline: true,
         mode: "range",
         minDate: "today",
+        "locale": {
+            "firstDayOfWeek": 1
+        },
         <c:if test="${reservations!=null}">
         disable: [
             <c:forEach var="reservation" items="${reservations}">

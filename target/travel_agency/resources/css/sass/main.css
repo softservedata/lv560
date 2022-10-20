@@ -220,6 +220,14 @@ input:focus {
 .interactive-container {
   display: flex;
   justify-content: space-around;
+  position: relative;
+}
+
+.interactive-container-blocker {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
 }
 
 .hotel-container {
@@ -263,6 +271,11 @@ input:focus {
   transform: scale(1.1);
 }
 
+.rooms-container .disabled-room {
+  pointer-events: none;
+  opacity: .6;
+}
+
 .reserve-btn {
   margin-top: 50px;
 }
@@ -303,7 +316,7 @@ input:focus {
   transition: all 0.1s ease-in-out;
 }
 
-.reserve-btn_wrapper {
+.reserve-btn_wrapper, .cancel-btn_wrapper {
   display: flex;
   justify-content: end;
 }
@@ -323,6 +336,20 @@ input:focus {
 }
 
 /* FA CSS import */
+html::-webkit-scrollbar {
+  width: .6vw;
+  transition: all 1s ease-in-out;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: #7775;
+  border-radius: 1vw;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
+}
+
 a, a:link, a:visited, a:hover, a:active {
   text-decoration: none;
   cursor: pointer;

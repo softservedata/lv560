@@ -1,9 +1,11 @@
 package org.bn.travel_agency.web.controllers;
 
 import org.bn.travel_agency.entities.Hotel;
+import org.bn.travel_agency.entities.Reservation;
 import org.bn.travel_agency.entities.Room;
 import org.bn.travel_agency.entities.User;
 import org.bn.travel_agency.services.HotelService;
+import org.bn.travel_agency.services.ReservationService;
 import org.bn.travel_agency.services.RoomService;
 import org.bn.travel_agency.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +23,10 @@ public class UserController {
 	private HotelService hotelService;
 	@Autowired
 	private RoomService roomService;
-
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ReservationService reservationService;
 
 	@GetMapping("/hotels")
 	public String showHotels() {
@@ -34,8 +37,7 @@ public class UserController {
 	public String showHotelsPageable(@PathVariable("number") int number, Model model) {
 
 		model.addAttribute("hotels", hotelService.findAllHotels(number - 1, 101));
-		model.addAttribute("principalName", SecurityContextHolder.getContext().getAuthentication().getName());
-		model.addAttribute("principalAmountOfMoney", userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getAmountOfMoney());
+		model.addAttribute("principal", userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
 
 		return "user/index";
 	}
@@ -44,7 +46,7 @@ public class UserController {
 	public String showHotelInfo(@PathVariable("id") long id, Model model) {
 		addReservationPageData(id, model);
 
-		return "user/reservation";
+		return "user/new_reservation";
 	}
 
 	@GetMapping("/hotel/{id}/room/{roomId}")
@@ -55,7 +57,7 @@ public class UserController {
 		Room room = roomService.findRoomById(roomId);
 		model.addAttribute("room", room);
 		model.addAttribute("reservations", room.getReservations());
-		return "user/reservation";
+		return "user/new_reservation";
 	}
 
 	@PostMapping("/hotel/{id}/reserve")
@@ -85,7 +87,38 @@ public class UserController {
 		model.addAttribute("cubeWidth", cubeWidth);
 		model.addAttribute("columnWidth", Math.ceil(cubeWidth) + 1);
 
-		model.addAttribute("principalName", SecurityContextHolder.getContext().getAuthentication().getName());
-		model.addAttribute("principalAmountOfMoney", userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getAmountOfMoney());
+		User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+		model.addAttribute("principal", user);
 	}
+
+	@GetMapping("/reservations")
+	public String showReservations(Model model) {
+		User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+
+		model.addAttribute("reservations", user.getReservations());
+		model.addAttribute("principal", user);
+
+		return "user/my_reservations";
+	}
+
+	@GetMapping("/reservation/{id}")
+	public String showReservationInfo(@PathVariable("id") long id, Model model) {
+		User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+		Reservation reservation = reservationService.findReservationById(id);
+		Hotel hotel =reservation.getRoom().getHotel();
+		double cubeWidth = 1.8 * (24. / (Math.round(Math.sqrt(hotel.getRooms().size())))) / 3 * 0.85;
+
+		model.addAttribute("numberOfColumns", Math.round(Math.sqrt(hotel.getRooms().size())));
+		model.addAttribute("cubeWidth", cubeWidth);
+		model.addAttribute("columnWidth", Math.ceil(cubeWidth) + 1);
+
+		model.addAttribute("rooms", hotel.getRooms().stream()
+				.sorted((room1, room2) -> (int) (room2.getId() - room1.getId()))
+				.collect(Collectors.toList()));
+		model.addAttribute("reservation", reservation);
+		model.addAttribute("principal", user);
+
+		return "user/reservation_info";
+	}
+
 }
