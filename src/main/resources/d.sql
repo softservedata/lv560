@@ -1,13 +1,13 @@
-insert into users (id, email, is_admin, password)
-values (1, 'admin@mail.com', true, '12345');
-insert into users (id, email, is_admin, password)
-values (2, 'user@mail.com', false, '12345');
-insert into users (id, email, is_admin, password)
-values (3, 'johnyGuitar@mail.com', false, '12345');
-insert into users (id, email, is_admin, password)
-values (4, 'danMiller@mail.com', false, '12345');
-insert into users (id, email, is_admin, password)
-values (5, 'stanLee@mail.com', false, '12345');
+insert into users (id, email, gender, is_admin, password)
+values (1, 'admin@mail.com', 1, true, '12345');
+insert into users (id, email, gender, is_admin, password)
+values (2, 'user@mail.com', 1, false, '12345');
+insert into users (id, email, gender, is_admin, password)
+values (3, 'johnyGuitar@mail.com', 2, false, '12345');
+insert into users (id, email, gender, is_admin, password)
+values (4, 'danMiller@mail.com', 2, false, '12345');
+insert into users (id, email, gender, is_admin, password)
+values (5, 'stanLee@mail.com', 2, false, '12345');
 
 insert into rooms (id, name)
 values (1, 'saturn');

@@ -1,5 +1,6 @@
 package com.example.CinemaBoot.models;
 
+import com.example.CinemaBoot.utils.GenderConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,9 @@ public class User {
     private long id;
 
     private String email;
+
+    @Convert(converter = GenderConverter.class)
+    Gender gender;
 
     @Getter(onMethod_=@JsonIgnore)
     private String password;

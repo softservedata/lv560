@@ -1,6 +1,7 @@
 package com.example.CinemaBoot.controllers;
 
 import com.example.CinemaBoot.dto.BookCreate;
+import com.example.CinemaBoot.dto.SessionCreate;
 import com.example.CinemaBoot.models.*;
 import com.example.CinemaBoot.services.BookService;
 import com.example.CinemaBoot.services.SessionService;
@@ -46,8 +47,17 @@ public class SessionController {
         return sessionService.getSessionDates();
     }
 
+//    @PostMapping("/{dateString}/{timeString}/create") public Map<String, Long>
+//    createNewSession(
+//            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString,
+//            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString,
+//            @RequestBody SessionCreate sessionDTO
+//    ) {
+//        return bookService.createNewBooking(dateString, timeString, bookDTO);
+//    }
+
     @PostMapping("/{dateString}/{timeString}/book") public Map<String, Long>
-    createNewSession(
+    bookNewSession(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString,
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString,
             @RequestBody BookCreate bookDTO

@@ -123,9 +123,11 @@ Returns the id of created booking:
 
 ```json
 {
+  "id": 1,
   "email": "admin@mail.com",
   "books": [
     {
+      "id": 1,
       "roomName": "saturn",
       "date": "2022-10-22",
       "time": "17:30:00",
@@ -150,8 +152,10 @@ Returns the id of created booking:
 
 | Key               | Format                 | Description                      |
 |-------------------|------------------------|----------------------------------|
+| id                | `int`                  | User unique id                   |
 | email             | `String`               | User email.                      |
 | books             | `json Object[]`        | An array of user bookings        |
+| books.id          | `int`                  | Book unique id                   |
 | books.roomName    | `String`               | Room name                        |
 | books.date        | `String`, `yyyy-MM-dd` | Session date                     |
 | books.time        | `String`, `hh:m m`     | Session time                     |

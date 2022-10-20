@@ -15,18 +15,24 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class BookGet {
 
+    private long id;
+
     private String roomName;
 
     private Date date;
 
     private Date time;
 
+    private String movieName;
+
     private List<Integer> seatNumbers;
 
     public BookGet(Book book) {
+        this.id = book.getId();
         this.roomName = book.getSession().getRoom().getName();
         this.date = book.getSession().getDate();
         this.time = book.getSession().getTime();
+        movieName = book.getSession().getMovie().getName();
         this.seatNumbers = book.getSeats().stream().map(Seat::getNumber).collect(Collectors.toList());
     }
 
