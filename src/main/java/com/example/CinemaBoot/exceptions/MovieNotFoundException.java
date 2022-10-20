@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class SeatIsOccupiedException extends RuntimeException {
+public class MovieNotFoundException extends RuntimeException {
 
-    public SeatIsOccupiedException(String cause) {
+    public MovieNotFoundException(String cause) {
         super(cause);
     }
 

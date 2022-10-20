@@ -26,11 +26,7 @@ public class RoomController {
 
     @RequestMapping("/{id}")
     public Room getRoomById(@PathVariable long id) {
-        Optional<Room> room = roomService.getById(id);
-        if (room.isEmpty()) {
-            throw new RoomNotFoundException("Room not found for id:" + id);
-        }
-        return room.get();
+        return roomService.getById(id);
     }
 
 }

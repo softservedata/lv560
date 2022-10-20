@@ -8,6 +8,7 @@ import com.example.CinemaBoot.models.Session;
 import com.example.CinemaBoot.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class BookService {
     @Autowired
     SeatService seatService;
 
+    @Transactional
     public Map<String, Long> createNewBooking(String dateString, String timeString, BookCreate bookDTO) {
         Book book = new Book();
         Session session = sessionService.getSessionByDateAndTime(dateString, timeString);

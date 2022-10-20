@@ -17,6 +17,8 @@ public interface SessionRepository extends CrudRepository<Session, Long> {
 
     Optional<Session> findByDateAndTime(Date date, Date time);
 
+    boolean existsByDateAndTime(Date date, Date time);
+
     List<Session> findDistinctByDateAfter(Date startDate);
 
 }

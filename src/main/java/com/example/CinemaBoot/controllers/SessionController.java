@@ -47,14 +47,14 @@ public class SessionController {
         return sessionService.getSessionDates();
     }
 
-//    @PostMapping("/{dateString}/{timeString}/create") public Map<String, Long>
-//    createNewSession(
-//            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString,
-//            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString,
-//            @RequestBody SessionCreate sessionDTO
-//    ) {
-//        return bookService.createNewBooking(dateString, timeString, bookDTO);
-//    }
+    @PostMapping("/{dateString}/{timeString}/create") public Map<String, Long>
+    createNewSession(
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString,
+            @RequestBody SessionCreate sessionDTO
+    ) {
+        return sessionService.createNewSession(dateString, timeString, sessionDTO);
+    }
 
     @PostMapping("/{dateString}/{timeString}/book") public Map<String, Long>
     bookNewSession(

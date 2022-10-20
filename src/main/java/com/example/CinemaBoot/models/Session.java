@@ -21,10 +21,10 @@ import java.util.stream.Collectors;
 public class Session {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "session_movie",
             joinColumns = @JoinColumn(name = "session_id"),
@@ -32,7 +32,7 @@ public class Session {
     @Getter(onMethod_=@JsonManagedReference)
     private Movie movie;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     private Room room;
 

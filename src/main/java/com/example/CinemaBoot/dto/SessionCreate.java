@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SessionCreate {
 
-    private long id;
-
     private long movieId;
 
     private long roomId;
