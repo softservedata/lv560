@@ -1,5 +1,6 @@
 package com.example.CinemaBoot.controllers;
 
+import com.example.CinemaBoot.dto.UserGet;
 import com.example.CinemaBoot.exceptions.UserNotFoundException;
 import com.example.CinemaBoot.models.Room;
 import com.example.CinemaBoot.models.User;
@@ -22,12 +23,12 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/all")
-    public List<User> getAllUsers() {
+    public List<UserGet> getAllUsers() {
         return userService.getAll();
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable long id) {
+    public UserGet getUserById(@PathVariable long id) {
         return userService.getById(id);
     }
 

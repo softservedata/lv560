@@ -32,7 +32,7 @@ public class BookService {
         Book book = new Book();
         Session session = sessionService.getSessionByDateAndTime(dateString, timeString);
         book.setSession(session);
-        book.setUser(userService.getById(bookDTO.getUserId()));
+        book.setUser(userService.findById(bookDTO.getUserId()));
 
         List<Seat> seats = new ArrayList<>();
         bookDTO.getSeats().forEach(seatNumber -> seats.add(seatService.getByRoomIdAndNumber(bookDTO.getRoomId(), seatNumber)));

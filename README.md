@@ -1,4 +1,4 @@
-User options
+# REST API
 
 ## Session object
 
@@ -19,65 +19,154 @@ User options
 }
 ```
 
+| Key         | Format                 | Description                                    |
+|-------------|------------------------|------------------------------------------------|
+| id          | `int`                  | Session unique id. Is generated automatically. |
+| movie       | `json Object`          | Session movie                                  |
+| movie.id    | `int`                  | Movie unique id. Is generated automatically.   |
+| movie.name  | `String`               | Name of the movie                              |
+| movie.genre | `String`               | Genre of the movie                             |
+| room        | `json Object`          | Session room                                   |
+| room.id     | `int`                  | Room unique id. Is generated automatically.    |
+| room.name   | `String`               | Room name                                      |
+| date        | `String`, `yyyy-MM-dd` | Session date                                   |
+| time        | `String`, `hh:mm`      | Session time                                   |
+
+## Seat object
+
+```json
+{
+        "id": 1,
+        "number": 1,
+        "occupied": true
+}
+```
+
+| Key         | Format                 | Description                                               |
+|-------------|------------------------|-----------------------------------------------------------|
+| id          | `int`                  | Seat unique id. Is generated automatically.               |
+| number      | `int`                  | Seat number                                               |
+| occupied    | `boolean`              | Indicates if the seat is already occupied for the session |
+
+## Book object
+
+```json
+{
+    "userId": 1,
+    "roomId": 1,
+    "seats": [1, 2, 3, 4, 5]
+}
+```
+
+| Key    | Format  | Description                        |
+|--------|---------|------------------------------------|
+| userId | `int`   | Id of the user who books a session |
+| roomId | `int`   | Id of the session room             |
+| seats  | `int[]` | An array of booked seats           |
+
 ## Session methods
 
-`GET localhost:8881/api/session/{date}`
-Returns an array of sessions,
-where date is formated yyyy-mm-dd.
+### GET
 
-Example: `GET localhost:8881/api/session/2022-10-22`
+`GET localhost:8881/api/session/{date}`
+
+Returns an array of sessions for the `date`.
+
+Returns status `200 OK` if successful
+
+| Path variable | Format                 | Description                                  |
+|---------------|------------------------|----------------------------------------------|
+| date          | `String`, `yyyy-MM-dd` | date to search sessions for, ex `2022-10-22` |
 
 `GET localhost:8881/api/session/{date}/{time}`
-Returns a session with that date and time,
-where date is formated yyyy-mm-dd,
-time is formated hh:mm.
 
-Example: `GET localhost:8881/api/session/2022-10-22/11:30`
+Returns a session for the `date` and `time`.
+
+Returns status `200 OK` if successful, status `404 Not Found` otherwise
+
+| Path variable | Format                 | Description                                  |
+|---------------|------------------------|----------------------------------------------|
+| date          | `String`, `yyyy-MM-dd` | date to search sessions for, ex `2022-10-22` |
+| time          | `String`, `hh:mm`      | time to get a session for, ex `11:30`        |
 
 `GET localhost:8881/api/session/{date}/{time}/seats`
-returns an array of seats for the session
-where date is formated yyyy-mm-dd,
-time is formated hh:mm.
+
+Returns an array of seats for chosen session
+
+Returns status `200 OK` if successful
+
+| Path variable | Format                 | Description                                  |
+|---------------|------------------------|----------------------------------------------|
+| date          | `String`, `yyyy-MM-dd` | date to search sessions for, ex `2022-10-22` |
+| time          | `String`, `hh:mm`      | time to get a session for, ex `11:30`        |
+
+`GET localhost:8881/api/session/dates`
+
+Returns an array of unique session dates
+
+Returns status `200 OK` if successful
+
+### POST
+
+`POST localhost:8881/api/session/2022-10-22/11:30/book`
+
+Creates a booking. Accepts [Book object](#Book-object).
+
+Returns the id of created booking:
+```json
+{
+    "id": 6
+}
+```
 
 ## User object
 
 ```json
 {
-  "id": 2,
-  "email": "user@mail.com",
+  "email": "admin@mail.com",
   "books": [
     {
-      "id": 1,
-      "session": {
-        "id": 1,
-        "movie": {
-          "id": 1,
-          "name": "Bullet Train",
-          "genre": "action"
-        },
-        "room": {
-          "id": 1,
-          "name": "saturn"
-        },
-        "date": "2022-10-20",
-        "time": "11:30:00"
-      },
-      "seats": [
-        {
-          "id": 1,
-          "rowNumber": 1,
-          "number": 1,
-          "occupied": false
-        }
+      "roomName": "saturn",
+      "date": "2022-10-22",
+      "time": "17:30:00",
+      "seatNumbers": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "roomName": "saturn",
+      "date": "2022-10-22",
+      "time": "17:30:00",
+      "seatNumbers": [
+        5
       ]
     }
   ]
 }
 ```
 
+| Key               | Format                 | Description                      |
+|-------------------|------------------------|----------------------------------|
+| email             | `String`               | User email.                      |
+| books             | `json Object[]`        | An array of user bookings        |
+| books.roomName    | `String`               | Room name                        |
+| books.date        | `String`, `yyyy-MM-dd` | Session date                     |
+| books.time        | `String`, `hh:m m`     | Session time                     |
+| books.seatNumbers | `int[]`                | An array of booked seats numbers |
+
 ## User methods
+
+### GET
+
 `GET localhost:8881/api/admin/user/all`
 returns an array of all users
 
 `GET localhost:8881/api/admin/user/{id}`
 returns a user with specified id
+
+| Path variable | Format | Description |
+|---------------|--------|-------------|
+| id            | `int`  | user id     |
