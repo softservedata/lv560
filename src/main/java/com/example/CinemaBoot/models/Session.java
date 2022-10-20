@@ -1,19 +1,18 @@
 package com.example.CinemaBoot.models;
 
-import com.example.CinemaBoot.exceptions.SessionBadRequestException;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "sessions")
@@ -26,7 +25,7 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(
             name = "session_movie",
             joinColumns = @JoinColumn(name = "session_id"),
@@ -54,6 +53,19 @@ public class Session {
                 seat.setOccupied(true);
             }
         }
+    }
+
+    public List<Seat> getOccupiedSeats() {
+        setOccupiedSeats();
+        List<Seat> occupiedSeats = new ArrayList<>();
+        for (Book book : getBooks()) {
+            occupiedSeats.addAll(book
+                    .getSeats()
+                    .stream()
+                    .filter(Seat::isOccupied)
+                    .collect(Collectors.toList()));
+        }
+        return occupiedSeats;
     }
 
 }

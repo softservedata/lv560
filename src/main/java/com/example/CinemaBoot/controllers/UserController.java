@@ -28,11 +28,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable long id) {
-        Optional<User> user = userService.getById(id);
-        if (user.isEmpty()) {
-            throw new UserNotFoundException("User not found for id=" + id);
-        }
-        return user.get();
+        return userService.getById(id);
     }
 
 }

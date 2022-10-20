@@ -12,50 +12,50 @@ values (5, 'stanLee@mail.com', false, '12345');
 insert into rooms (id, name)
 values (1, 'saturn');
 
-insert into seats (id, row_number, number, room_id)
-values (1, 1, 1, 1);
-insert into seats (id, row_number, number, room_id)
-values (2, 1, 2, 1);
-insert into seats (id, row_number, number, room_id)
-values (3, 1, 3, 1);
-insert into seats (id, row_number, number, room_id)
-values (4, 1, 4, 1);
-insert into seats (id, row_number, number, room_id)
-values (5, 1, 5, 1);
-insert into seats (id, row_number, number, room_id)
-values (6, 1, 6, 1);
-insert into seats (id, row_number, number, room_id)
-values (7, 1, 7, 1);
-insert into seats (id, row_number, number, room_id)
-values (8, 1, 8, 1);
-insert into seats (id, row_number, number, room_id)
-values (9, 1, 9, 1);
-insert into seats (id, row_number, number, room_id)
-values (10, 1, 10, 1);
+insert into seats (id, number, room_id)
+values (1, 1, 1);
+insert into seats (id, number, room_id)
+values (2, 2, 1);
+insert into seats (id, number, room_id)
+values (3, 3, 1);
+insert into seats (id, number, room_id)
+values (4, 4, 1);
+insert into seats (id, number, room_id)
+values (5, 5, 1);
+insert into seats (id, number, room_id)
+values (6, 6, 1);
+insert into seats (id, number, room_id)
+values (7, 7, 1);
+insert into seats (id, number, room_id)
+values (8, 8, 1);
+insert into seats (id, number, room_id)
+values (9, 9, 1);
+insert into seats (id, number, room_id)
+values (10, 10, 1);
 
 insert into rooms (id, name)
 values (2, 'venus');
 
-insert into seats (id, row_number, number, room_id)
-values (11, 1, 1, 2);
-insert into seats (id, row_number, number, room_id)
-values (12, 1, 2, 2);
-insert into seats (id, row_number, number, room_id)
-values (13, 1, 3, 2);
-insert into seats (id, row_number, number, room_id)
-values (14, 1, 4, 2);
-insert into seats (id, row_number, number, room_id)
-values (15, 1, 5, 2);
-insert into seats (id, row_number, number, room_id)
-values (16, 1, 6, 2);
-insert into seats (id, row_number, number, room_id)
-values (17, 1, 7, 2);
-insert into seats (id, row_number, number, room_id)
-values (18, 1, 8, 2);
-insert into seats (id, row_number, number, room_id)
-values (19, 1, 9, 2);
-insert into seats (id, row_number, number, room_id)
-values (20, 1, 10, 2);
+insert into seats (id, number, room_id)
+values (11, 1, 2);
+insert into seats (id, number, room_id)
+values (12, 2, 2);
+insert into seats (id, number, room_id)
+values (13, 3, 2);
+insert into seats (id, number, room_id)
+values (14, 4, 2);
+insert into seats (id, number, room_id)
+values (15, 5, 2);
+insert into seats (id, number, room_id)
+values (16, 6, 2);
+insert into seats (id, number, room_id)
+values (17, 7, 2);
+insert into seats (id, number, room_id)
+values (18, 8, 2);
+insert into seats (id, number, room_id)
+values (19, 9, 2);
+insert into seats (id, number, room_id)
+values (20, 10, 2);
 
 insert into movies (id, genre, name)
 values (1, 'action', 'Bullet Train');
