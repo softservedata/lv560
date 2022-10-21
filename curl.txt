@@ -1,0 +1,7 @@
+curl -i -X GET http://localhost:8080/contacts
+curl -i -X POST -H "Content-Type: application/json" -d "{ \"firstname\":\"Ivan\",\"lastname\":\"Ivanov\",\"email\":\"a@gmail.com\",\"telephone\":\"12345\",\"id\":\"7\" }" http://localhost:8080/contacts
+
+curl -i -X DELETE  http://localhost:8080/contacts/1
+
+
+curl -i -X PUT -H "Content-Type: application/json"  -d "{\"name\":\"admin2\",\"description\":\"new description admin\" }" http://localhost:8080/contacts
