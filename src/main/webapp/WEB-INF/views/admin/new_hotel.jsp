@@ -85,7 +85,7 @@
             </div>
         </form:form>
         <div class="delete-btn_wrapper">
-            <form:form method="post" action="/admin/hotels">
+            <form:form method="get" action="/admin/hotels">
                 <a class="delete-btn">
                     <input class="text" type="submit" value="   Discard"/>
                     <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

@@ -335,6 +335,33 @@ input:focus {
   z-index: -100;
 }
 
+@media screen and (max-width: 1000px) {
+  .interactive-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  #wrap {
+    padding: 10px;
+  }
+  .hotel-container {
+    width: 68%;
+  }
+  .rooms-container {
+    top: 40%;
+    scale: 1.5;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .rooms-container {
+    top: 50%;
+    scale: 2;
+  }
+  .hotel-container {
+    width: 100%;
+  }
+}
+
 /* FA CSS import */
 html::-webkit-scrollbar {
   width: .6vw;
@@ -421,7 +448,7 @@ header {
   height: 5vh;
   display: flex;
   align-items: center;
-  padding-left: 25%;
+  padding-left: 5%;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.7);
   transition: background-color .12s ease-in-out;
@@ -455,6 +482,12 @@ header {
   padding: 1vw;
   width: 80vw;
   background-color: rgba(232, 244, 234, 0.21);
+}
+
+@media screen and (min-width: 500px) {
+  .major-block .left-sec a {
+    padding-left: 25%;
+  }
 }
 
 .entities {

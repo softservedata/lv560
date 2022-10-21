@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -144,10 +146,20 @@ public class AdminController {
 	}
 	@GetMapping("/reservation/{id}")
 	public String showReservationInfo(@PathVariable("id") long id, Model model) {
+		User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 		Reservation reservation = reservationService.findReservationById(id);
+		Hotel hotel =reservation.getRoom().getHotel();
+		double cubeWidth = 1.8 * (24. / (Math.round(Math.sqrt(hotel.getRooms().size())))) / 3 * 0.85;
 
+		model.addAttribute("numberOfColumns", Math.round(Math.sqrt(hotel.getRooms().size())));
+		model.addAttribute("cubeWidth", cubeWidth);
+		model.addAttribute("columnWidth", Math.ceil(cubeWidth) + 1);
+
+		model.addAttribute("rooms", hotel.getRooms().stream()
+				.sorted((room1, room2) -> (int) (room2.getId() - room1.getId()))
+				.collect(Collectors.toList()));
 		model.addAttribute("reservation", reservation);
-		model.addAttribute("principalName", SecurityContextHolder.getContext().getAuthentication().getName());
+		model.addAttribute("principalName", user.getUsername());
 
 		return "admin/reservation_info";
 	}

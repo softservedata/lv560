@@ -88,3 +88,23 @@
 	opacity: 0
 	transition: opacity 0.15s ease-in-out
 	z-index: -100
+
+
+@media screen and (max-width: 1000px)
+	.interactive-container
+		flex-direction: column
+		align-items: center
+	#wrap
+		padding: 10px
+	.hotel-container
+		width: 68%
+	.rooms-container
+		top: 40%
+		scale: 1.5
+
+@media screen and (max-width: 500px)
+	.rooms-container 
+		top: 50%
+		scale: 2
+	.hotel-container
+		width: 100%
