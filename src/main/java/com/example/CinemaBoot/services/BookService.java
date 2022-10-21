@@ -6,6 +6,8 @@ import com.example.CinemaBoot.models.Book;
 import com.example.CinemaBoot.models.Seat;
 import com.example.CinemaBoot.models.Session;
 import com.example.CinemaBoot.repositories.BookRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,8 @@ import java.util.Map;
 
 @Service
 public class BookService {
+
+    Logger logger = LoggerFactory.getLogger(BookService.class);
 
     @Autowired
     BookRepository bookRepository;
@@ -43,6 +47,7 @@ public class BookService {
                 .filter(session.getOccupiedSeats()::contains)
                 .count();
         if (occupiedSeatsSize > 0) {
+            logger.info("Number of occupied seats=" + occupiedSeatsSize);
             throw new SeatIsOccupiedException("One of the seats you are trying to book is occupied");
         }
 
