@@ -11,6 +11,6 @@ public class RoomCreate {
 
     private String name;
 
-    private int seatNumbers;
+    private int numberOfSeats;
 
 }

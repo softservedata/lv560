@@ -22,6 +22,9 @@ public class RoomService {
     @Autowired
     RoomRepository roomRepository;
 
+    @Autowired
+    SeatService seatService;
+
     @Transactional(readOnly = true)
     public List<RoomGet> getAll() {
         return findAll()
@@ -55,8 +58,9 @@ public class RoomService {
         room.setName(roomDto.getName());
 
         List<Seat> seatList = new ArrayList<>();
-        for (int i = 1; i <= roomDto.getSeatNumbers(); i++) {
+        for (int i = 1; i <= roomDto.getNumberOfSeats(); i++) {
             Seat seat = new Seat();
+            seat.setNumber(i);
             seat.setRoom(room);
             seatList.add(seat);
         }

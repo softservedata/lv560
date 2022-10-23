@@ -33,4 +33,9 @@ public class SeatService {
         return seat.get();
     }
 
+    @Transactional
+    public Seat save(Seat seat) {
+        return seatRepository.save(seat);
+    }
+
 }

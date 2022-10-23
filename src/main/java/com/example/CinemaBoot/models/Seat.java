@@ -26,7 +26,7 @@ public class Seat {
     @Transient
     private boolean isOccupied;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     private Room room;
 
