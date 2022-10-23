@@ -44,8 +44,8 @@ public class SessionService {
 
     @Transactional(readOnly = true)
     public Set<Date> getSessionDates() {
-        List<Session> allSessions = sessionRepository.findAll();
-        Set<Date> distinctDates = new HashSet<>();
+        List<Session> allSessions = sessionRepository.findAllByOrderByDate();
+        Set<Date> distinctDates = new LinkedHashSet<>();
         allSessions.forEach(session -> distinctDates.add(session.getDate()));
         return distinctDates;
     }

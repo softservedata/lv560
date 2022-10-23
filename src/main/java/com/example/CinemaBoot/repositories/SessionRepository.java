@@ -13,6 +13,8 @@ public interface SessionRepository extends CrudRepository<Session, Long> {
 
     List<Session> findAll();
 
+    List<Session> findAllByOrderByDate();
+
     List<Session> findAllByDate(Date date);
 
     Optional<Session> findByDateAndTime(Date date, Date time);
