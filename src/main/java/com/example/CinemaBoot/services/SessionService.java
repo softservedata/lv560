@@ -2,8 +2,8 @@ package com.example.CinemaBoot.services;
 
 import com.example.CinemaBoot.dto.session.SessionCreate;
 import com.example.CinemaBoot.dto.session.SessionGet;
-import com.example.CinemaBoot.exceptions.SessionBadRequestException;
-import com.example.CinemaBoot.exceptions.SessionNotFoundException;
+import com.example.CinemaBoot.exceptions.BadRequestException;
+import com.example.CinemaBoot.exceptions.NotFoundException;
 import com.example.CinemaBoot.models.Session;
 import com.example.CinemaBoot.repositories.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class SessionService {
     public Session findSessionByDateAndTime(String dateString, String timeString) {
         Optional<Session> session = sessionRepository.findByDateAndTime(parseDate(dateString), parseTime(timeString));
         if (session.isEmpty()) {
-            throw new SessionNotFoundException("No session for date:" + dateString + ", time:" + timeString);
+            throw new NotFoundException("No session for date:" + dateString + ", time:" + timeString);
         }
         session.get().setOccupiedSeats();
         return session.get();
@@ -68,13 +68,13 @@ public class SessionService {
     @Transactional
     public Map<String, Long> createNewSession(String dateString, String timeString, SessionCreate sessionDTO) {
         if (existsByDateAndTime(dateString, timeString)) {
-            throw new SessionBadRequestException("Session with date=" + dateString + " and time=" + timeString + " already exists");
+            throw new BadRequestException("Session with date=" + dateString + " and time=" + timeString + " already exists");
         }
         Session session = new Session();
         session.setDate(parseDate(dateString));
         session.setTime(parseTime(timeString));
-        session.setMovie(movieService.getById(sessionDTO.getMovieId()));
-        session.setRoom(roomService.getById(sessionDTO.getRoomId()));
+        session.setMovie(movieService.findById(sessionDTO.getMovieId()));
+        session.setRoom(roomService.findById(sessionDTO.getRoomId()));
 
         long id = sessionRepository
                 .save(session)
@@ -92,7 +92,7 @@ public class SessionService {
         try {
             return new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
         } catch (ParseException e) {
-            throw new SessionBadRequestException("Improper date format:" + dateString + ", use yyyy-MM-dd");
+            throw new BadRequestException("Improper date format:" + dateString + ", use yyyy-MM-dd");
         }
     }
 
@@ -100,7 +100,7 @@ public class SessionService {
         try {
             return new SimpleDateFormat("hh:mm").parse(timeString);
         } catch (ParseException e) {
-            throw new SessionBadRequestException("Improper date format:" + timeString + ", use hh:mm");
+            throw new BadRequestException("Improper date format:" + timeString + ", use hh:mm");
         }
     }
 

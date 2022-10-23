@@ -23,7 +23,6 @@ public class Room {
     private String name;
 
     @OneToMany(mappedBy = "room")
-    @Getter(onMethod_=@JsonIgnore)
     private List<Seat> seats;
 
 }

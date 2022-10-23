@@ -29,7 +29,6 @@ public class Session {
             name = "session_movie",
             joinColumns = @JoinColumn(name = "session_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    @Getter(onMethod_=@JsonManagedReference)
     private Movie movie;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -37,7 +36,6 @@ public class Session {
     private Room room;
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
-    @Getter(onMethod_=@JsonBackReference)
     private List<Book> books;
 
     @Temporal(TemporalType.DATE)

@@ -28,11 +28,9 @@ public class Seat {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "room_id", referencedColumnName = "id")
-    @Getter(onMethod_=@JsonBackReference)
     private Room room;
 
     @ManyToMany(mappedBy = "seats")
-    @Getter(onMethod_=@JsonIgnore)
     private List<Book> books;
 
 }

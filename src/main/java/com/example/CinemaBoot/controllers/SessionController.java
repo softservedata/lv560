@@ -1,6 +1,7 @@
 package com.example.CinemaBoot.controllers;
 
 import com.example.CinemaBoot.dto.book.BookCreate;
+import com.example.CinemaBoot.dto.seat.SeatGet;
 import com.example.CinemaBoot.dto.session.SessionCreate;
 import com.example.CinemaBoot.dto.session.SessionGet;
 import com.example.CinemaBoot.models.*;
@@ -13,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/session")
@@ -42,7 +44,7 @@ public class SessionController {
     }
 
     @GetMapping("/{dateString}/{timeString}/seats")
-    public List<Seat> getSessionRoomsByDateAndTime(
+    public List<SeatGet> getSessionRoomsByDateAndTime(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString,
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString
     ) {
@@ -50,7 +52,10 @@ public class SessionController {
         return sessionService
                 .findSessionByDateAndTime(dateString, timeString)
                 .getRoom()
-                .getSeats();
+                .getSeats()
+                .stream()
+                .map(SeatGet::new)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/dates")

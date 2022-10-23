@@ -23,12 +23,10 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @Getter(onMethod_=@JsonIgnore)
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "session_id", referencedColumnName = "id")
-    @Getter(onMethod_=@JsonManagedReference)
     private Session session;
 
     @ManyToMany

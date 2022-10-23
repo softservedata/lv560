@@ -1,7 +1,7 @@
 package com.example.CinemaBoot.services;
 
 import com.example.CinemaBoot.dto.user.UserGet;
-import com.example.CinemaBoot.exceptions.UserNotFoundException;
+import com.example.CinemaBoot.exceptions.NotFoundException;
 import com.example.CinemaBoot.models.User;
 import com.example.CinemaBoot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class UserService {
     public User findById(long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
-            throw new UserNotFoundException("User not found for id=" + id);
+            throw new NotFoundException("User not found for id=" + id);
         }
         return user.get();
     }
@@ -41,7 +41,7 @@ public class UserService {
     public User findByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isEmpty()) {
-            throw new UserNotFoundException("User not found for email=" + email);
+            throw new NotFoundException("User not found for email=" + email);
         }
         return user.get();
     }

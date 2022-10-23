@@ -1,7 +1,8 @@
 package com.example.CinemaBoot.services;
 
 import com.example.CinemaBoot.dto.room.RoomCreate;
-import com.example.CinemaBoot.exceptions.RoomNotFoundException;
+import com.example.CinemaBoot.dto.room.RoomGet;
+import com.example.CinemaBoot.exceptions.NotFoundException;
 import com.example.CinemaBoot.models.Room;
 import com.example.CinemaBoot.models.Seat;
 import com.example.CinemaBoot.repositories.RoomRepository;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RoomService {
@@ -21,15 +23,28 @@ public class RoomService {
     RoomRepository roomRepository;
 
     @Transactional(readOnly = true)
-    public List<Room> getAll() {
+    public List<RoomGet> getAll() {
+        return findAll()
+                .stream()
+                .map(RoomGet::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public RoomGet getById(long id) {
+        return new RoomGet(findById(id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Room> findAll() {
         return roomRepository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public Room getById(long id) {
+    public Room findById(long id) {
         Optional<Room> room = roomRepository.findById(id);
         if (room.isEmpty()) {
-            throw new RoomNotFoundException("Room not found for id:" + id);
+            throw new NotFoundException("Room not found for id:" + id);
         }
         return room.get();
     }

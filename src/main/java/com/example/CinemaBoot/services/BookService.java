@@ -1,7 +1,7 @@
 package com.example.CinemaBoot.services;
 
 import com.example.CinemaBoot.dto.book.BookCreate;
-import com.example.CinemaBoot.exceptions.SeatIsOccupiedException;
+import com.example.CinemaBoot.exceptions.BadRequestException;
 import com.example.CinemaBoot.models.Book;
 import com.example.CinemaBoot.models.Seat;
 import com.example.CinemaBoot.models.Session;
@@ -48,7 +48,7 @@ public class BookService {
                 .count();
         if (occupiedSeatsSize > 0) {
             logger.info("Number of occupied seats=" + occupiedSeatsSize);
-            throw new SeatIsOccupiedException("One of the seats you are trying to book is occupied");
+            throw new BadRequestException("One of the seats you are trying to book is occupied");
         }
 
         book.setSeats(seats);

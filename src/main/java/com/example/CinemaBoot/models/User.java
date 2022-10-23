@@ -28,10 +28,8 @@ public class User {
     @Convert(converter = GenderConverter.class)
     Gender gender;
 
-    @Getter(onMethod_=@JsonIgnore)
     private String password;
 
-    @Getter(onMethod_=@JsonIgnore)
     private boolean isAdmin;
 
     @OneToMany(mappedBy = "user")

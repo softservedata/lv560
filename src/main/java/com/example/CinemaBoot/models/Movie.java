@@ -22,7 +22,6 @@ public class Movie {
     private String genre;
 
     @OneToMany(mappedBy = "movie")
-    @Getter(onMethod_=@JsonBackReference)
     private List<Session> sessions;
 
 }

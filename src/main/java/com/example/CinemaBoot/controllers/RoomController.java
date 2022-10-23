@@ -1,6 +1,7 @@
 package com.example.CinemaBoot.controllers;
 
 import com.example.CinemaBoot.dto.room.RoomCreate;
+import com.example.CinemaBoot.dto.room.RoomGet;
 import com.example.CinemaBoot.models.Room;
 import com.example.CinemaBoot.services.RoomService;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/room")
@@ -21,13 +23,13 @@ public class RoomController {
     RoomService roomService;
 
     @GetMapping("/all")
-    public List<Room> getAllRooms() {
+    public List<RoomGet> getAllRooms() {
         logger.info("GET /api/room/all");
         return roomService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Room getRoomById(@PathVariable long id) {
+    public RoomGet getRoomById(@PathVariable long id) {
         logger.info("GET /api/room/" + id);
         return roomService.getById(id);
     }
