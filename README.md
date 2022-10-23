@@ -168,3 +168,46 @@ returns a user with specified id
 | Path variable | Format | Description |
 |---------------|--------|-------------|
 | id            | `int`  | user id     |
+
+
+## Room methods
+
+### GET
+
+`GET http://localhost:8881/api/room/all`
+returns an array of all rooms
+
+Returns: Array of Room Info objects
+
+```json
+{
+        "id": 1,
+        "name": "saturn"
+}
+```
+
+`GET http://localhost:8881/api/room/{id}`
+returns a room with specified id
+
+| Path variable | Format | Description |
+|---------------|--------|-------------|
+| id            | `int`  | room id     |
+
+### POST
+
+`POST http://localhost:8881/api/room/create`
+Creates a room. Accepts on object like:
+
+```json
+{
+    "name": "Pluto",
+    "numberOfSeats": 10
+}
+```
+
+Where:
+
+| Path variable | Format   | Description                            |
+|---------------|----------|----------------------------------------|
+| name          | `String` | room name                              |
+| numberOfSeats | `int`    | number of seats the new room will have |
