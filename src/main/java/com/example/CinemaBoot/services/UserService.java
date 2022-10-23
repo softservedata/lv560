@@ -1,6 +1,6 @@
 package com.example.CinemaBoot.services;
 
-import com.example.CinemaBoot.dto.UserGet;
+import com.example.CinemaBoot.dto.user.UserGet;
 import com.example.CinemaBoot.exceptions.UserNotFoundException;
 import com.example.CinemaBoot.models.User;
 import com.example.CinemaBoot.repositories.UserRepository;
@@ -33,6 +33,15 @@ public class UserService {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
             throw new UserNotFoundException("User not found for id=" + id);
+        }
+        return user.get();
+    }
+
+    @Transactional
+    public User findByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isEmpty()) {
+            throw new UserNotFoundException("User not found for email=" + email);
         }
         return user.get();
     }

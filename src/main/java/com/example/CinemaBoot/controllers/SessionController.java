@@ -1,7 +1,8 @@
 package com.example.CinemaBoot.controllers;
 
-import com.example.CinemaBoot.dto.BookCreate;
-import com.example.CinemaBoot.dto.SessionCreate;
+import com.example.CinemaBoot.dto.book.BookCreate;
+import com.example.CinemaBoot.dto.session.SessionCreate;
+import com.example.CinemaBoot.dto.session.SessionGet;
 import com.example.CinemaBoot.models.*;
 import com.example.CinemaBoot.services.BookService;
 import com.example.CinemaBoot.services.SessionService;
@@ -26,13 +27,13 @@ public class SessionController {
     BookService bookService;
 
     @GetMapping("/{dateString}")
-    public List<Session> getSessionsByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString) {
+    public List<SessionGet> getSessionsByDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString) {
         logger.info("GET /api/session/" + dateString);
         return sessionService.getSessionsByDate(dateString);
     }
 
     @GetMapping("/{dateString}/{timeString}")
-    public Session getSessionByDateAndTime(
+    public SessionGet getSessionByDateAndTime(
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString,
                                  @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString
     ) {
@@ -46,7 +47,10 @@ public class SessionController {
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString
     ) {
         logger.info("GET /api/session/" + dateString + "/" + timeString + "/seats");
-        return getSessionByDateAndTime(dateString, timeString).getRoom().getSeats();
+        return sessionService
+                .findSessionByDateAndTime(dateString, timeString)
+                .getRoom()
+                .getSeats();
     }
 
     @GetMapping("/dates")

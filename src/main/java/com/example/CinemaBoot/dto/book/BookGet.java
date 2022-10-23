@@ -1,4 +1,4 @@
-package com.example.CinemaBoot.dto;
+package com.example.CinemaBoot.dto.book;
 
 import com.example.CinemaBoot.models.Book;
 import com.example.CinemaBoot.models.Seat;

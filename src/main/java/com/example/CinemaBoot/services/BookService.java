@@ -1,6 +1,6 @@
 package com.example.CinemaBoot.services;
 
-import com.example.CinemaBoot.dto.BookCreate;
+import com.example.CinemaBoot.dto.book.BookCreate;
 import com.example.CinemaBoot.exceptions.SeatIsOccupiedException;
 import com.example.CinemaBoot.models.Book;
 import com.example.CinemaBoot.models.Seat;
@@ -36,7 +36,7 @@ public class BookService {
     @Transactional
     public Map<String, Long> createNewBooking(String dateString, String timeString, BookCreate bookDTO) {
         Book book = new Book();
-        Session session = sessionService.getSessionByDateAndTime(dateString, timeString);
+        Session session = sessionService.findSessionByDateAndTime(dateString, timeString);
         book.setSession(session);
         book.setUser(userService.findById(bookDTO.getUserId()));
 

@@ -1,4 +1,4 @@
-package com.example.CinemaBoot.dto;
+package com.example.CinemaBoot.dto.room;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SessionCreate {
+public class RoomCreate {
 
-    private long movieId;
+    private String name;
 
-    private long roomId;
+    private int seatNumbers;
 
 }

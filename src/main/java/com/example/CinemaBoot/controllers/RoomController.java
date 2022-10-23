@@ -1,6 +1,6 @@
 package com.example.CinemaBoot.controllers;
 
-import com.example.CinemaBoot.dto.RoomCreate;
+import com.example.CinemaBoot.dto.room.RoomCreate;
 import com.example.CinemaBoot.models.Room;
 import com.example.CinemaBoot.services.RoomService;
 import org.slf4j.Logger;

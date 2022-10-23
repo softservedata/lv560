@@ -21,17 +21,17 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @Getter(onMethod_=@JsonIgnore)
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "session_id", referencedColumnName = "id")
     @Getter(onMethod_=@JsonManagedReference)
     private Session session;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "book_seat",
             joinColumns = @JoinColumn(name = "book_id"),

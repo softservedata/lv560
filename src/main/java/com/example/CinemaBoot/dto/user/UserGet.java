@@ -1,5 +1,6 @@
-package com.example.CinemaBoot.dto;
+package com.example.CinemaBoot.dto.user;
 
+import com.example.CinemaBoot.dto.book.BookGet;
 import com.example.CinemaBoot.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;

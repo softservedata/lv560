@@ -1,20 +1,16 @@
-package com.example.CinemaBoot.dto;
+package com.example.CinemaBoot.dto.session;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookCreate {
+public class SessionCreate {
 
-    private long userId;
+    private long movieId;
 
     private long roomId;
-
-    List<Integer> seats;
 
 }

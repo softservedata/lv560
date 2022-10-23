@@ -125,26 +125,20 @@ Returns the id of created booking:
 {
   "id": 1,
   "email": "admin@mail.com",
+  "gender": "MALE",
   "books": [
     {
       "id": 1,
       "roomName": "saturn",
       "date": "2022-10-22",
       "time": "17:30:00",
-      "seatNumbers": [
-        1,
-        2,
-        3,
-        4
-      ]
+      "seatNumbers": [1, 2, 3, 4]
     },
     {
       "roomName": "saturn",
       "date": "2022-10-22",
       "time": "17:30:00",
-      "seatNumbers": [
-        5
-      ]
+      "seatNumbers": [5]
     }
   ]
 }

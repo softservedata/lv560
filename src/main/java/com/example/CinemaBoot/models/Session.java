@@ -24,7 +24,7 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinTable(
             name = "session_movie",
             joinColumns = @JoinColumn(name = "session_id"),
@@ -32,11 +32,11 @@ public class Session {
     @Getter(onMethod_=@JsonManagedReference)
     private Movie movie;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     private Room room;
 
-    @OneToMany(mappedBy = "session")
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     @Getter(onMethod_=@JsonBackReference)
     private List<Book> books;
 

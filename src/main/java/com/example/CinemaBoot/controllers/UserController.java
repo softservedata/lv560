@@ -1,11 +1,7 @@
 package com.example.CinemaBoot.controllers;
 
-import com.example.CinemaBoot.dto.UserGet;
-import com.example.CinemaBoot.exceptions.UserNotFoundException;
-import com.example.CinemaBoot.models.Room;
-import com.example.CinemaBoot.models.User;
+import com.example.CinemaBoot.dto.user.UserGet;
 import com.example.CinemaBoot.services.UserService;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
