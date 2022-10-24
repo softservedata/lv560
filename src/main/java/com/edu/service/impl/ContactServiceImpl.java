@@ -24,7 +24,7 @@ public class ContactServiceImpl implements ContactService {
     @Transactional
     public ContactDto addContact(ContactDto contactDto) {
         Contact contact = Contact.builder()
-                //.id(contactDto.getId())
+                .id(contactDto.getId())
                 .firstname(contactDto.getFirstname())
                 .lastname(contactDto.getLastname())
                 .email(contactDto.getEmail())

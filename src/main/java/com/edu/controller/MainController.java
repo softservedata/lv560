@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * This controller returns frontend page when application is built as one.
  * */
 
-//@Controller
+@Controller
 public class MainController {
     /**
      * Method returns frontend page when application is built as one.
      *
      * @return index page of frontend
      */
-    //@GetMapping({"/", "/index"})
+    @GetMapping({"/", "/index"})
     public String index() {
         return "index.html";
     }

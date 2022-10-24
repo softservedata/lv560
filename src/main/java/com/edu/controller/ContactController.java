@@ -32,7 +32,7 @@ public class ContactController {
             @Valid
             @RequestBody
             ContactDto contactDto) {
-        log.info("***addContact, contactDto = " + contactDto);
+        System.out.println("***contactDto = " + contactDto);
         return contactService.addContact(contactDto);
     }
 

@@ -1,0 +1,14 @@
+body {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	background-color: #FDF5E6;
+	}
+h2 { text-align: center }
+
+.myform { text-align: center }
+
+/*
+	P.cite {color: navy; margin-left: 20px; border-left: 1px solid navy; padding-left: 15px; }
+	P.cite {margin-left: 20px; border-left: 1px solid navy; padding-left: 15px; }
+ */
+
