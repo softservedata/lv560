@@ -81,9 +81,14 @@ public class UserController {
 				.sorted((room1, room2) -> (int) (room2.getId() - room1.getId()))
 				.collect(Collectors.toList()));
 		model.addAttribute("locationName", hotel.getLocation().getName());
-		model.addAttribute("numberOfColumns", Math.round(Math.sqrt(hotel.getRooms().size())));
-		double cubeWidth = 1.8 * (24. / (Math.round(Math.sqrt(hotel.getRooms().size())))) / 3 * 0.85;
 
+		long numberOfColumns = Math.round(Math.sqrt(hotel.getRooms().size()));
+		if (hotel.getRooms().size()==2){
+			numberOfColumns = 2;
+		}
+
+		double cubeWidth = 1.8 * (24. / (numberOfColumns)) / 3 * 0.85;
+		model.addAttribute("numberOfColumns", numberOfColumns);
 		model.addAttribute("cubeWidth", cubeWidth);
 		model.addAttribute("columnWidth", Math.ceil(cubeWidth) + 1);
 
@@ -106,9 +111,13 @@ public class UserController {
 		User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 		Reservation reservation = reservationService.findReservationById(id);
 		Hotel hotel =reservation.getRoom().getHotel();
-		double cubeWidth = 1.8 * (24. / (Math.round(Math.sqrt(hotel.getRooms().size())))) / 3 * 0.85;
 
-		model.addAttribute("numberOfColumns", Math.round(Math.sqrt(hotel.getRooms().size())));
+		long numberOfColumns = Math.round(Math.sqrt(hotel.getRooms().size()));
+		if (hotel.getRooms().size()==2){
+			numberOfColumns = 2;
+		}
+		double cubeWidth = 1.8 * (24. / (numberOfColumns)) / 3 * 0.85;
+		model.addAttribute("numberOfColumns", numberOfColumns);
 		model.addAttribute("cubeWidth", cubeWidth);
 		model.addAttribute("columnWidth", Math.ceil(cubeWidth) + 1);
 
