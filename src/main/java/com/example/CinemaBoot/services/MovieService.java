@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -19,6 +21,15 @@ public class MovieService {
     @Transactional(readOnly = true)
     public MovieGet getById(long id) {
         return new MovieGet(findById(id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<MovieGet> getAll() {
+        return movieRepository
+                .findAll()
+                .stream()
+                .map(MovieGet::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

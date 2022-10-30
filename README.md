@@ -230,3 +230,22 @@ Where:
 |---------------|----------|----------------------------------------|
 | name          | `String` | room name                              |
 | numberOfSeats | `int`    | number of seats the new room will have |
+
+## Movie methods
+
+### Get
+
+### GET
+
+`GET http://localhost:8881/api/room/all`
+returns an array of all movies
+
+Returns: Array of Movie Info objects
+
+```json
+{
+        "id": 1,
+        "name": "Hocus Pocus 2",
+        "genre": "comedy"
+}
+```
