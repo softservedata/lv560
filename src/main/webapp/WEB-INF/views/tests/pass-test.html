@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="../../resources/styles/gtvg.css" th:href="@{/resources/styles/style.css}" rel="stylesheet">
+    <title>Test fill page</title>
+</head>
+<body>
+
+<div class="topnav">
+    <a href="/home">Home</a>
+    <a class="active" th:href="@{/all-tests}">All tests</a>
+    <a th:href="@{/my-tests}">My tests</a>
+
+    <a style="float: right;" th:href="@{/logout}">Logout</a>
+</div>
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+                        <form action="#" th:action="@{/save-test}" th:object="${passedTest}"
+                              method="post" >
+                            <h2 th:text="'Test: ' + ${passedTest.test.name} ">Test name!</h2>
+                            <fieldset>
+                                <table class="table table-striped table-bordered table-hover table-dark" >
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th> Question</th>
+                                        <th> Answer</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="question , itemStat : *{test.questions}">
+                                        <td th:text="${question.question}"></td>
+                                        <td><input type="text" th:field="*{answers[__${itemStat.index}__].answer}" minlength="1"/></td>
+                                        <!--<td><input type="text" /></td>-->
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <input class="btn btn-outline-light btn-lg px-5" type="submit" id="submitButton" th:value="Save">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>
