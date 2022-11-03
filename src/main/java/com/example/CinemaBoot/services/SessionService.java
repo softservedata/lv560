@@ -66,13 +66,14 @@ public class SessionService {
     }
 
     @Transactional
-    public Map<String, Long> createNewSession(String dateString, String timeString, SessionCreate sessionDTO) {
-        if (existsByDateAndTime(dateString, timeString)) {
-            throw new BadRequestException("Session with date=" + dateString + " and time=" + timeString + " already exists");
+    public Map<String, Long> createNewSession(SessionCreate sessionDTO) {
+        if (existsByDateAndTime(sessionDTO.getDate(), sessionDTO.getTime())) {
+            throw new BadRequestException("Session with date=" + sessionDTO.getDate()
+                    + " and time=" + sessionDTO.getTime() + " already exists");
         }
         Session session = new Session();
-        session.setDate(parseDate(dateString));
-        session.setTime(parseTime(timeString));
+        session.setDate(parseDate(sessionDTO.getDate()));
+        session.setTime(parseTime(sessionDTO.getTime()));
         session.setMovie(movieService.findById(sessionDTO.getMovieId()));
         session.setRoom(roomService.findById(sessionDTO.getRoomId()));
 

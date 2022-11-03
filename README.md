@@ -119,7 +119,7 @@ Returns the id of created booking:
 }
 ```
 
-`POST localhost:8881/api/session/2022-10-22/11:30/create`
+`POST localhost:8881/api/session/create`
 
 Creates a session. Accepts [New Session Object](#New-Session-object).
 
@@ -134,7 +134,9 @@ Returns the id of created booking:
 ```json
 {
     "movieId": 1,
-    "roomId": 2
+    "roomId": 2,
+    "date": "2022-11-02",
+    "time": "11:30"
 }
 ```
 

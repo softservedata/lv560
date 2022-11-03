@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -64,14 +65,12 @@ public class SessionController {
         return sessionService.getSessionDates();
     }
 
-    @PostMapping("/{dateString}/{timeString}/create") public Map<String, Long>
+    @PostMapping("/create") public Map<String, Long>
     createNewSession(
-            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String dateString,
-            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) String timeString,
             @RequestBody SessionCreate sessionDTO
     ) {
-        logger.info("POST /api/session/" + dateString + "/" + timeString + "/create, session=" + sessionDTO);
-        return sessionService.createNewSession(dateString, timeString, sessionDTO);
+        logger.info("POST /api/session/create, session=" + sessionDTO);
+        return sessionService.createNewSession(sessionDTO);
     }
 
     @PostMapping("/{dateString}/{timeString}/book") public Map<String, Long>
@@ -82,6 +81,17 @@ public class SessionController {
     ) {
         logger.info("POST /api/session/" + dateString + "/" + timeString + "/book, book=" + bookDTO);
         return bookService.createNewBooking(dateString, timeString, bookDTO);
+    }
+
+    @GetMapping("/generate-dates/{number}") public List<LocalDate>
+    getDates(@PathVariable int number) {
+        List<LocalDate> dateList = new ArrayList<>();
+        LocalDate now = LocalDate.now();
+        for (int i = 0; i < number; i++) {
+            dateList.add(now);
+            now = now.plusDays(1);
+        }
+        return dateList;
     }
 
 }
