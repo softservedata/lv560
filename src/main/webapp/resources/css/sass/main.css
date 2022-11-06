@@ -13,25 +13,21 @@ input:focus {
   padding-bottom: 10px;
   z-index: 10;
 }
-
 .input-content h2 {
   padding-bottom: 45px;
   font-size: 1.625em;
   font-weight: bold;
   vertical-align: middle;
 }
-
 .input-content .inputbox {
   overflow: hidden;
   position: relative;
   padding: 15px 0 28px 200px;
 }
-
 .input-content .inputbox .error-message {
-  font-size: .8em;
-  margin-top: .1em;
+  font-size: 0.8em;
+  margin-top: 0.1em;
 }
-
 .input-content .inputbox-title {
   position: absolute;
   top: 15px;
@@ -42,12 +38,10 @@ input:focus {
   font-weight: bold;
   line-height: 30px;
 }
-
 .input-content .inputbox-content {
   position: relative;
   width: 100%;
 }
-
 .input-content .inputbox-content input {
   width: 50%;
   height: 30px;
@@ -60,18 +54,15 @@ input:focus {
   border-radius: 0;
   -webkit-appearance: none;
 }
-
 .input-content .inputbox-content input:focus ~ label, .input-content .inputbox-content input:valid ~ label {
   color: #2fe622;
   transform: translateY(-20px);
   font-size: 0.825em;
   cursor: default;
 }
-
 .input-content .inputbox-content input:focus ~ .underline {
   width: 50%;
 }
-
 .input-content .inputbox-content label {
   position: absolute;
   top: 0;
@@ -83,9 +74,8 @@ input:focus {
   transition: all 200ms ease-out;
   z-index: 10;
 }
-
 .input-content .inputbox-content .underline {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   bottom: -1px;
@@ -102,20 +92,16 @@ input:focus {
   font-weight: bold;
   vertical-align: middle;
 }
-
 .buy-content h3 {
   padding-bottom: 25px;
 }
-
 .buy-content .inputbox {
   padding-left: 50px;
 }
-
 .buy-content .inputbox-title {
   position: relative;
   top: 0;
 }
-
 .buy-content .inputbox-content {
   position: relative;
   width: 100%;
@@ -151,11 +137,9 @@ input:focus {
 .delete-btn, .add-btn, .buy-btn {
   transition: 200ms;
 }
-
 .delete-btn span, .add-btn span, .buy-btn span {
   transition: 200ms;
 }
-
 .delete-btn input[type=submit], .add-btn input[type=submit], .buy-btn input[type=submit] {
   cursor: pointer;
   z-index: 100;
@@ -235,7 +219,6 @@ input:focus {
   width: 35vw;
   margin-left: -2vw;
 }
-
 .hotel-container img {
   width: 100%;
 }
@@ -250,7 +233,6 @@ input:focus {
   align-items: end;
   justify-content: center;
 }
-
 .rooms-container .room {
   width: 1.8vw;
   height: 1.8vw;
@@ -260,20 +242,17 @@ input:focus {
   transition: all 0.18s ease-in-out;
   cursor: pointer;
 }
-
 .rooms-container .room:hover {
   background-color: #27b81d;
   transform: scale(1.1);
 }
-
 .rooms-container .active-room {
   background-color: #27b81d;
   transform: scale(1.1);
 }
-
 .rooms-container .disabled-room {
   pointer-events: none;
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .reserve-btn {
@@ -305,13 +284,11 @@ input:focus {
   transition: opacity 0.15s ease-in-out;
   opacity: 0;
 }
-
 .reservation-data h3 {
   display: block;
   padding-bottom: 15px;
   font-weight: bold;
 }
-
 .reservation-data p {
   transition: all 0.1s ease-in-out;
 }
@@ -350,8 +327,10 @@ input:focus {
     top: 40%;
     scale: 1.5;
   }
+  .delete-btn_wrapper {
+    padding-left: 210px;
+  }
 }
-
 @media screen and (max-width: 500px) {
   .rooms-container {
     top: 50%;
@@ -361,15 +340,13 @@ input:focus {
     width: 100%;
   }
 }
-
-/* FA CSS import */
 html::-webkit-scrollbar {
-  width: .6vw;
+  width: 0.6vw;
   transition: all 1s ease-in-out;
 }
 
 html::-webkit-scrollbar-thumb {
-  background-color: #7775;
+  background-color: rgba(119, 119, 119, 0.3333333333);
   border-radius: 1vw;
 }
 
@@ -415,19 +392,16 @@ header {
   border-radius: 10px;
   position: relative;
 }
-
 .logout-btn i {
   opacity: 0;
   transition: opacity 0.5s;
 }
-
 .logout-btn:hover {
   transition: all 0.5s;
   border-radius: 10px;
   box-shadow: 0px 6px 15px #BCFFB9;
   color: #27b81d;
 }
-
 .logout-btn:hover i {
   opacity: 1;
 }
@@ -437,13 +411,11 @@ header {
   justify-content: space-between;
   min-height: calc(100vh - (5vh + 2vw));
 }
-
 .major-block .left-sec {
   width: 20vw;
   background-color: rgba(224, 240, 227, 0.21);
   box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.12);
 }
-
 .major-block .left-sec a {
   height: 5vh;
   display: flex;
@@ -451,20 +423,18 @@ header {
   padding-left: 5%;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.7);
-  transition: background-color .12s ease-in-out;
+  transition: background-color 0.12s ease-in-out;
   text-decoration: none;
   background-image: linear-gradient(black, grey);
   background-position: 0% 100%;
   background-repeat: no-repeat;
   background-size: 0% 2px;
-  transition: background-size .5s;
+  transition: background-size 0.5s;
 }
-
 .major-block .left-sec a:hover {
   background-color: rgba(224, 240, 227, 0.2);
   background-size: 100% 2px;
 }
-
 .major-block .left-sec .active {
   background-color: rgba(224, 240, 227, 0.45);
   font-weight: 500;
@@ -472,12 +442,10 @@ header {
   color: black;
   transition: none;
 }
-
 .major-block .left-sec .active:hover {
   background-color: rgba(224, 240, 227, 0.45);
   background-size: 100% 0.1px;
 }
-
 .major-block .right-sec {
   padding: 1vw;
   width: 80vw;
@@ -489,7 +457,6 @@ header {
     padding-left: 25%;
   }
 }
-
 .entities {
   display: flex;
   flex-wrap: wrap;
@@ -504,17 +471,15 @@ header {
   z-index: 100;
   padding: 20px;
 }
-
 .entity-item {
-  box-shadow: 0 2px 4px #00000038;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2196078431);
   position: relative;
   display: block;
   letter-spacing: 1px;
   overflow: hidden;
 }
-
 .entity-item::before {
-  content: '';
+  content: "";
   position: absolute;
   top: var(--y);
   left: var(--x);
@@ -523,14 +488,12 @@ header {
   height: 0;
   border-radius: 50%;
   background-color: #BCFFB9;
-  transition: width .5s, height .5s;
+  transition: width 0.5s, height 0.5s;
 }
-
 .entity-item:hover::before {
   width: 200px;
   height: 200px;
 }
-
 .entity-item-wrapper {
   width: 250px;
   padding: 12px;
@@ -552,7 +515,6 @@ header {
     right: 10vw;
   }
 }
-
 .icon-btn {
   width: 50px;
   height: 50px;
@@ -568,7 +530,6 @@ header {
 .sticky-add-btn:hover {
   width: 120px;
 }
-
 .sticky-add-btn::before {
   transition: width 0.2s ease-in-out, border-radius 0.2s ease-in-out;
   content: "";
@@ -578,7 +539,6 @@ header {
   top: calc(50% - 2px);
   background: green;
 }
-
 .sticky-add-btn::after {
   transition: width 0.2s ease-in-out, border-radius 0.2s ease-in-out;
   content: "";
@@ -592,7 +552,6 @@ header {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
 }
-
 .sticky-add-btn::before {
   left: 14px;
   border-top-left-radius: 2px;
@@ -614,7 +573,6 @@ header {
   width: 4px;
   border-radius: 2px;
 }
-
 .sticky-add-btn:hover .btn-txt {
   opacity: 1;
 }
@@ -629,7 +587,6 @@ header {
   background: green;
   overflow: hidden;
 }
-
 .add-icon::before {
   transition: all 0.2s ease-in-out;
   content: "";
@@ -643,7 +600,6 @@ header {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
 }
-
 .add-icon::after {
   right: 22px;
   border-top-right-radius: 2px;
@@ -655,10 +611,8 @@ header {
   height: 4px;
   top: calc(50% - 2px);
 }
-
 .sticky-add-btn:hover .add-icon::after {
   right: 15px;
   height: 4px;
   top: calc(50% - 2px);
-}
-/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */
