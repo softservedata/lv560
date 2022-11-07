@@ -88,8 +88,8 @@ public class SessionController {
         List<LocalDate> dateList = new ArrayList<>();
         LocalDate now = LocalDate.now();
         for (int i = 0; i < number; i++) {
-            dateList.add(now);
             now = now.plusDays(1);
+            dateList.add(now);
         }
         return dateList;
     }

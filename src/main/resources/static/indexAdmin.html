@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket-booking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/indexAdmin.b07a87f3.css">
+    <script src="/indexAdmin.407b5c10.js" defer=""></script>
+  </head>
+  <body>
+    <header>
+  <div class="container">
+    <a href="/index.html" class="logo-text">movie</a>
+    <div class="wrapper">
+      <p class="text">Log in as:</p>
+      <a href="/index.html" class="auth-btn login">user</a><a href="/indexAdmin.html" class="auth-btn admin">admin</a>
+    </div>
+  </div>
+</header>
+
+    <section class="add-room">
+  <div class="container">
+    <form action="" class="addRoom">
+      <p class="form-title">Create new room</p>
+      <label>Room name:
+        <input type="text" name="nameOf" placeholder="Enter room name"> </label><label>Number of seats:
+        <input type="number" step="10" name="numberOf" placeholder="Enter number of seats">
+      </label>
+      <button class="submitBtn" type="submit">create room</button>
+    </form>
+
+    <form action="" class="addSession">
+      <p class="form-title">Create new session</p>
+      <label>Movie name:
+        <select name="nameOfMovie" id="nameOfMovie"></select> </label><label>Room name:
+        <select name="nameOfRoom" id="nameOfRoom"></select>
+      </label>
+      <label class="timeLabel">Session time:
+        <div class="wrap">
+          <select name="sessionDate" id="sessionDate"></select>
+          <select name="sessionTime" id="sessionTime">
+            <option class="change-lng__item change-lng__item--en" value="11:30:00">
+              11:30
+            </option>
+            <option class="change-lng__item change-lng__item--en" value="14:30:00">
+              14:30
+            </option>
+            <option class="change-lng__item change-lng__item--en" value="17:30:00">
+              17:30
+            </option>
+          </select>
+        </div>
+      </label>
+      <button class="submitSessionBtn" type="submit">create session</button>
+    </form>
+  </div>
+</section>
+<section class="users">
+  <div class="container">
+    <ul class="users-list"></ul>
+  </div>
+</section>
+
+  </body>
+</html>
