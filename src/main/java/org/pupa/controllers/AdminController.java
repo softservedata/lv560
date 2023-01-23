@@ -55,6 +55,16 @@ public class AdminController {
         return "users-list.html";
     }
 
+    @GetMapping("/admin/view-results/{id}")
+    public String viewUserResults(@PathVariable("id") long id,Model model) {
+        User currentUser = userService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        List<PassedTest> passedTests = currentUser.getPassedTests();
+        model.addAttribute("passedTests", passedTests);
+        model.addAttribute("isManager", currentUser.isManager());
+        return "tests/view-results.html";
+    }
+
     @GetMapping("/admin/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id,Model model) {
         User user = userService.findById(id).get();
