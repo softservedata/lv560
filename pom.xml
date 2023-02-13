@@ -86,8 +86,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
-					<source>${jdk.source.version}</source>
-					<target>${jdk.compiler.version}</target>
+					<source>10</source>
+					<target>10</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
