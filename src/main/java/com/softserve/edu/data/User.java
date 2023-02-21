@@ -1,5 +1,8 @@
 package com.softserve.edu.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 interface IFirstname {
     ILastname setFirstname(String firstname);
 }
@@ -48,6 +51,34 @@ interface IUserBuid {
 public class User implements IFirstname, ILastname, ILoginname,
         IEmail, IPassword, ICountry, ICity, IPost, IAddress, IUserBuid, IUser {
 
+    public static enum UserColumns {
+        FIRST_NAME(0),
+        LAST_NAME(1),
+        LOGIN_NAME(2),
+        EMAIL(3),
+        PASSWORD(4),
+        PHONE_NUMBER(5),
+        COUNTRY(6),
+        CITY(7),
+        POST_CODE(8),
+        ADDRESS(9),
+        COMPANY(10);
+        //
+        private int index;
+
+        private UserColumns(int index) {
+            this.index = index;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    private final static String EMAIL_SEPARATOR = "@";
+    public final static String EMPTY_STRING = new String();
     private String firstname;
     private String lastname;
     private String loginname;
@@ -241,4 +272,41 @@ public class User implements IFirstname, ILastname, ILoginname,
                 ", company='" + company + '\'' +
                 '}';
     }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    public static IUser getByList(List<String> row) {
+        //logger.trace("row.size() = " + row.size() + " UserColumns.values().length = " + UserColumns.values().length);
+        List<String> userData = new ArrayList<>(row);
+        for (int i = userData.size(); i < UserColumns.values().length; i++) {
+            userData.add(EMPTY_STRING);
+        }
+        return User.get()
+                .setFirstname(userData.get(UserColumns.FIRST_NAME.getIndex()))
+                .setLastname(userData.get(UserColumns.LAST_NAME.getIndex()))
+                .setLoginname(userData.get(UserColumns.LOGIN_NAME.getIndex()))
+                .setEmail(userData.get(UserColumns.EMAIL.getIndex()))
+                .setPassword(userData.get(UserColumns.PASSWORD.getIndex()))
+                .setCountry(userData.get(UserColumns.COUNTRY.getIndex()))
+                .setCity(userData.get(UserColumns.CITY.getIndex()))
+                .setPost(userData.get(UserColumns.POST_CODE.getIndex()))
+                .setAddress(userData.get(UserColumns.ADDRESS.getIndex()))
+                .setCompany(userData.get(UserColumns.COMPANY.getIndex()))
+                .setPhonenumber(userData.get(UserColumns.PHONE_NUMBER.getIndex()) != null ? userData.get(UserColumns.PHONE_NUMBER.getIndex()) : EMPTY_STRING)
+                .build();
+    }
+
+    public static List<IUser> getByLists(List<List<String>> rows) {
+        List<IUser> result = new ArrayList<>();
+        // TODO Verify Test Data as Valid
+        if (!rows.get(0).get(UserColumns.EMAIL.getIndex())
+                .contains(EMAIL_SEPARATOR)) {
+            rows.remove(0);
+        }
+        for (List<String> currentRow : rows) {
+            result.add(getByList(currentRow));
+        }
+        return result;
+    }
+
 }

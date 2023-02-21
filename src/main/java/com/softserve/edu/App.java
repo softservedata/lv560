@@ -5,6 +5,8 @@ import com.softserve.edu.data.User;
 import com.softserve.edu.data.UserRepo;
 import com.softserve.edu.data.UserRepository;
 
+import java.util.List;
+
 public class App {
     public static void main(String[] args) {
         System.out.println("start");
@@ -106,8 +108,16 @@ public class App {
         System.out.println("user = " + user);
         */
         //
-        // 7a. Add Repository created by static methods
+        /* 7a. Add Repository created by static methods
         IUser user = UserRepo.getExist();
         System.out.println("user = " + user);
+        */
+        //
+        // 8. Read data from external files
+        //List<IUser> users = UserRepository.get().fromCsv();
+        List<IUser> users = UserRepository.get().fromExcel();
+        for (IUser current : users) {
+            System.out.println("user = " + current);
+        }
     }
 }

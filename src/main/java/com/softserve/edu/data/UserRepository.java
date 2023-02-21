@@ -1,5 +1,8 @@
 package com.softserve.edu.data;
 
+import com.softserve.edu.tools.CSVReader;
+import com.softserve.edu.tools.ExcelReader;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -79,7 +82,7 @@ public final class UserRepository {
                 .build();
     }
 
-    /*
+
     public List<IUser> fromCsv(String filename) {
         return User.getByLists(new CSVReader(filename).getAllCells());
     }
@@ -95,5 +98,4 @@ public final class UserRepository {
     public List<IUser> fromExcel() {
         return fromExcel("users.xlsx");
     }
-    */
 }
