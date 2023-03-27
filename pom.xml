@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.softserve.edu</groupId>
-    <artifactId>lv560proj1</artifactId>
+    <artifactId>lv560proj2</artifactId>
     <version>1.0</version>
 
     <packaging>jar</packaging>
@@ -35,6 +35,12 @@
             <!-- <version>${org.testng.version}</version> -->
             <version>7.4.0</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.softserve.edu</groupId>
+            <artifactId>lv560proj1</artifactId>
+            <version>1.0</version>
         </dependency>
 
     </dependencies>
