@@ -5,59 +5,58 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.softserve.edu</groupId>
-    <artifactId>lv560proj3</artifactId>
+    <artifactId>lv560proj0</artifactId>
     <version>1.0</version>
 
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
-    <description>Multimodules project</description>
     <name>${project.artifactId}</name>
     <url>http://maven.apache.org</url>
 
-    <properties>
-        <!-- - - - - - Encoding - - - - - -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.resources.plugin.version>2.7</maven.resources.plugin.version>
-        <!-- - - - - - Java - - - - - -->
-        <java.version>1.8</java.version>
-        <jdk.source.version>1.8</jdk.source.version>
-        <jdk.compiler.version>1.8</jdk.compiler.version>
-        <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
-        <!-- - - - - - Reports - - - - - -->
-        <testng.reports.directory>./target/surefire-reports/test-output</testng.reports.directory>
-    </properties>
+    <parent>
+        <groupId>com.softserve.edu</groupId>
+        <artifactId>lv560proj3</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <dependencies>
+
+        <!-- - - - - - Test - - - - - -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <!-- <version>${org.testng.version}</version> -->
+            <version>7.4.0</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
 
     <build>
         <plugins>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>${maven.resources.plugin.version}</version>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!-- <version>${maven.surefire.plugin.version}</version> -->
                 <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin.version}</version>
-                <configuration>
-                    <source>${jdk.source.version}</source>
-                    <target>${jdk.compiler.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <argLine>-Xms512m -Xmx1024m</argLine>
+                    <skipTests>false</skipTests>
+                    <!-- <runOrder>reversealphabetical</runOrder> -->
+                    <!-- <argLine>${surefireArgLine}</argLine> -->
+                    <systemPropertyVariables>
+                        <surefire.reports.directory>
+                            ${testng.reports.directory}
+                        </surefire.reports.directory>
+                    </systemPropertyVariables>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <reportsDirectory>${testng.reports.directory}</reportsDirectory>
                 </configuration>
             </plugin>
 
         </plugins>
     </build>
-
-
-    <modules>
-        <module>calc</module>
-        <module>../lv560proj0</module>
-        <module>base</module>
-    </modules>
 
 </project>
