@@ -5,11 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.softserve.edu</groupId>
-    <artifactId>lv560proj2</artifactId>
+    <artifactId>lv560proj3</artifactId>
     <version>1.0</version>
 
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
+    <description>Multimodules project</description>
     <name>${project.artifactId}</name>
     <url>http://maven.apache.org</url>
 
@@ -25,25 +26,6 @@
         <!-- - - - - - Reports - - - - - -->
         <testng.reports.directory>./target/surefire-reports/test-output</testng.reports.directory>
     </properties>
-
-    <dependencies>
-
-        <!-- - - - - - Test - - - - - -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <!-- <version>${org.testng.version}</version> -->
-            <version>7.4.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.softserve.edu</groupId>
-            <artifactId>lv560proj1</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-    </dependencies>
 
     <build>
         <plugins>
@@ -68,30 +50,14 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <!-- <version>${maven.surefire.plugin.version}</version> -->
-                <configuration>
-                    <argLine>-Xms512m -Xmx1024m</argLine>
-                    <skipTests>false</skipTests>
-                    <!-- <runOrder>reversealphabetical</runOrder> -->
-                    <!-- <argLine>${surefireArgLine}</argLine> -->
-                    <systemPropertyVariables>
-                        <surefire.reports.directory>
-                            ${testng.reports.directory}
-                        </surefire.reports.directory>
-                    </systemPropertyVariables>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
-
-                    </suiteXmlFiles>
-                    <reportsDirectory>${testng.reports.directory}</reportsDirectory>
-
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
+
+
+    <modules>
+        <module>calc</module>
+        <module>../lv560proj0</module>
+        <module>base</module>
+    </modules>
 
 </project>
