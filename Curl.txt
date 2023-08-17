@@ -1,0 +1,12 @@
+https://curl.se/windows/
+
+-H "Content-Type: application/json"
+
+curl -X GET "http://localhost:8080/hello?aaa=bbb&cccaaa=ddd" -H "Content-Type: application/json"
+curl -d "aaa2=bbb&ccc2=ddd" -X POST "http://localhost:8080/hello?www=qqq"
+curl -X GET "http://localhost:8080/stop"
+curl -X DELETE "http://localhost:8080/stop"
+
+
+
+mvn archetype:generate -DgroupId=com.softserve.edu -DartifactId=ua1032mvn -Dversion=1.0 -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.0 -DinteractiveMode=false
