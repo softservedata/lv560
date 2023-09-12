@@ -65,12 +65,12 @@ public class SearchFirstTest {
         //driver.findElement(By.cssSelector("#search > input")).clear();
         driver.findElement(By.name("search")).clear();
         //driver.findElement(By.cssSelector("#search > input")).sendKeys("mac");
-//        driver.findElement(By.name("search")).sendKeys("mac");
-        driver.findElement(By.name("search")).sendKeys("mac", Keys.ENTER);
+        driver.findElement(By.name("search")).sendKeys("mac");
+        //driver.findElement(By.name("search")).sendKeys("mac", Keys.ENTER);
         presentationSleep(); // For Presentation ONLY
         //
-//        driver.findElement(By.cssSelector("button.btn.btn-default.btn-lg")).click();
-//        presentationSleep(); // For Presentation ONLY
+        driver.findElement(By.cssSelector("button.btn.btn-default.btn-lg")).click();
+        presentationSleep(); // For Presentation ONLY
         //
         // Check
         WebElement price = driver.findElement(By.xpath("//a[text()='MacBook']/../following-sibling::p[@class='price']"));
