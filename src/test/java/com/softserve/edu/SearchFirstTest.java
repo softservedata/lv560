@@ -3,10 +3,7 @@ package com.softserve.edu;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
@@ -76,8 +73,13 @@ public class SearchFirstTest {
         // Check
         WebElement price = driver.findElement(By.xpath("//a[text()='MacBook']/../following-sibling::p[@class='price']"));
         //
-        Actions action = new Actions(driver);
-        action.moveToElement(price).perform();
+        // Scrolling by Actions class
+//        Actions action = new Actions(driver);
+//        action.moveToElement(price).perform();
+//        presentationSleep(4); // For Presentation ONLY
+        //
+        // Scrolling by JavaScript injection
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", price);
         presentationSleep(4); // For Presentation ONLY
         //
         Assertions.assertTrue(price.getText().contains("$602.00"));
