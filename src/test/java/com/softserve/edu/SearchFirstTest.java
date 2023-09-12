@@ -8,6 +8,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
 
@@ -74,6 +75,11 @@ public class SearchFirstTest {
         //
         // Check
         WebElement price = driver.findElement(By.xpath("//a[text()='MacBook']/../following-sibling::p[@class='price']"));
+        //
+        Actions action = new Actions(driver);
+        action.moveToElement(price).perform();
+        presentationSleep(4); // For Presentation ONLY
+        //
         Assertions.assertTrue(price.getText().contains("$602.00"));
         System.out.println("***contains: " + price.getText());
         presentationSleep(); // For Presentation ONLY
