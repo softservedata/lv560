@@ -2,6 +2,7 @@ package com.example.first;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textview;
     private Button button1;
     private Button button2;
+    private Button button3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +28,15 @@ public class MainActivity extends AppCompatActivity {
         initializeComponent();
         initializeLiseners();
         //
-        Log.d(TAG, "onCreate() done");
+        Log.d(TAG, "MainActivity onCreate() done");
     }
 
     private void initializeComponent() {
         editText = (EditText) findViewById(R.id.editText1);
         textview = (TextView) findViewById(R.id.textView1);
         button1 = (Button) findViewById(R.id.button1);
-        button2= (Button) findViewById(R.id.button2);
-        //button3= (Button) findViewById(R.id.button3);
+        button2 = (Button) findViewById(R.id.button2);
+        button3 = (Button) findViewById(R.id.button3);
     }
 
     private void initializeLiseners() {
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         AndroidApplication.get().setData("Hello " + temp);
                         //AndroidApplication.get().setTextEdit1(editText);
                         Toast.makeText(MainActivity.this, "Button Save done", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "onClick() SaveButton done");
+                        Log.d(TAG, "MainActivity onClick() SaveButton done");
                     }
                 }
         );
@@ -69,7 +71,19 @@ public class MainActivity extends AppCompatActivity {
                         //editText = AndroidApplication.get().getTextEdit1();
                         textview.setText(text);
                         Toast.makeText(MainActivity.this, "Button Read done", Toast.LENGTH_LONG).show();
-                        Log.d(TAG,"onClick() ReadButton done");
+                        Log.d(TAG, "MainActivity onClick() ReadButton done");
+                    }
+                }
+        );
+        button3.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MainActivity.this, TwoActivity.class);
+                        intent.putExtra("key", lastMassege);
+                        startActivity(intent);
+                        Toast.makeText(MainActivity.this, "Button TwoButton done", Toast.LENGTH_LONG).show();
+                        Log.d(TAG,"MainActivity onClick() Start Second Activity done");
                     }
                 }
         );
@@ -87,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 textview.setText("Hello " + temp);
                 //lastMassege = "Hello " + temp;
                 //AndroidApplication.get().setData(lastMassege);
-                Log.d(TAG, "onClick() Button done");
+                Log.d(TAG, "MainActivity onClick() Button done");
                 break;
         }
     }
@@ -96,13 +110,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart() done");
+        Log.d(TAG, "MainActivity onStart() done");
     }
 
     @Override
     public void onRestart() {
         super.onRestart();
-        Log.d(TAG, "onRestart() done");
+        Log.d(TAG, "MainActivity onRestart() done");
     }
 
     @Override
@@ -114,13 +128,13 @@ public class MainActivity extends AppCompatActivity {
         editText.setText(text);
         textview.setText(text);
         //
-        Log.d(TAG, "onResume() done");
+        Log.d(TAG, "MainActivity onResume() done");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause() done");
+        Log.d(TAG, "MainActivity onPause() done");
         //
         // saveComponent();
         // AndroidApplication
@@ -129,12 +143,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop() done");
+        Log.d(TAG, "MainActivity onStop() done");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy() done");
+        Log.d(TAG, "MainActivity onDestroy() done");
     }
 }
