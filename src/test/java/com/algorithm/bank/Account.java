@@ -1,6 +1,5 @@
 package com.algorithm.bank;
 
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Account implements Comparable<Account> {

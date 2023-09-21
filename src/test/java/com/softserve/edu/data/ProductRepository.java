@@ -1,6 +1,6 @@
 package com.softserve.edu.data;
 
-public class ProductRepository {
+public final class ProductRepository {
     private static volatile ProductRepository instance = null;
 
     private ProductRepository() {
