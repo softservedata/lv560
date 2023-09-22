@@ -1,3 +1,5 @@
 model,color,engine,gear,light,salon,rims
+Mercedes,Blue,Disel,Automat,Led,,TitanRims
+BMWx5,Red,Disel,Automat,Led,,
 BMWx5,Black,Petrol,Automat,Led,BlackSalon,TitanRims
 Mercedes,White,Disel,Automat,Xenon,WhiteSalon,TitanRims

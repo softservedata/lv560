@@ -2,6 +2,8 @@ package com.pattern.builder;
 
 import com.pattern.builder.data.CarRepository;
 
+import java.util.List;
+
 public class AppCar {
 
     public static void main(String[] args) {
@@ -48,9 +50,17 @@ public class AppCar {
         System.out.println("car = " + car);
         */
         //
-        // 5. Repository.
+        /* 5. Repository.
         ICar car = CarRepository.getBMWx5BlackPetrol();
         System.out.println("car = " + car);
+        */
+        //
+        // 6. Static Factory.
+        //List<ICar> cars = CarRepository.fromCsv();
+        List<ICar> cars = CarRepository.fromExcel();
+        System.out.println("cars = " + cars);
+        cars.get(0).setHybridStrategyElectric();
+        System.out.println("cars = " + cars);
         //
     }
 }

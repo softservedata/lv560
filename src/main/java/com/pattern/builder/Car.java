@@ -1,12 +1,44 @@
 package com.pattern.builder;
 
+import com.pattern.strategy.Electric;
+import com.pattern.strategy.IHybrid;
+import com.pattern.strategy.Petrol;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Car implements ICar {
+
+    public static enum CarColumns {
+        MODEL(0),
+        COLOR(1),
+        ENGINE(2),
+        GEAR(3),
+        LIGHT(4),
+        SALON(5),
+        RIMS(6);
+        //
+        private int index;
+
+        private CarColumns(int index) {
+            this.index = index;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+    }
 
     // --------------------------------------------------------------------------------
 
     public class Model {
 
         private Model() {}
+
+        public Color setModel(String model) {
+            Car.this.model = model;
+            return new Color();
+        }
 
         public Color setMercedes() {
             model = "Mercedes";
@@ -35,6 +67,11 @@ public class Car implements ICar {
 
         private Color() {}
 
+        public Engine setColor(String color) {
+            Car.this.color = color;
+            return new Engine();
+        }
+
         public Engine setRed() {
             color = "Red";
             return new Engine();
@@ -57,6 +94,11 @@ public class Car implements ICar {
 
         private Engine() {}
 
+        public Gear setEngine(String engine) {
+            Car.this.engine = engine;
+            return new Gear();
+        }
+
         public Gear setPetrol() {
             engine = "Petrol";
             return new Gear();
@@ -71,6 +113,11 @@ public class Car implements ICar {
             engine = "Electric";
             return new Gear();
         }
+
+        public Gear setHybrid() {
+            engine = "Hybrid";
+            return new Gear();
+        }
     }
 
     // --------------------------------------------------------------------------------
@@ -78,6 +125,11 @@ public class Car implements ICar {
     public class Gear {
 
         private Gear() {}
+
+        public Light setGear(String gear) {
+            Car.this.gear = gear;
+            return new Light();
+        }
 
         public Light setManual() {
             gear = "Manual";
@@ -95,6 +147,11 @@ public class Car implements ICar {
     public class Light {
 
         private Light() {}
+
+        public CarBuilder setLight(String light) {
+            Car.this.light = light;
+            return new CarBuilder();
+        }
 
         public CarBuilder setHalogen() {
             light = "Halogen";
@@ -118,6 +175,11 @@ public class Car implements ICar {
 
         private CarBuilder() {}
 
+        public CarBuilder setSalon(String salon) {
+            Car.this.salon = salon;
+            return new CarBuilder();
+        }
+
         public CarBuilder setBlackSalon() {
             salon = "BlackSalon";
             return this;
@@ -126,6 +188,11 @@ public class Car implements ICar {
         public CarBuilder setWhiteSalon() {
             salon = "WhiteSalon";
             return this;
+        }
+
+        public CarBuilder setRims(String rims) {
+            Car.this.rims = rims;
+            return new CarBuilder();
         }
 
         public CarBuilder setMetalRims() {
@@ -148,6 +215,7 @@ public class Car implements ICar {
 
     // --------------------------------------------------------------------------------
 
+    private final static String EMPTY_STRING = new String();
     private String model;
     private String color;
     private String engine;
@@ -155,6 +223,7 @@ public class Car implements ICar {
     private String light;
     private String salon; // optional
     private String rims; // optional
+    private IHybrid hybrid;
 
     /*
     // 1. Classic Constructor
@@ -185,11 +254,32 @@ public class Car implements ICar {
     */
 
     // 3. Builder. Inner Classes. Static Factory.
-    private Car() {}
+    private Car() {
+        salon = "BlackSalon";
+        rims = "TitanRims";
+        setHybridStrategyPetrol();
+    }
 
     public static Model builder() {
         //return new Car();
         return new Car().new Model();
+    }
+
+    // Strategy
+
+    public void setHybridStrategyElectric() {
+        hybrid = new Electric();
+    }
+
+    public void setHybridStrategyPetrol() {
+        hybrid = new Petrol();
+    }
+
+    public String workingHybrid() {
+        if (engine.toLowerCase().contains("hybrid")) {
+            return ", \'" + hybrid.run() + "\'";
+        }
+        return EMPTY_STRING;
     }
 
     // setters. Fluent interface.
@@ -261,14 +351,49 @@ public class Car implements ICar {
 
     @Override
     public String toString() {
-        return "Car{" +
+        return "\nCar{" +
                 "model='" + model + '\'' +
                 ", color='" + color + '\'' +
                 ", engine='" + engine + '\'' +
+                workingHybrid() +
                 ", gear='" + gear + '\'' +
                 ", light='" + light + '\'' +
                 ", salon='" + salon + '\'' +
                 ", rims='" + rims + '\'' +
                 '}';
     }
+
+    // --------------------------------------------------------------------------------
+    // 6. Static Factory.
+
+    public static ICar getByList(List<String> row) {
+        //logger.trace("row.size() = " + row.size() + " UserColumns.values().length = " + UserColumns.values().length);
+        List<String> carData = new ArrayList<>(row);
+        for (int i = carData.size(); i < CarColumns.values().length; i++) {
+            carData.add(EMPTY_STRING);
+        }
+        return Car.builder()
+                .setModel(carData.get(CarColumns.MODEL.getIndex()))
+                .setColor(carData.get(CarColumns.COLOR.getIndex()))
+                .setEngine(carData.get(CarColumns.ENGINE.getIndex()))
+                .setGear(carData.get(CarColumns.GEAR.getIndex()))
+                .setLight(carData.get(CarColumns.LIGHT.getIndex()))
+                .setSalon(carData.get(CarColumns.SALON.getIndex()))
+                .setRims(carData.get(CarColumns.RIMS.getIndex()))
+                .build();
+    }
+
+    public static List<ICar> getByLists(List<List<String>> rows) {
+        List<ICar> result = new ArrayList<>();
+        // TODO Verify Test Data as Valid
+        if (rows.get(0).get(CarColumns.MODEL.getIndex())
+                .contains(CarColumns.MODEL.name().toLowerCase())) {
+            rows.remove(0);
+        }
+        for (List<String> currentRow : rows) {
+            result.add(getByList(currentRow));
+        }
+        return result;
+    }
+
 }

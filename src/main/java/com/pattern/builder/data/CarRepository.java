@@ -3,6 +3,7 @@ package com.pattern.builder.data;
 import com.pattern.builder.Car;
 import com.pattern.builder.ICar;
 import com.pattern.builder.tools.CSVReader;
+import com.pattern.builder.tools.ExcelReader;
 
 import java.util.List;
 
@@ -39,14 +40,20 @@ public final class CarRepository {
                 .build();
     }
 
-    /*
-    public List<ICar> fromCsv(String filename) {
+    public static List<ICar> fromCsv(String filename) {
         return Car.getByLists(new CSVReader(filename).getAllCells());
     }
 
-    public List<ICar> fromCsv() {
+    public static List<ICar> fromCsv() {
         return fromCsv("cars.csv");
     }
-    */
+
+    public static List<ICar> fromExcel(String filename) {
+        return Car.getByLists(new ExcelReader(filename).getAllCells());
+    }
+
+    public static List<ICar> fromExcel() {
+        return fromExcel("cars.xlsx");
+    }
 
 }

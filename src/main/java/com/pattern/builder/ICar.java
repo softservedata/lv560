@@ -1,6 +1,6 @@
 package com.pattern.builder;
 
-public interface ICar {
+public interface ICar extends IStrategy {
 
     String getModel();
 
