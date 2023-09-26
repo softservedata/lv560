@@ -4,6 +4,7 @@ import com.pattern.builder.Car;
 import com.pattern.builder.ICar;
 import com.pattern.builder.tools.CSVReader;
 import com.pattern.builder.tools.ExcelReader;
+import com.pattern.builder.tools.PropertiesReader;
 
 import java.util.List;
 
@@ -40,6 +41,18 @@ public final class CarRepository {
                 .build();
     }
 
+    public static ICar getTruckVolvo() {
+        return CarRepositoryFactory.TRUCK_VOLVO.createCar();
+    }
+
+    public static ICar getTruckScania() {
+        return CarRepositoryFactory.TRUCK_SCANIA.createCar();
+    }
+
+    public static ICar getPickupGMC() {
+        return CarRepositoryFactory.PICKUP_GMC.createCar();
+    }
+
     public static List<ICar> fromCsv(String filename) {
         return Car.getByLists(new CSVReader(filename).getAllCells());
     }
@@ -56,4 +69,11 @@ public final class CarRepository {
         return fromExcel("cars.xlsx");
     }
 
+    public static ICar fromProperties(String filename) {
+        return Car.getByMap(new PropertiesReader(filename).getProperties());
+    }
+
+    public static ICar fromProperties() {
+        return fromProperties("application.properties");
+    }
 }
