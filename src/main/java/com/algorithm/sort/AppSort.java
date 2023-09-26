@@ -23,9 +23,9 @@ public class AppSort {
         long timeStart = System.currentTimeMillis();
         //
         //System.out.println("Original: " + Arrays.toString(arr));
-        sort.insertInt(arr);
+        //sort.insertInt(arr);
         //sort.bubbleInt(arr);
-        //sort.mergeInt(arr);
+        sort.mergeInt(arr);
         //Arrays.sort(arr);
         //System.out.println("\nSorted: " + Arrays.toString(arr));
         //

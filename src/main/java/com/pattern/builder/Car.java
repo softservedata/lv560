@@ -6,26 +6,33 @@ import com.pattern.strategy.Petrol;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Car implements ICar {
 
-    public static enum CarColumns {
-        MODEL(0),
-        COLOR(1),
-        ENGINE(2),
-        GEAR(3),
-        LIGHT(4),
-        SALON(5),
-        RIMS(6);
+    private static enum CarColumns {
+        MODEL(0, "Mercedes"),
+        COLOR(1, "Black"),
+        ENGINE(2, "Petrol"),
+        GEAR(3, "Automat"),
+        LIGHT(4, "Halogen"),
+        SALON(5, "BlackSalon"),
+        RIMS(6, "MetalRims");
         //
         private int index;
+        private String defaultValue;
 
-        private CarColumns(int index) {
+        private CarColumns(int index, String defaultValue) {
             this.index = index;
+            this.defaultValue = defaultValue;
         }
 
         public int getIndex() {
             return index;
+        }
+
+        public String getDefaultValue() {
+            return defaultValue;
         }
     }
 
@@ -57,6 +64,16 @@ public class Car implements ICar {
 
         public Color setMazdaCX() {
             model = "MazdaCX";
+            return new Color();
+        }
+
+        public Color setTruck() {
+            model = "Truck";
+            return new Color();
+        }
+
+        public Color setPickup() {
+            model = "Pickup";
             return new Color();
         }
     }
@@ -258,6 +275,7 @@ public class Car implements ICar {
         salon = "BlackSalon";
         rims = "TitanRims";
         setHybridStrategyPetrol();
+        System.out.println("\tConstructor Car() done");
     }
 
     public static Model builder() {
@@ -394,6 +412,33 @@ public class Car implements ICar {
             result.add(getByList(currentRow));
         }
         return result;
+    }
+
+    public static ICar getByMap(Map<String, String> map) {
+        List<String> carData = new ArrayList<>(CarColumns.values().length);
+        for (CarColumns carColumns : CarColumns.values()) {
+            carData.add(carColumns.defaultValue);
+            //carData.set(carColumns.getIndex(), carColumns.defaultValue);
+        }
+        System.out.println("\t***carData = " + carData);
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            for (CarColumns carColumns : CarColumns.values()) {
+                if (entry.getKey().toLowerCase().equals(carColumns.name().toLowerCase())) {
+                    carData.set(carColumns.getIndex(), entry.getValue());
+                    break;
+                }
+            }
+        }
+        System.out.println("\t***carData map = " + carData);
+        return Car.builder()
+                .setModel(carData.get(CarColumns.MODEL.getIndex()))
+                .setColor(carData.get(CarColumns.COLOR.getIndex()))
+                .setEngine(carData.get(CarColumns.ENGINE.getIndex()))
+                .setGear(carData.get(CarColumns.GEAR.getIndex()))
+                .setLight(carData.get(CarColumns.LIGHT.getIndex()))
+                .setSalon(carData.get(CarColumns.SALON.getIndex()))
+                .setRims(carData.get(CarColumns.RIMS.getIndex()))
+                .build();
     }
 
 }

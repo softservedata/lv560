@@ -55,12 +55,21 @@ public class AppCar {
         System.out.println("car = " + car);
         */
         //
-        // 6. Static Factory.
+        /* 6. Static Factory.
         //List<ICar> cars = CarRepository.fromCsv();
-        List<ICar> cars = CarRepository.fromExcel();
+        List<ICar> cars = CarRepositoryFactory.fromExcel();
         System.out.println("cars = " + cars);
         cars.get(0).setHybridStrategyElectric();
         System.out.println("cars = " + cars);
+        */
         //
+        /*7. Factory Method.
+        ICar car = CarRepository.getTruckScania();
+        System.out.println("car = " + car);
+        */
+        //
+        // 8. Read from Properties.
+        ICar car = CarRepository.fromProperties();
+        System.out.println("car = " + car);
     }
 }
