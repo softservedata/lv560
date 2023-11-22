@@ -26,6 +26,8 @@ import java.util.Map;
 public class VersionServiceImpl implements VersionService {
 
     private final String VERSION_FILE_NAME = "version.properties";
+    private final String BACKAND_PATH = "./.git";
+    private final String BRANCH_HEAD = "HEAD";
     private PropertiesService propertiesService;
 
     @Autowired
@@ -36,8 +38,8 @@ public class VersionServiceImpl implements VersionService {
     public VersionDto getVersion() {
         Map<String, String> versionProperties = propertiesService.readProperties(VERSION_FILE_NAME);
         VersionDto versionDto = VersionDto.builder()
-                .commitNumber(versionProperties.get(VersionEnum.COMMIT_NUMBER.getFieldName()))
-                .commitDate(versionProperties.get(VersionEnum.COMMIT_DATE.getFieldName()))
+                .backendCommitNumber(versionProperties.get(VersionEnum.BACKEND_COMMIT_NUMBER.getFieldName()))
+                .backendCommitDate(versionProperties.get(VersionEnum.BACKEND_COMMIT_DATE.getFieldName()))
                 .buildDate(versionProperties.get(VersionEnum.BUILD_DATE.getFieldName()).replace("\\",""))
                 .build();
         log.info("*** VersionService = " + versionDto);
@@ -53,9 +55,9 @@ public class VersionServiceImpl implements VersionService {
         RevCommit commit = null;
         try {
             Repository existingRepo = new FileRepositoryBuilder()
-                    .setGitDir(new File("./.git"))
+                    .setGitDir(new File(BACKAND_PATH))
                     .build();
-            ObjectId head = existingRepo.resolve("HEAD");
+            ObjectId head = existingRepo.resolve(BRANCH_HEAD);
             RevWalk walk = new RevWalk(existingRepo);
             commit = walk.parseCommit(head);
             /*

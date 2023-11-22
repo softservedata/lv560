@@ -1,8 +1,8 @@
 package com.softserve.teachua.dto.version;
 
 public enum VersionEnum {
-    COMMIT_NUMBER("commitNumber"),
-    COMMIT_DATE("commitDate"),
+    BACKEND_COMMIT_NUMBER("backendCommitNumber"),
+    BACKEND_COMMIT_DATE("backendCommitDate"),
     BUILD_DATE("buildDate");
 
     private String fieldName;

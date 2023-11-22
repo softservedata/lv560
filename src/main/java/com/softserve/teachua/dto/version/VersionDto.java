@@ -15,12 +15,12 @@ public class VersionDto {
     @NotNull
     @NotEmpty
     @NotBlank(message = "commitNumber cannot be empty")
-    private String commitNumber;
+    private String backendCommitNumber;
 
     @NotNull
     @NotEmpty
     @NotBlank(message = "commitDate cannot be empty")
-    private String commitDate;
+    private String backendCommitDate;
 
     @NotNull
     @NotEmpty
