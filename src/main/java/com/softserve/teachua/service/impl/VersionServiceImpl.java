@@ -4,20 +4,28 @@ import com.softserve.teachua.dto.version.VersionDto;
 import com.softserve.teachua.dto.version.VersionEnum;
 import com.softserve.teachua.service.PropertiesService;
 import com.softserve.teachua.service.VersionService;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 @Slf4j
 @Service
 public class VersionServiceImpl implements VersionService {
 
-    @Value("${version.file.name}")
-    private String versionFileName;
+    private final String VERSION_FILE_NAME = "version.properties";
     private PropertiesService propertiesService;
 
     @Autowired
@@ -26,14 +34,42 @@ public class VersionServiceImpl implements VersionService {
     }
 
     public VersionDto getVersion() {
-        Map<String, String> versionProperties = propertiesService.readProperties(versionFileName);
+        Map<String, String> versionProperties = propertiesService.readProperties(VERSION_FILE_NAME);
         VersionDto versionDto = VersionDto.builder()
                 .commitNumber(versionProperties.get(VersionEnum.COMMIT_NUMBER.getFieldName()))
                 .commitDate(versionProperties.get(VersionEnum.COMMIT_DATE.getFieldName()))
-                .buildDate(versionProperties.get(VersionEnum.BUILD_DATE.getFieldName()))
+                .buildDate(versionProperties.get(VersionEnum.BUILD_DATE.getFieldName()).replace("\\",""))
                 .build();
         log.info("*** VersionService = " + versionDto);
         return versionDto;
+    }
+
+    public void setVersion() {
+        RevCommit commit = getCommit();
+        propertiesService.writeProperties(VERSION_FILE_NAME, commit.getName(), commit.getCommitTime());
+    }
+
+    public RevCommit getCommit() {
+        RevCommit commit = null;
+        try {
+            Repository existingRepo = new FileRepositoryBuilder()
+                    .setGitDir(new File("./.git"))
+                    .build();
+            ObjectId head = existingRepo.resolve("HEAD");
+            RevWalk walk = new RevWalk(existingRepo);
+            commit = walk.parseCommit(head);
+            /*
+            System.out.println("commit.getCommitTime() = " + commit.getCommitTime());
+            System.out.println("commit.getName() = " + commit.getName());
+            System.out.println("commit = " + commit.toString());
+            System.out.println("commit.getFullMessage() = " + commit.getFullMessage());
+            long londDate = 1000L * commit.getCommitTime();
+            System.out.println("Date = " + new Date(londDate));
+            */
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return commit;
     }
 
 }

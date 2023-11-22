@@ -1,9 +1,14 @@
 package com.softserve.teachua.service;
 
 import com.softserve.teachua.dto.version.VersionDto;
+import org.eclipse.jgit.revwalk.RevCommit;
 
 public interface VersionService {
 
-    public VersionDto getVersion();
+    VersionDto getVersion();
+
+    void setVersion();
+
+    RevCommit getCommit();
 
 }

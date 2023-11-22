@@ -1,5 +1,8 @@
 package com.softserve.config;
 
+import com.softserve.teachua.service.VersionService;
+import com.softserve.teachua.service.impl.PropertiesServiceImpl;
+import com.softserve.teachua.service.impl.VersionServiceImpl;
 import org.junit.jupiter.api.*;
 
 import java.io.FileOutputStream;
@@ -27,7 +30,7 @@ public class VersionCreateTest {
         System.out.println("\t@AfterEach executed");
     }
 
-    @Test
+    //@Test
     public void testOne() {
         System.out.println("\t\t@Test testOne()");
         Properties appProps = new Properties();
@@ -43,10 +46,15 @@ public class VersionCreateTest {
         }
     }
 
-    //@Test
+    @Test
     public void testTwo() {
         System.out.println("\t\t@Test testTwo()");
-        Assertions.assertEquals(6, 2 + 4);
+        //PropertiesService propertiesService = new PropertiesServiceImpl();
+        //propertiesService.writeProperties("my.properties");
+        //
+        VersionService versionService = new VersionServiceImpl(new PropertiesServiceImpl());
+        versionService.setVersion();
+        //versionService.getCommit();
     }
 
 }
